@@ -9,6 +9,8 @@ import {
   Menu01Icon,
 } from "@hugeicons/core-free-icons"
 import { useState } from "react"
+import { ThemeToggle } from "../ui/theme-toggle"
+import Logo from "./Logo"
 
 const links = [
   { label: "about", href: "/about" },
@@ -20,12 +22,9 @@ const Navbar = () => {
   const toggle = () => setOpen((v) => !v)
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 flex-between p-4">
+    <nav className="fixed inset-x-0 top-0 z-50 flex-between bg-background p-4">
       {/* Logo */}
-      <span className="font-black">
-        MAVE <span className="text-2xl text-primary">.</span>
-      </span>
-
+      <Logo />
       {/* Desktop menu */}
       <div className="flex items-center gap-4 max-md:hidden">
         <div className="flex items-center gap-6">
@@ -35,6 +34,8 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
+        {/*Theme Toggle*/}
+        <ThemeToggle />
         <Button asChild className="capitalize">
           <Link href="/signup">
             <span>Start Creating</span>

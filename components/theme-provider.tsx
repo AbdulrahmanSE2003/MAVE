@@ -43,7 +43,8 @@ function ThemeHotkey() {
         return
       }
 
-      if (event.metaKey || event.ctrlKey || event.altKey) {
+      // Require Cmd (Mac) or Ctrl (Win/Linux), allow Shift, ignore Alt
+      if (!(event.metaKey || event.ctrlKey) || event.altKey) {
         return
       }
 
@@ -54,6 +55,9 @@ function ThemeHotkey() {
       if (isTypingTarget(event.target)) {
         return
       }
+
+      // Block the browser's bookmark shortcut
+      event.preventDefault()
 
       setTheme(resolvedTheme === "dark" ? "light" : "dark")
     }

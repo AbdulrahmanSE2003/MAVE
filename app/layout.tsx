@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import Navbar from "@/components/layout/Navbar"
+import { Metadata } from "next"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -12,7 +13,7 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
-const metadata = {
+export const metadata: Metadata = {
   title: "MAVE.",
   description: "Personal Content Studio AI assistant",
 }
@@ -32,9 +33,9 @@ export default function RootLayout({
         geist.variable
       )}
     >
-      <body>
+      <body className={``}>
         <ThemeProvider>
-          <main>
+          <main className={`transition-colors duration-700`}>
             <Navbar />
 
             {children}
