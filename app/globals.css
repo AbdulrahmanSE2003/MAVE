@@ -141,6 +141,3 @@
 @utility flex-between {
   @apply flex items-center justify-between;
 }
-@uility flex-col {
-  @apply flex flex-col;
-}
