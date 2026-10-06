@@ -1,5 +1,4 @@
 import { Geist, Geist_Mono } from "next/font/google"
-
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
@@ -14,8 +13,54 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "MAVE.",
-  description: "Personal Content Studio AI assistant",
+  metadataBase: new URL("https://mave.app"),
+
+  title: {
+    default: "MAVE — Your ideas, your voice.",
+    template: "%s — MAVE",
+  },
+
+  description:
+    "MAVE turns your ideas into content that sounds like you — written for the platforms you create on.",
+
+  applicationName: "MAVE",
+
+  keywords: [
+    "MAVE",
+    "AI writing",
+    "content creation",
+    "content studio",
+    "social media content",
+    "LinkedIn content",
+    "Instagram content",
+  ],
+
+  authors: [{ name: "Abdulrahman Saad" }],
+  creator: "Abdulrahman Saad",
+  publisher: "MAVE",
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  openGraph: {
+    type: "website",
+    siteName: "MAVE",
+    title: "MAVE — Your ideas, your voice.",
+    description: "Turn your ideas into content that sounds like you.",
+    url: "https://mave.app",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "MAVE — Your ideas, your voice.",
+    description: "Turn your ideas into content that sounds like you.",
+  },
+
+  icons: {
+    icon: "/icon.png",
+  },
 }
 export default function RootLayout({
   children,

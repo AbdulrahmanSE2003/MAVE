@@ -28,7 +28,7 @@ const MiniWorkspace = () => {
           </div>
         </div>
         <div
-          className={`h-full flex-1 rounded-lg border border-border bg-white shadow-xl`}
+          className={`h-full flex-1 rounded-lg border border-border bg-white p-10 shadow-xl`}
         >
           ss
         </div>
