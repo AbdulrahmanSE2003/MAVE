@@ -12,7 +12,7 @@ const links = [
 
 const Navbar = () => {
   return (
-    <nav className={`flex-between p-4`}>
+    <nav className={`fixed top-0 right-0 left-0 flex-between p-4`}>
       {/* Logo  */}
       <span className={`font-black`}>
         MAVE <span className={`text-2xl text-primary`}>.</span>
