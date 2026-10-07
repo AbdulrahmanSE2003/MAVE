@@ -23,7 +23,7 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <div className={`bg-card p-10`}>
+    <div id="howitworks" className={`bg-accent/75 p-10`}>
       {/*Header*/}
       <div
         className={`flex-between items-end max-lg:flex-col max-lg:items-start`}
@@ -46,7 +46,7 @@ const HowItWorks = () => {
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`flex flex-col items-start gap-4 border-border py-8 max-md:border-t max-md:last:border-b md:border-r md:not-last:border-r`}
+            className={`flex flex-col items-start gap-4 border-border py-8 max-md:border-t max-md:last:border-b md:not-last:border-r`}
           >
             <span
               className={`text-xs font-light tracking-tighter text-muted-foreground`}

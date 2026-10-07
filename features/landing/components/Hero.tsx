@@ -6,12 +6,17 @@ import Link from "next/link"
 
 const Hero = () => {
   return (
-    <div className="relative flex min-h-svh w-full items-center justify-start p-6">
+    <div
+      id="hero"
+      className="relative flex min-h-svh w-full items-center justify-start p-6"
+    >
       {/*Hero Intro*/}
       <div
         className={`flex-col gap-1 [&_h1]:text-6xl sm:[&_h1]:text-8xl [&_h2]:text-6xl sm:[&_h2]:text-8xl`}
       >
-        <Badge className={`mb-2 uppercase`}>Personal content studio</Badge>
+        <Badge className={`mb-2 p-3 uppercase`} variant={"outline"}>
+          Personal content studio
+        </Badge>
         <h1 className={`font-bold`}>Your ideas,</h1>
         <h2 className={`font-normal`}>your voice.</h2>
         <p className={`mt-3 text-muted-foreground sm:max-w-md`}>
@@ -21,12 +26,14 @@ const Hero = () => {
 
         {/*Hero Buttons*/}
         <div className={`mt-8 flex gap-4`}>
-          <Button size={"lg"}>
-            Start Creating
-            <HugeiconsIcon icon={ArrowRight02Icon} />
+          <Button asChild size={"lg"}>
+            <Link href={"/signup"}>
+              Start Creating
+              <HugeiconsIcon icon={ArrowRight02Icon} />
+            </Link>
           </Button>
           <Button asChild size={"lg"} variant="outline">
-            <Link href="/">See how it works</Link>
+            <Link href="#howitworks">See how it works</Link>
           </Button>
         </div>
       </div>

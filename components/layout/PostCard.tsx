@@ -7,10 +7,12 @@ import {
   Copy,
   Edit,
 } from "@hugeicons/core-free-icons"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 interface PostCardProps {
   platform: "LinkedIn" | "Instagram"
-  content: PostContent
+  content: string | PostContent
   className?: string
   isCommercial?: boolean
 }
@@ -34,29 +36,33 @@ const PostCard = ({
       </span>
 
       {/*Content*/}
-      <div className="space-y-4">
-        {content.blocks.map((block, index) => {
-          if (block.type === "paragraph") {
-            return (
-              <p
-                key={index}
-                className="text-sm leading-7 font-light text-foreground"
-              >
-                {block.content}
+      <div className="max-w-[65ch]">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            p: ({ children }) => (
+              <p className="mb-5 text-[15px] leading-7 text-foreground last:mb-0">
+                {children}
               </p>
-            )
-          }
+            ),
 
-          if (block.type === "heading") {
-            return (
-              <h3 key={index} className="text-lg font-semibold tracking-tight">
-                {block.content}
-              </h3>
-            )
-          }
+            strong: ({ children }) => (
+              <strong className="font-semibold text-foreground">
+                {children}
+              </strong>
+            ),
 
-          return null
-        })}
+            em: ({ children }) => <em className="italic">{children}</em>,
+
+            blockquote: ({ children }) => (
+              <blockquote className="my-6 border-l-2 border-primary pl-4 text-muted-foreground">
+                {children}
+              </blockquote>
+            ),
+          }}
+        >
+          {content.toString().trim()}
+        </ReactMarkdown>
       </div>
 
       {/*Actions*/}

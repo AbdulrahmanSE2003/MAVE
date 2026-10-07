@@ -48,7 +48,6 @@
 }
 
 :root {
-
   --background: oklch(1 0 0);
   --foreground: oklch(0.153 0.006 107.1);
   --card: oklch(1 0 0);
@@ -129,7 +128,7 @@
     cursor: pointer;
   }
   html {
-    @apply font-sans;
+    @apply scroll-smooth font-sans;
   }
 }
 
@@ -141,4 +140,8 @@
 }
 @utility flex-start {
   @apply flex items-center justify-start;
+}
+
+@utility caption {
+    @apply text-[9px] font-semibold tracking-widest uppercase
 }
