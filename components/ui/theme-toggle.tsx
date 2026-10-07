@@ -7,6 +7,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Kbd, KbdGroup } from "./kbd"
+import { Skeleton } from "./skeleton"
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
@@ -17,8 +18,14 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="sm" aria-label="Toggle theme" disabled>
-        <span className="size-4" />
+      <Button
+        variant="outline"
+        size="sm"
+        className={`min-w-24`}
+        aria-label="Toggle theme"
+        disabled
+      >
+        <Skeleton className={`w-full`} />
       </Button>
     )
   }

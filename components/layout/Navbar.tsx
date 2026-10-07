@@ -13,6 +13,7 @@ import { ThemeToggle } from "../ui/theme-toggle"
 import Logo from "./Logo"
 
 const links = [
+  { label: "home", href: "/" },
   { label: "about", href: "/about" },
   { label: "changelog", href: "/changelog" },
 ]
@@ -29,7 +30,11 @@ const Navbar = () => {
       <div className="flex items-center gap-4 max-md:hidden">
         <div className="flex items-center gap-6">
           {links.map((link) => (
-            <Link key={link.label} href={link.href} className="capitalize">
+            <Link
+              key={link.label}
+              href={link.href}
+              className="capitalize transition-opacity duration-150 hover:opacity-75"
+            >
               {link.label}
             </Link>
           ))}
@@ -69,7 +74,7 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Button asChild className="mt-2 w-full capitalize">
+          <Button size={"lg"} asChild className="mt-2 w-full capitalize">
             <Link href="/signup" onClick={() => setOpen(false)}>
               <span>Start Creating</span>
               <HugeiconsIcon icon={ArrowRight02Icon} />

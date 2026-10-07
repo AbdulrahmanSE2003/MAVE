@@ -9,7 +9,7 @@ const MiniWorkspace = () => {
       <div
         className={`flex-between text-xs tracking-widest text-muted-foreground uppercase`}
       >
-        <span>Inside MILO</span>
+        <span>Inside MAVE</span>
         <span>Writing workspace</span>
       </div>
       <FakeWorkSpace />

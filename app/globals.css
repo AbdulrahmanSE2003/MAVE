@@ -89,7 +89,7 @@
   --card-foreground: oklch(0.988 0.003 106.5);
   --popover: oklch(0.228 0.013 107.4);
   --popover-foreground: oklch(0.988 0.003 106.5);
-  --primary: oklch(94% 0.202 124.7);
+  --primary: rgba(160, 230, 70, 1);
   --primary-foreground: oklch(0.405 0.101 131.063);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
@@ -148,6 +148,10 @@
 
 @utility glow-primary {
   animation: glow-primary 4.5s ease-in-out infinite;
+}
+
+@utility paragraph {
+  @apply text-base leading-snug font-light tracking-[-0.01em] text-foreground/75;
 }
 
 @keyframes glow-primary {
