@@ -143,5 +143,49 @@
 }
 
 @utility caption {
-    @apply text-[9px] font-semibold tracking-widest uppercase
+  @apply text-[9px] font-semibold tracking-widest uppercase;
+}
+
+@utility glow-primary {
+  animation: glow-primary 4.5s ease-in-out infinite;
+}
+
+@keyframes glow-primary {
+  0%,
+  100% {
+    color: color-mix(in oklch, var(--muted-foreground) 100%, transparent);
+  }
+  50% {
+    color: color-mix(in oklch, var(--primary) 100%, transparent);
+  }
+}
+
+/*Scrollbar */
+/* WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklch, var(--primary) 100%, transparent);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklch, var(--primary) 100%, transparent);
+  background-clip: padding-box;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--primary) 100%, transparent)
+    transparent;
 }
