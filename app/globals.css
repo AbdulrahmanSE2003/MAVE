@@ -141,3 +141,6 @@
 @utility flex-between {
   @apply flex items-center justify-between;
 }
+@utility flex-start {
+  @apply flex items-center justify-start;
+}
