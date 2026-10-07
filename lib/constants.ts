@@ -1,5 +1,3 @@
-import { PostContent } from "./types"
-
 export const linkedinPost = `
 I used to think good ideas arrived **fully formed**.
 
@@ -21,3 +19,29 @@ export const instagramPost = `
   Ideas rarely arrive ready. They show up messy, **incomplete**, and easy to miss.
 
   The **creative work** is noticing which ones keep pulling you back.`
+
+// Changelog
+interface ChangelogEntry {
+  id: number
+  title: string
+  description: string
+  version: string
+  date: string
+  change: string[]
+}
+
+export const changelogs: ChangelogEntry[] = [
+  {
+    id: 1,
+    title: "Initial release",
+    description:
+      "The first version of MAVE: teach it your voice, bring an idea, and create something worth sharing.",
+    version: "v0.1.0",
+    date: "NOV 2, 2026",
+    change: [
+      "Personal writing style",
+      "LinkedIn and Instagram generation",
+      "Bring your own OpenAI key",
+    ],
+  },
+]
