@@ -9,7 +9,7 @@ import { ArrowRight02Icon, Picture } from "@hugeicons/core-free-icons"
 const FakeContentArea = () => {
   return (
     <div
-      className={`flex h-full w-full flex-col gap-5 rounded-lg border border-border bg-white p-4 shadow-xl max-md:flex-1 md:p-10`}
+      className={`flex h-full w-full flex-col gap-5 rounded-lg border border-border bg-muted p-4 shadow-xl max-md:flex-1 md:p-10`}
     >
       {/*Header*/}
       <div className={`flex-between border-b border-border pb-5`}>
@@ -52,7 +52,7 @@ const FakeContentArea = () => {
 const FakeWorkSpace = () => {
   return (
     <div
-      className={`flex h-full w-full items-center justify-start gap-4 rounded-lg bg-muted md:p-2`}
+      className={`flex h-full w-full items-center justify-start gap-4 rounded-lg bg-card md:p-2`}
     >
       {/*Fake Sidebar*/}
       <div
