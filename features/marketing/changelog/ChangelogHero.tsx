@@ -12,7 +12,7 @@ const ChangelogHero = () => {
         <Badge className={`mb-2 p-3 uppercase`} variant={"outline"}>
           Changelog{" "}
         </Badge>
-        <h1 className={`max-w-xl`}>What’s new in MILO.</h1>
+        <h1 className={`max-w-xl`}>What’s new in MAVE.</h1>
         <p className={`mt-6 max-w-lg paragraph text-base`}>
           New features, thoughtful improvements, and everything we’re refining
           along the way.

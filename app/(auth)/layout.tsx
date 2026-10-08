@@ -1,7 +1,8 @@
 import Logo from "@/components/layout/Logo"
 import AuthErrorHandler from "./AuthErrorHandler"
+import { ReactNode } from "react"
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <main className={`flex justify-start`}>
       <AuthErrorHandler />

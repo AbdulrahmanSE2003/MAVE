@@ -1,3 +1,4 @@
+import Highlight from "@/components/layout/Highlight"
 import { cn } from "cn"
 
 const AboutHero = () => {
@@ -11,9 +12,7 @@ const AboutHero = () => {
         Ideas are personal.
         <br />{" "}
         <span className={`relative inline-block w-fit`}>
-          <div
-            className={`absolute top-2/3 -z-10 h-3/5 w-full -translate-y-1/2 bg-primary dark:bg-primary/70`}
-          />
+          <Highlight />
           Writing
         </span>{" "}
         should be too.
