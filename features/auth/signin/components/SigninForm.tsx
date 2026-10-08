@@ -9,43 +9,34 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight02Icon, GoogleIcon } from "@hugeicons/core-free-icons"
 
 import { Button } from "@/components/ui/button"
-import GroupField from "./FieldsGroup"
 import { Marker, MarkerContent } from "@/components/ui/marker"
-
-import { signUpWithEmail } from "../actions"
-import { signupSchema, type SignupFormValues } from "../schema"
 import { FieldSet } from "@/components/ui/field"
 
-export default function SignupForm() {
+import GroupField from "./FieldsGroup"
+
+import { signInWithEmail } from "../actions"
+import { signinSchema, type SigninFormValues } from "../schema"
+
+export default function SigninForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const { handleSubmit, control } = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchema),
+  const { handleSubmit, control } = useForm<SigninFormValues>({
+    resolver: zodResolver(signinSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      passwordConfirm: "",
     },
   })
 
-  async function onSubmit(data: SignupFormValues) {
+  async function onSubmit(data: SigninFormValues) {
     setIsSubmitting(true)
-    console.log(data)
 
     try {
-      const result = await signUpWithEmail({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      })
-      console.log(result)
+      const result = await signInWithEmail(data)
 
-      if (result.error) {
+      if (result?.error) {
         toast.error(result.error)
       }
-
-      console.log(result)
     } catch {
       toast.error("Something went wrong. Please try again.")
     } finally {
@@ -55,19 +46,28 @@ export default function SignupForm() {
 
   return (
     <div className="flex w-full flex-col justify-center">
-      <div className={`mb-8 flex flex-col gap-3`}>
-        <span className={`text-xs font-medium uppercase`}>
-          CREATE YOUR ACCOUNT
-        </span>
-        <h5 className={`text-3xl`}>Start creating.</h5>
-        <p className={`pargraph text-sm text-muted-foreground`}>
-          Your first idea is closer than you think.
+      <div className="mb-8 flex flex-col gap-3">
+        <span className={`text-xs font-medium uppercase`}>welcome back</span>
+        <h5 className="text-3xl">Sign in to MAVE.</h5>
+
+        <p className="paragraph text-sm text-muted-foreground">
+          Pick up where you left off.
         </p>
       </div>
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <FieldSet>
           <GroupField isSubmitting={isSubmitting} control={control} />
         </FieldSet>
+
+        {/*<div className="flex justify-end">
+          <Link
+            href="/forgot-password"
+            className="text-xs font-medium text-primary hover:underline"
+          >
+            Forgot password?
+          </Link>
+        </div>*/}
 
         <div className="flex flex-col items-center gap-3">
           <Button
@@ -76,7 +76,8 @@ export default function SignupForm() {
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Creating account..." : "Create account"}
+            {isSubmitting ? "Signing in..." : "Sign in"}
+
             <HugeiconsIcon icon={ArrowRight02Icon} />
           </Button>
 
@@ -98,9 +99,9 @@ export default function SignupForm() {
       </form>
 
       <p className="mt-2 text-center text-sm text-muted-foreground">
-        Already have an account?
-        <Button variant={"link"} asChild className={`px-1`}>
-          <Link href="/signin">Sign In</Link>
+        Don&apos;t have an account?
+        <Button variant="link" asChild className="px-1">
+          <Link href="/signup">Create account</Link>
         </Button>
       </p>
     </div>

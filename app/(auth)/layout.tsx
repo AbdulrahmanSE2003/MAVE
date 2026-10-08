@@ -29,7 +29,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className={`absolute right-12 -bottom-16 h-72 w-72 rounded-full bg-transparent ring-124 ring-primary`}
         />
       </div>
-      <div className={`min-h-screen w-1/2 bg-muted p-8 px-28`}>{children}</div>
+      <div
+        className={`flex min-h-screen w-1/2 flex-col justify-center bg-muted p-8 px-28`}
+      >
+        {children}
+      </div>
     </main>
   )
 }
