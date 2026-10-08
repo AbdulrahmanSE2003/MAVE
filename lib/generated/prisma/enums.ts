@@ -9,7 +9,24 @@
 * 🟢 You can import this file directly.
 */
 
+export const AiProvider = {
+  OPENAI: 'OPENAI',
+  GEMINI: 'GEMINI'
+} as const
+
+export type AiProvider = (typeof AiProvider)[keyof typeof AiProvider]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const Platform = {
+  LINKEDIN: 'LINKEDIN',
+  INSTAGRAM: 'INSTAGRAM'
+} as const
+
+export type Platform = (typeof Platform)[keyof typeof Platform]
+
+
+export const VisualType = {
+  GENERATED: 'GENERATED'
+} as const
+
+export type VisualType = (typeof VisualType)[keyof typeof VisualType]

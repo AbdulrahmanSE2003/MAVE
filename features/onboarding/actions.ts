@@ -1,0 +1,181 @@
+"use server"
+
+import { auth } from "@/lib/auth/server"
+import { encryptSecret } from "@/lib/security/encryption"
+import { getOrCreateUser } from "@/lib/users/service"
+import { prisma } from "@/lib/prisma"
+import {
+  saveAiCredentialSchema,
+  SaveVisualPreferencesInput,
+  saveVisualPreferencesSchema,
+  SaveWritingExamplesInput,
+  saveWritingExamplesSchema,
+  type SaveAiCredentialInput,
+} from "./schemas"
+import { getOnboardingState } from "@/lib/users/onboarding"
+
+// AI credential Action
+export async function saveAiCredential(input: SaveAiCredentialInput) {
+  const { data } = await auth.getSession()
+
+  if (!data?.user) {
+    return {
+      success: false as const,
+      error: "You must be signed in.",
+    }
+  }
+
+  const parsed = saveAiCredentialSchema.safeParse(input)
+
+  if (!parsed.success) {
+    return {
+      success: false as const,
+      error: parsed.error.issues[0]?.message ?? "Invalid input.",
+    }
+  }
+
+  const user = await getOrCreateUser(data.user.id)
+  const encryptedApiKey = encryptSecret(parsed.data.apiKey)
+
+  await prisma.aiCredential.upsert({
+    where: {
+      userId_provider: {
+        userId: user.id,
+        provider: parsed.data.provider,
+      },
+    },
+    update: {
+      encryptedApiKey,
+    },
+    create: {
+      userId: user.id,
+      provider: parsed.data.provider,
+      encryptedApiKey,
+    },
+  })
+
+  return {
+    success: true as const,
+  }
+}
+
+// Writing examples Action
+export async function saveWritingExamples(input: SaveWritingExamplesInput) {
+  const { data } = await auth.getSession()
+
+  if (!data?.user) {
+    return {
+      success: false as const,
+      error: "You must be signed in.",
+    }
+  }
+
+  const parsed = saveWritingExamplesSchema.safeParse(input)
+
+  if (!parsed.success) {
+    return {
+      success: false as const,
+      error: parsed.error.issues[0]?.message ?? "Invalid input.",
+    }
+  }
+
+  const user = await getOrCreateUser(data.user.id)
+
+  await prisma.$transaction([
+    prisma.writingExample.deleteMany({
+      where: {
+        userId: user.id,
+      },
+    }),
+    ...parsed.data.examples.map((example) =>
+      prisma.writingExample.create({
+        data: {
+          userId: user.id,
+          content: example.content,
+        },
+      })
+    ),
+  ])
+
+  return {
+    success: true as const,
+  }
+}
+
+// Visual style preferences Action
+export async function saveVisualPreferences(input: SaveVisualPreferencesInput) {
+  const { data } = await auth.getSession()
+
+  if (!data?.user) {
+    return {
+      success: false as const,
+      error: "You must be signed in.",
+    }
+  }
+
+  const parsed = saveVisualPreferencesSchema.safeParse(input)
+
+  if (!parsed.success) {
+    return {
+      success: false as const,
+      error: parsed.error.issues[0]?.message ?? "Invalid preferences.",
+    }
+  }
+
+  const user = await getOrCreateUser(data.user.id)
+
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      visualStylePreferences: parsed.data.preferences,
+    },
+  })
+
+  return {
+    success: true as const,
+  }
+}
+
+// Complete onboarding Action
+export async function completeOnboarding() {
+  const { data } = await auth.getSession()
+
+  if (!data?.user) {
+    return {
+      success: false as const,
+      error: "You must be signed in.",
+    }
+  }
+
+  const user = await getOrCreateUser(data.user.id)
+
+  const state = await getOnboardingState(user.id)
+
+  if (state.isCompleted) {
+    return {
+      success: true as const,
+    }
+  }
+
+  if (state.step !== 5) {
+    return {
+      success: false as const,
+      error: "Onboarding is not ready to be completed.",
+    }
+  }
+
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      onboardingCompletedAt: new Date(),
+    },
+  })
+
+  return {
+    success: true as const,
+  }
+}

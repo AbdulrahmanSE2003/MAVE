@@ -1,5 +1,5 @@
-import ChangelogHero from "@/features/changelog/ChangelogHero"
-import ChangelogTimeline from "@/features/changelog/ChangelogArea"
+import ChangelogTimeline from "@/features/marketing/changelog/ChangelogArea"
+import ChangelogHero from "@/features/marketing/changelog/ChangelogHero"
 
 const Changelog = () => {
   return (
