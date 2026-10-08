@@ -4,7 +4,7 @@ import Logo from "./Logo"
 const link = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "changelog", href: "/changelog" },
   { name: "Signin", href: "/signin" },
 ]
 const Footer = () => {

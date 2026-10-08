@@ -2,9 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
-import Navbar from "@/components/layout/Navbar"
 import { Metadata } from "next"
-import Footer from "@/components/layout/Footer"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -80,14 +78,7 @@ export default function RootLayout({
       )}
     >
       <body className={``}>
-        <ThemeProvider>
-          <main className={`transition-colors duration-700`}>
-            <Navbar />
-
-            {children}
-            <Footer />
-          </main>
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   )

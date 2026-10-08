@@ -20,9 +20,20 @@ The product should feel like a **premium creative tool**, not a generic AI dashb
 - shadcn/ui
 - PostgreSQL
 - Prisma
-- Better Auth
+- Neon
 - OpenAI
 - pnpm
+
+### Authentication & Database
+
+- Authentication: Neon Auth
+- Database: Neon PostgreSQL
+- ORM: Prisma
+- Never introduce Better Auth unless explicitly requested.
+- Keep authentication logic separate from application business logic.
+- Never expose authentication secrets or database credentials to the client.
+- Use server-side authentication checks for protected routes and Server Actions.
+- User-owned AI provider credentials must be encrypted server-side and must never be exposed to the browser.
 
 Use the existing project versions and configuration. Do not upgrade or replace dependencies unless explicitly requested.
 
