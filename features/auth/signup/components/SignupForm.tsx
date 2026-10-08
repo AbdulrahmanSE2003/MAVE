@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowRight02Icon, GoogleIcon } from "@hugeicons/core-free-icons"
+import { ArrowRight02Icon } from "@hugeicons/core-free-icons"
 
 import { Button } from "@/components/ui/button"
 import GroupField from "./FieldsGroup"
@@ -15,10 +15,21 @@ import { Marker, MarkerContent } from "@/components/ui/marker"
 import { signUpWithEmail } from "../actions"
 import { signupSchema, type SignupFormValues } from "../schema"
 import { FieldSet } from "@/components/ui/field"
+import GoogleButton from "../../GoogleButton"
+import { useRouter } from "next/navigation"
+import { authClient } from "@/lib/auth/client"
 
 export default function SignupForm() {
+  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  useEffect(() => {
+    authClient.getSession().then(({ data }) => {
+      if (data?.session) {
+        router.replace("/app")
+      }
+    })
+  }, [router])
   const { handleSubmit, control } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -84,16 +95,7 @@ export default function SignupForm() {
             <MarkerContent>OR</MarkerContent>
           </Marker>
 
-          <Button
-            variant="outline"
-            size="lg"
-            className="flex w-full items-center justify-center gap-3"
-            type="button"
-            disabled={isSubmitting}
-          >
-            <HugeiconsIcon size={20} icon={GoogleIcon} />
-            Continue with Google
-          </Button>
+          <GoogleButton />
         </div>
       </form>
 
