@@ -81,24 +81,53 @@ export async function saveWritingExamples(input: SaveWritingExamplesInput) {
 
   const user = await getOrCreateUser(data.user.id)
 
-  await prisma.$transaction([
-    prisma.writingExample.deleteMany({
-      where: {
-        userId: user.id,
-      },
-    }),
-    ...parsed.data.examples.map((example) =>
-      prisma.writingExample.create({
+  const examples = parsed.data.examples.filter(
+    (example) => example.content.trim().length > 0
+  )
+
+  if (examples.length === 0) {
+    await prisma.$transaction(async (tx) => {
+      await tx.writingExample.deleteMany({
+        where: { userId: user.id },
+      })
+
+      await tx.user.update({
+        where: { id: user.id },
         data: {
-          userId: user.id,
-          content: example.content,
+          writingExamplesSkippedAt: new Date(),
         },
       })
-    ),
-  ])
+    })
+
+    return {
+      success: true as const,
+      skipped: true as const,
+    }
+  }
+
+  await prisma.$transaction(async (tx) => {
+    await tx.writingExample.deleteMany({
+      where: { userId: user.id },
+    })
+
+    await tx.writingExample.createMany({
+      data: examples.map((example) => ({
+        userId: user.id,
+        content: example.content.trim(),
+      })),
+    })
+
+    await tx.user.update({
+      where: { id: user.id },
+      data: {
+        writingExamplesSkippedAt: null,
+      },
+    })
+  })
 
   return {
     success: true as const,
+    skipped: false as const,
   }
 }
 

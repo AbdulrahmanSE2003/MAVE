@@ -9,7 +9,8 @@ import { ProviderValue, Steps } from "../types"
 import OnboardingHeader from "./OnboardingHeader"
 import Step5 from "./Step5"
 import { SaveAiCredentialInput } from "../schemas"
-import { saveAiCredential } from "../actions"
+import { saveAiCredential, saveWritingExamples } from "../actions"
+import { toast } from "sonner"
 const Onboarding = ({
   state,
 }: {
@@ -19,6 +20,8 @@ const Onboarding = ({
   const [provider, setProvider] = useState<ProviderValue | null>(null)
   const [apiKey, setApiKey] = useState("")
   const [isSaving, setIsSaving] = useState(false)
+  const [examples, setExamples] = useState<string[]>([""])
+  const [error, setError] = useState("")
 
   const isStep2Valid = provider !== null && apiKey.trim().length > 0
   const handleBack = () => {
@@ -29,6 +32,7 @@ const Onboarding = ({
   }
 
   const handleClick = async () => {
+    // Handle step 2 Ai credential saving
     if (step === 2) {
       setIsSaving(true)
       const data: SaveAiCredentialInput = {
@@ -37,10 +41,37 @@ const Onboarding = ({
       }
       await saveAiCredential(data)
       setIsSaving(false)
-    } else if (step === 4) {
+    } else if (step === 3) {
+      setIsSaving(true)
+      setError("")
+
+      try {
+        const data = examples
+          .filter((ex) => ex.trim().length > 0)
+          .map((content) => ({ content: content.trim() }))
+
+        const result = await saveWritingExamples({
+          examples: data,
+        })
+
+        if (!result.success) {
+          setError(result.error)
+          return
+        }
+
+        setStep(4)
+        return
+      } catch {
+        setError("Failed to save your writing examples. Please try again.")
+        toast.error("Failed to save your writing examples. Please try again.")
+        return
+      } finally {
+        setIsSaving(false)
+      }
+    } else if (step === 5) {
       //   TODO:
     }
-    setStep((prev) => (prev + 1) as 1 | 2 | 3 | 4)
+    setStep((prev) => (prev + 1) as 1 | 2 | 3 | 4 | 5)
   }
   return (
     <div className={``}>
@@ -60,7 +91,7 @@ const Onboarding = ({
             setApiKey={setApiKey}
           />
         )}
-        {step === 3 && <Step3 />}
+        {step === 3 && <Step3 examples={examples} setExamples={setExamples} />}
         {step === 4 && <Step4 />}
         {step === 5 && <Step5 />}
         {/* Steps Button */}

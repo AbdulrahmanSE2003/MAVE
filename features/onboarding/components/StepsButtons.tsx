@@ -1,7 +1,11 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowRight02Icon, Loading03Icon } from "@hugeicons/core-free-icons"
+import {
+  ArrowRight02Icon,
+  Loading03Icon,
+  SkipForwardIcon,
+} from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import type { Steps } from "../types"
 
@@ -23,6 +27,21 @@ const StepsButtons = ({
       {step > 1 && (
         <Button onClick={onBack} size="lg" variant="ghost" disabled={isSaving}>
           Back
+        </Button>
+      )}
+      {step === 3 && (
+        <Button
+          onClick={onClick}
+          size="lg"
+          variant="secondary"
+          disabled={isSaving}
+        >
+          Skip for now
+          <HugeiconsIcon
+            icon={SkipForwardIcon}
+            className="size-5"
+            aria-hidden="true"
+          />
         </Button>
       )}
 

@@ -2,8 +2,39 @@
 
 import Highlight from "@/components/layout/Highlight"
 import StepIntro from "./StepIntro"
+import PostExample from "./PostExample"
+import { Dispatch, SetStateAction } from "react"
+import { Button } from "@/components/ui/button"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { PlusSignCircleFreeIcons } from "@hugeicons/core-free-icons"
 
-const Step3 = () => {
+const Step3 = ({
+  examples,
+  setExamples,
+}: {
+  examples: string[]
+  setExamples: Dispatch<SetStateAction<string[]>>
+}) => {
+  const updateExample = (index: number, value: string) => {
+    setExamples((prev) => {
+      const next = [...prev]
+      next[index] = value
+      return next
+    })
+  }
+
+  const addExample = () => {
+    if (examples.length < 5) {
+      setExamples((prev) => [...prev, ""])
+    }
+  }
+
+  const removeExample = (index: number) => {
+    if (examples.length > 1) {
+      setExamples((prev) => prev.filter((_, i) => i !== index))
+    }
+  }
+
   return (
     <div className={`flex w-full flex-col gap-8`}>
       <StepIntro
@@ -22,7 +53,42 @@ const Step3 = () => {
         messages all work."
       />
 
-      {/*  */}
+      {/* Examples */}
+      <div className={`flex flex-col gap-3`}>
+        {/* Example Header */}
+        <div className={`flex-between`}>
+          <span className={`text-sm`}>
+            Writing examples{" "}
+            <span className={`text-xs text-primary-foreground`}>
+              (optional)
+            </span>
+          </span>
+          <span className={`font-medium`}> {examples.length}/5 examples</span>
+        </div>
+        {/* Textarea */}
+        {examples.map((content, i) => (
+          <PostExample
+            onDelete={removeExample}
+            isDisabled={examples.length === 1}
+            key={i}
+            num={i + 1}
+            value={content}
+            onChange={(value) => updateExample(i, value)}
+          />
+        ))}
+      </div>
+      {/* Add More */}
+      {examples.length < 5 && (
+        <Button
+          type="button"
+          variant="outline"
+          className={`w-fit`}
+          onClick={addExample}
+        >
+          Add another example
+          <HugeiconsIcon icon={PlusSignCircleFreeIcons} />
+        </Button>
+      )}
     </div>
   )
 }

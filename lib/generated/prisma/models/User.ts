@@ -27,6 +27,7 @@ export type AggregateUser = {
 export type UserMinAggregateOutputType = {
   id: string | null
   onboardingCompletedAt: Date | null
+  writingExamplesSkippedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -34,6 +35,7 @@ export type UserMinAggregateOutputType = {
 export type UserMaxAggregateOutputType = {
   id: string | null
   onboardingCompletedAt: Date | null
+  writingExamplesSkippedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -41,6 +43,7 @@ export type UserMaxAggregateOutputType = {
 export type UserCountAggregateOutputType = {
   id: number
   onboardingCompletedAt: number
+  writingExamplesSkippedAt: number
   visualStylePreferences: number
   createdAt: number
   updatedAt: number
@@ -51,6 +54,7 @@ export type UserCountAggregateOutputType = {
 export type UserMinAggregateInputType = {
   id?: true
   onboardingCompletedAt?: true
+  writingExamplesSkippedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -58,6 +62,7 @@ export type UserMinAggregateInputType = {
 export type UserMaxAggregateInputType = {
   id?: true
   onboardingCompletedAt?: true
+  writingExamplesSkippedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -65,6 +70,7 @@ export type UserMaxAggregateInputType = {
 export type UserCountAggregateInputType = {
   id?: true
   onboardingCompletedAt?: true
+  writingExamplesSkippedAt?: true
   visualStylePreferences?: true
   createdAt?: true
   updatedAt?: true
@@ -146,6 +152,7 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
   id: string
   onboardingCompletedAt: Date | null
+  writingExamplesSkippedAt: Date | null
   visualStylePreferences: runtime.JsonValue | null
   createdAt: Date
   updatedAt: Date
@@ -175,6 +182,7 @@ export type UserWhereInput = {
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
   onboardingCompletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  writingExamplesSkippedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   visualStylePreferences?: Prisma.JsonNullableFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -187,6 +195,7 @@ export type UserWhereInput = {
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   onboardingCompletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  writingExamplesSkippedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   visualStylePreferences?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -202,6 +211,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   onboardingCompletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  writingExamplesSkippedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   visualStylePreferences?: Prisma.JsonNullableFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -214,6 +224,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   onboardingCompletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  writingExamplesSkippedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   visualStylePreferences?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -228,6 +239,7 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   onboardingCompletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  writingExamplesSkippedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   visualStylePreferences?: Prisma.JsonNullableWithAggregatesFilter<"User">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -236,6 +248,7 @@ export type UserScalarWhereWithAggregatesInput = {
 export type UserCreateInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -248,6 +261,7 @@ export type UserCreateInput = {
 export type UserUncheckedCreateInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -260,6 +274,7 @@ export type UserUncheckedCreateInput = {
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -272,6 +287,7 @@ export type UserUpdateInput = {
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -284,6 +300,7 @@ export type UserUncheckedUpdateInput = {
 export type UserCreateManyInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -292,6 +309,7 @@ export type UserCreateManyInput = {
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -300,6 +318,7 @@ export type UserUpdateManyMutationInput = {
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -308,6 +327,7 @@ export type UserUncheckedUpdateManyInput = {
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   onboardingCompletedAt?: Prisma.SortOrder
+  writingExamplesSkippedAt?: Prisma.SortOrder
   visualStylePreferences?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -316,6 +336,7 @@ export type UserCountOrderByAggregateInput = {
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   onboardingCompletedAt?: Prisma.SortOrder
+  writingExamplesSkippedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -323,6 +344,7 @@ export type UserMaxOrderByAggregateInput = {
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   onboardingCompletedAt?: Prisma.SortOrder
+  writingExamplesSkippedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -403,6 +425,7 @@ export type UserUpdateOneRequiredWithoutVisualsNestedInput = {
 export type UserCreateWithoutAiCredentialsInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -414,6 +437,7 @@ export type UserCreateWithoutAiCredentialsInput = {
 export type UserUncheckedCreateWithoutAiCredentialsInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -441,6 +465,7 @@ export type UserUpdateToOneWithWhereWithoutAiCredentialsInput = {
 export type UserUpdateWithoutAiCredentialsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -452,6 +477,7 @@ export type UserUpdateWithoutAiCredentialsInput = {
 export type UserUncheckedUpdateWithoutAiCredentialsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -463,6 +489,7 @@ export type UserUncheckedUpdateWithoutAiCredentialsInput = {
 export type UserCreateWithoutWritingExamplesInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -474,6 +501,7 @@ export type UserCreateWithoutWritingExamplesInput = {
 export type UserUncheckedCreateWithoutWritingExamplesInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -501,6 +529,7 @@ export type UserUpdateToOneWithWhereWithoutWritingExamplesInput = {
 export type UserUpdateWithoutWritingExamplesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -512,6 +541,7 @@ export type UserUpdateWithoutWritingExamplesInput = {
 export type UserUncheckedUpdateWithoutWritingExamplesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -523,6 +553,7 @@ export type UserUncheckedUpdateWithoutWritingExamplesInput = {
 export type UserCreateWithoutPostsInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -534,6 +565,7 @@ export type UserCreateWithoutPostsInput = {
 export type UserUncheckedCreateWithoutPostsInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -561,6 +593,7 @@ export type UserUpdateToOneWithWhereWithoutPostsInput = {
 export type UserUpdateWithoutPostsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -572,6 +605,7 @@ export type UserUpdateWithoutPostsInput = {
 export type UserUncheckedUpdateWithoutPostsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -583,6 +617,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
 export type UserCreateWithoutVisualsInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -594,6 +629,7 @@ export type UserCreateWithoutVisualsInput = {
 export type UserUncheckedCreateWithoutVisualsInput = {
   id: string
   onboardingCompletedAt?: Date | string | null
+  writingExamplesSkippedAt?: Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -621,6 +657,7 @@ export type UserUpdateToOneWithWhereWithoutVisualsInput = {
 export type UserUpdateWithoutVisualsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -632,6 +669,7 @@ export type UserUpdateWithoutVisualsInput = {
 export type UserUncheckedUpdateWithoutVisualsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   onboardingCompletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  writingExamplesSkippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   visualStylePreferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -701,6 +739,7 @@ export type UserCountOutputTypeCountVisualsArgs<ExtArgs extends runtime.Types.Ex
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   onboardingCompletedAt?: boolean
+  writingExamplesSkippedAt?: boolean
   visualStylePreferences?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -714,6 +753,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   onboardingCompletedAt?: boolean
+  writingExamplesSkippedAt?: boolean
   visualStylePreferences?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -722,6 +762,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   onboardingCompletedAt?: boolean
+  writingExamplesSkippedAt?: boolean
   visualStylePreferences?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -730,12 +771,13 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type UserSelectScalar = {
   id?: boolean
   onboardingCompletedAt?: boolean
+  writingExamplesSkippedAt?: boolean
   visualStylePreferences?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "onboardingCompletedAt" | "visualStylePreferences" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "onboardingCompletedAt" | "writingExamplesSkippedAt" | "visualStylePreferences" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   aiCredentials?: boolean | Prisma.User$aiCredentialsArgs<ExtArgs>
   writingExamples?: boolean | Prisma.User$writingExamplesArgs<ExtArgs>
@@ -757,6 +799,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     onboardingCompletedAt: Date | null
+    writingExamplesSkippedAt: Date | null
     visualStylePreferences: runtime.JsonValue | null
     createdAt: Date
     updatedAt: Date
@@ -1189,6 +1232,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
   readonly onboardingCompletedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly writingExamplesSkippedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly visualStylePreferences: Prisma.FieldRef<"User", 'Json'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>

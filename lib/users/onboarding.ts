@@ -7,8 +7,17 @@ export async function getOnboardingState(userId: string) {
     },
     select: {
       onboardingCompletedAt: true,
+      writingExamplesSkippedAt: true,
       visualStylePreferences: true,
+
       aiCredentials: {
+        select: {
+          id: true,
+        },
+        take: 1,
+      },
+
+      writingExamples: {
         select: {
           id: true,
         },
@@ -35,8 +44,15 @@ export async function getOnboardingState(userId: string) {
     } as const
   }
 
-  // remains user void examples
-  // if(user.)
+  const hasWritingExamples = user.writingExamples.length > 0
+  const hasSkippedWritingExamples = user.writingExamplesSkippedAt !== null
+
+  if (!hasWritingExamples && !hasSkippedWritingExamples) {
+    return {
+      isCompleted: false,
+      step: 3,
+    } as const
+  }
 
   if (!user.visualStylePreferences) {
     return {

@@ -22,11 +22,12 @@ enum VisualType {
 }
 
 model User {
-  id                     String    @id
-  onboardingCompletedAt  DateTime?
-  visualStylePreferences Json?
-  createdAt              DateTime  @default(now())
-  updatedAt              DateTime  @updatedAt
+  id                       String    @id
+  onboardingCompletedAt    DateTime?
+  writingExamplesSkippedAt DateTime?
+  visualStylePreferences   Json?
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
 
   aiCredentials   AiCredential[]
   writingExamples WritingExample[]
