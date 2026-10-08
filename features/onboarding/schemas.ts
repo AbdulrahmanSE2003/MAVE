@@ -1,14 +1,14 @@
 import { z } from "zod"
 
+export const providerEnum = ["OPENAI", "GEMINI"] as const
 
-// AI credential schema 
+// AI credential schema
 export const saveAiCredentialSchema = z.object({
-  provider: z.enum(["OPENAI", "GEMINI"]),
+  provider: z.enum(providerEnum),
   apiKey: z.string().trim().min(1, "API key is required."),
 })
 
 export type SaveAiCredentialInput = z.infer<typeof saveAiCredentialSchema>
-
 
 // Writing examples schema
 export const saveWritingExamplesSchema = z.object({
@@ -23,22 +23,12 @@ export const saveWritingExamplesSchema = z.object({
 
 export type SaveWritingExamplesInput = z.infer<typeof saveWritingExamplesSchema>
 
-
 // Visual style preferences schema
 const visualStylePreferencesSchema = z.object({
   style: z.enum(["editorial", "bold", "minimal", "playful"]),
-  colorPalette: z.enum([
-    "warm-neutral",
-    "cool-muted",
-    "monochrome",
-    "vibrant",
-  ]),
+  colorPalette: z.enum(["warm-neutral", "cool-muted", "monochrome", "vibrant"]),
   density: z.enum(["spacious", "balanced", "dense"]),
-  typography: z.enum([
-    "serif-editorial",
-    "sans-modern",
-    "bold-display",
-  ]),
+  typography: z.enum(["serif-editorial", "sans-modern", "bold-display"]),
 })
 
 export const saveVisualPreferencesSchema = z.object({

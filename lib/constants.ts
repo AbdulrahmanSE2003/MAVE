@@ -1,3 +1,8 @@
+import openAiLogo from "@/public/images/openAi.png"
+import gemini from "@/public/images/gemini.png"
+
+export { openAiLogo, gemini }
+
 export const linkedinPost = `
 I used to think good ideas arrived **fully formed**.
 

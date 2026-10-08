@@ -35,6 +35,9 @@ export async function getOnboardingState(userId: string) {
     } as const
   }
 
+  // remains user void examples
+  // if(user.)
+
   if (!user.visualStylePreferences) {
     return {
       isCompleted: false,

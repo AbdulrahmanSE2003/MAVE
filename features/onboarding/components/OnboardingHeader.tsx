@@ -1,8 +1,8 @@
 import Logo from "@/components/layout/Logo"
 import { Progress } from "@/components/ui/progress"
-import { steps } from "../types"
+import { Steps } from "../types"
 
-const OnboardingHeader = ({ step }: { step: steps }) => {
+const OnboardingHeader = ({ step }: { step: Steps }) => {
   return (
     <div className={`w-full`}>
       <div

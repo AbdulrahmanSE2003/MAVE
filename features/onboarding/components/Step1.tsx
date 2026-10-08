@@ -3,24 +3,26 @@ import { Separator } from "@/components/ui/separator"
 import { ArrowRight02Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { cn } from "cn"
+import StepIntro from "./StepIntro"
 
 const Step1 = () => {
   return (
     <div className={`flex w-full flex-col gap-8`}>
-      <span className={cn(`text-xs font-medium`)}>01</span>
-
-      <h1 className={cn(`text-7xl font-medium`)}>
-        Welcome to
-        <br />{" "}
-        <span className={`relative inline-block w-fit`}>
-          <Highlight />
-          MAVE.
-        </span>{" "}
-      </h1>
-      <p className={`max-w-md paragraph`}>
-        A creative workspace designed around one thing: helping your ideas sound
-        more like you.
-      </p>
+      <StepIntro
+        step="01"
+        heading={
+          <h2 className={cn(`relative z-10 text-7xl font-medium`)}>
+            Welcome to
+            <br />{" "}
+            <span className={`relative inline-block w-fit`}>
+              <Highlight />
+              MAVE.
+            </span>{" "}
+          </h2>
+        }
+        para="A creative workspace designed around one thing: helping your ideas sound
+        more like you."
+      />
 
       <Separator />
       <div className={`flex justify-between [&_span]:text-xs`}>
