@@ -143,7 +143,7 @@ const Onboarding = ({
         className={cn(
           `mx-auto min-h-[80svh] flex-col gap-16`,
           step === 4
-            ? "max-w-8xl flex justify-start p-12 px-20"
+            ? "max-w-8xl flex justify-start p-12"
             : "flex-center max-w-6xl p-12 px-64"
         )}
       >
