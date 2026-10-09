@@ -11,6 +11,7 @@ import {
   VisualTypography,
   MOOD_DEFAULTS,
 } from "@/lib/visuals/taste"
+import { motion } from "framer-motion"
 
 type Step4Props = {
   mood: VisualMood
@@ -36,7 +37,14 @@ const Step4 = ({
   const moodProfile = MOOD_DEFAULTS[mood]
 
   return (
-    <div className="flex min-h-200 flex-col items-start gap-12 lg:flex-row lg:gap-16">
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.2, ease: "easeInOut" }}
+
+      className="flex min-h-200 flex-col items-start gap-12 lg:flex-row lg:gap-16"
+    >
       <div className="flex w-full flex-col items-start gap-8 lg:w-3/5">
         <div className="flex w-full flex-col gap-5">
           <StepIntro
@@ -72,7 +80,7 @@ const Step4 = ({
         typography={typography}
         moodProfile={moodProfile}
       />
-    </div>
+    </motion.div>
   )
 }
 

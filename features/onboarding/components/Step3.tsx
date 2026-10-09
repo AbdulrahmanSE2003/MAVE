@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction } from "react"
 import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { PlusSignCircleFreeIcons } from "@hugeicons/core-free-icons"
+import { motion } from "framer-motion"
 
 const Step3 = ({
   examples,
@@ -36,7 +37,13 @@ const Step3 = ({
   }
 
   return (
-    <div className={`flex w-full flex-col gap-8`}>
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.2, ease: "easeInOut" }}
+      className={`flex w-full flex-col gap-8`}
+    >
       <StepIntro
         step="03"
         heading={
@@ -89,7 +96,7 @@ const Step3 = ({
           <HugeiconsIcon icon={PlusSignCircleFreeIcons} />
         </Button>
       )}
-    </div>
+    </motion.div>
   )
 }
 

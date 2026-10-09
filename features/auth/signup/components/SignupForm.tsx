@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowRight02Icon } from "@hugeicons/core-free-icons"
+import { ArrowRight02Icon, Loading03Icon } from "@hugeicons/core-free-icons"
 
 import { Button } from "@/components/ui/button"
 import GroupField from "./FieldsGroup"
@@ -88,7 +88,14 @@ export default function SignupForm() {
             disabled={isSubmitting}
           >
             {isSubmitting ? "Creating account..." : "Create account"}
-            <HugeiconsIcon icon={ArrowRight02Icon} />
+            {isSubmitting ? (
+              <HugeiconsIcon
+                icon={Loading03Icon}
+                className="size-5 animate-spin"
+              />
+            ) : (
+              <HugeiconsIcon icon={ArrowRight02Icon} />
+            )}
           </Button>
 
           <Marker variant="separator">

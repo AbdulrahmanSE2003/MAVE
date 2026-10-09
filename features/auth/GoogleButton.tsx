@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth/client"
-import { GoogleIcon } from "@hugeicons/core-free-icons"
+import { GoogleIcon, Loading03Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -34,7 +34,11 @@ const GoogleButton = () => {
       type="button"
       disabled={isSubmitting}
     >
-      <HugeiconsIcon size={20} icon={GoogleIcon} />
+      {isSubmitting ? (
+        <HugeiconsIcon icon={Loading03Icon} className="size-5 animate-spin" />
+      ) : (
+        <HugeiconsIcon size={20} icon={GoogleIcon} />
+      )}
       {isSubmitting ? "Signing in with Google" : "Continue with Google"}
     </Button>
   )

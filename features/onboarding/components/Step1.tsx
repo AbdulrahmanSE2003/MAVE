@@ -4,10 +4,17 @@ import { ArrowDown02Icon, ArrowRight02Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { cn } from "cn"
 import StepIntro from "./StepIntro"
+import { motion } from "framer-motion"
 
 const Step1 = () => {
   return (
-    <div className={`flex w-full flex-col gap-8`}>
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.2, ease: "easeInOut" }}
+      className={`flex w-full flex-col gap-8`}
+    >
       <StepIntro
         step="01"
         heading={
@@ -52,7 +59,7 @@ const Step1 = () => {
         />
         <span>I make it mine.</span>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

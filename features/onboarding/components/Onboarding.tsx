@@ -205,7 +205,7 @@ const Onboarding = ({
           `mx-auto min-h-[80svh] flex-col gap-16`,
           step === 4
             ? "max-w-8xl flex justify-start gap-y-10 p-6 md:p-12"
-            : "flex-center max-w-6xl p-12 px-6 md:px-64"
+            : "flex-center max-w-6xl p-6 md:px-64"
         )}
       >
         {/* Steps */}

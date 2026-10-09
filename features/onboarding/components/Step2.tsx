@@ -6,6 +6,7 @@ import { providers } from "../constants"
 import type { ProviderValue } from "../types"
 import ProviderCard from "./ProviderCard"
 import StepIntro from "./StepIntro"
+import { motion } from "framer-motion"
 
 interface Step2Props {
   provider: ProviderValue | null
@@ -16,7 +17,13 @@ interface Step2Props {
 
 const Step2 = ({ provider, setProvider, apiKey, setApiKey }: Step2Props) => {
   return (
-    <div className="flex w-full flex-col gap-8">
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.2, ease: "easeInOut" }}
+      className="flex w-full flex-col gap-8"
+    >
       <StepIntro
         step="02"
         heading={
@@ -54,7 +61,7 @@ const Step2 = ({ provider, setProvider, apiKey, setApiKey }: Step2Props) => {
           workspace.
         </p>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
