@@ -13,14 +13,18 @@ const StepsButtons = ({
   step,
   onBack,
   onClick,
+  onSkip,
   disabled,
   isSaving,
+  isSkipping,
 }: {
   step: Steps
   onBack: () => void
   onClick: () => void
+  onSkip: () => void
   disabled?: boolean
   isSaving?: boolean
+  isSkipping?: boolean
 }) => {
   return (
     <div className="flex items-center gap-2 self-end">
@@ -31,23 +35,35 @@ const StepsButtons = ({
       )}
       {step === 3 && (
         <Button
-          onClick={onClick}
+          onClick={onSkip}
           size="lg"
           variant="secondary"
-          disabled={isSaving}
+          disabled={isSaving || isSkipping}
         >
-          Skip for now
-          <HugeiconsIcon
-            icon={SkipForwardIcon}
-            className="size-5"
-            aria-hidden="true"
-          />
+          {isSkipping ? (
+            <>
+              <HugeiconsIcon
+                icon={Loading03Icon}
+                className="size-5 animate-spin"
+              />
+              <span>Skipping...</span>
+            </>
+          ) : (
+            <>
+              <span>Skip for now</span>
+              <HugeiconsIcon
+                icon={SkipForwardIcon}
+                className="size-5"
+                aria-hidden="true"
+              />{" "}
+            </>
+          )}
         </Button>
       )}
 
       <Button
         onClick={onClick}
-        disabled={disabled || isSaving}
+        disabled={disabled || isSaving || isSkipping}
         size="lg"
         aria-busy={isSaving}
         className="min-w-36 justify-center"

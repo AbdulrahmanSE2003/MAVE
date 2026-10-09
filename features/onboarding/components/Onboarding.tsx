@@ -20,6 +20,7 @@ const Onboarding = ({
   const [provider, setProvider] = useState<ProviderValue | null>(null)
   const [apiKey, setApiKey] = useState("")
   const [isSaving, setIsSaving] = useState(false)
+  const [isSkipping, setIsSkipping] = useState(false)
   const [examples, setExamples] = useState<string[]>([""])
   const [error, setError] = useState("")
 
@@ -28,6 +29,26 @@ const Onboarding = ({
     if (step === 1) return
     else {
       setStep((prev) => (prev - 1) as 1 | 2 | 3 | 4)
+    }
+  }
+
+  const handleSkip = async () => {
+    setIsSkipping(true)
+    setError("")
+
+    try {
+      const result = await saveWritingExamples({ examples: [] })
+
+      if (!result.success) {
+        setError(result.error)
+        return
+      }
+
+      setStep(4)
+    } catch {
+      setError("Failed to skip this step. Please try again.")
+    } finally {
+      setIsSkipping(false)
     }
   }
 
@@ -96,11 +117,13 @@ const Onboarding = ({
         {step === 5 && <Step5 />}
         {/* Steps Button */}
         <StepsButtons
+          onSkip={handleSkip}
           step={step}
           onBack={handleBack}
           onClick={handleClick}
           disabled={step === 2 && !isStep2Valid}
-          isSaving={isSaving}
+          isSaving={isSaving }
+          isSkipping={isSkipping}
         />
       </div>
     </div>
