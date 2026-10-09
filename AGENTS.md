@@ -570,3 +570,78 @@ Do not settle for:
 Every major section should have a clear visual purpose.
 
 The result should feel like a real product designed by a product designer, not an AI-generated starter template.
+
+# MAVE — AI Agent Instructions
+
+## Project Principles
+
+- MAVE is a production-minded AI-powered creative content studio.
+- Prioritize security, maintainability, testing, and a consistent user experience.
+- Avoid unnecessary complexity, premature abstractions, and unrelated refactoring.
+- Inspect the existing repository before making assumptions about its architecture or implementation.
+
+## Working Agreement
+
+1. Inspect the relevant files and current Git state before proposing changes.
+2. Explain the problem, intended behavior, and proposed files before implementing non-trivial changes.
+3. Do not modify files until the user approves the proposed plan.
+4. Implement one approved milestone at a time.
+5. Explain important technical decisions in practical, understandable language.
+6. Run appropriate checks and report their actual results.
+7. Never claim that tests, builds, or checks passed unless they were actually run.
+8. Summarize changed files and verification steps after each milestone.
+
+## Development Standards
+
+- Use TypeScript and follow the existing project conventions.
+- Use `pnpm` for package management and project commands.
+- Reuse existing application logic instead of duplicating business rules.
+- Validate inputs and enforce authorization on the server.
+- Never expose secrets, API keys, encryption keys, or private user data.
+- Enforce user ownership and data isolation on every relevant operation.
+- Add appropriate tests as features are implemented.
+- Avoid refactoring unrelated code.
+
+## Testing and Quality
+
+- Inspect existing testing infrastructure before introducing new tools.
+- Introduce testing incrementally, beginning with meaningful unit tests.
+- Add integration and end-to-end tests where appropriate.
+- Run relevant tests, TypeScript checks, linting, and production builds before stable milestones.
+- Prioritize authentication, authorization, user data isolation, AI credentials, usage limits, and core user workflows.
+
+## Git and Versioning
+
+- Use small, meaningful commits for logical changes.
+- Create version tags only at meaningful, stable milestones.
+- Follow semantic versioning conventions where appropriate.
+- Verify the working tree and relevant checks before tagging a release.
+- Never overwrite existing release tags without explicit approval.
+- Do not commit or create tags unless the user has approved the work.
+
+## Product Roadmap
+
+The long-term roadmap includes:
+
+1. Complete onboarding.
+2. Build the core content studio.
+3. Introduce testing incrementally.
+4. Support English, Arabic, and Spanish, including Arabic RTL.
+5. Build reusable application services.
+6. Integrate MCP with compatible AI clients.
+7. Add an in-app AI chatbot.
+8. Evaluate WebMCP when browser and client support justify it.
+9. Introduce server-side entitlements, trials, usage limits, and paid plans.
+10. Harden the product for a stable release.
+
+Consult the project's roadmap documentation for current progress. Do not implement future phases without approval.
+
+## Current Task Discipline
+
+Always distinguish between:
+
+- What already exists.
+- What is incomplete.
+- What is merely planned.
+
+Do not assume that roadmap items have been implemented. Inspect the repository and Git history first.

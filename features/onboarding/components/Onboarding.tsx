@@ -11,6 +11,7 @@ import Step5 from "./Step5"
 import { SaveAiCredentialInput } from "../schemas"
 import { saveAiCredential, saveWritingExamples } from "../actions"
 import { toast } from "sonner"
+import { cn } from "cn"
 const Onboarding = ({
   state,
 }: {
@@ -139,7 +140,12 @@ const Onboarding = ({
       <OnboardingHeader step={step} />
 
       <div
-        className={`mx-auto flex-center min-h-[80svh] max-w-6xl flex-col gap-16 p-12 px-64`}
+        className={cn(
+          `mx-auto min-h-[80svh] flex-col gap-16`,
+          step === 4
+            ? "max-w-8xl flex justify-start p-12 px-20"
+            : "flex-center max-w-6xl p-12 px-64"
+        )}
       >
         {/* Steps */}
         {step === 1 && <Step1 />}

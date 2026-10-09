@@ -25,6 +25,14 @@ const StepsButtons = ({
   const isSubmitting = submissionType !== null
   const isSkipping = submissionType === "skip"
 
+  const STEP_LABELS: Record<number, string> = {
+    1: "Let's begin",
+    2: "Connect & continue",
+    3: "Teach MAVE",
+    4: "Looks like me",
+    5: "Start Creating",
+  }
+
   return (
     <div className="flex items-center gap-2 self-end">
       {step > 1 && (
@@ -84,7 +92,7 @@ const StepsButtons = ({
           </>
         ) : (
           <>
-            <span>Continue</span>
+            <span>{STEP_LABELS[step]}</span>
             <HugeiconsIcon icon={ArrowRight02Icon} className="size-5" />
           </>
         )}
