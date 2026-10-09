@@ -1,31 +1,12 @@
 "use client"
-
-import * as React from "react"
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 import { isTypingTarget } from "@/lib/utils"
+import { useTheme } from "next-themes"
+import { useEffect } from "react"
 
-function ThemeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
-  return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-      {...props}
-    >
-      <ThemeHotkey />
-      {children}
-    </NextThemesProvider>
-  )
-}
-
-function ThemeHotkey() {
+export default function ThemeHotkey() {
   const { resolvedTheme, setTheme } = useTheme()
 
-  React.useEffect(() => {
+  useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.defaultPrevented || event.repeat) {
         return
@@ -59,5 +40,3 @@ function ThemeHotkey() {
 
   return null
 }
-
-export { ThemeProvider }

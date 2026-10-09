@@ -42,7 +42,6 @@ export default function SignupForm() {
 
   async function onSubmit(data: SignupFormValues) {
     setIsSubmitting(true)
-    console.log(data)
 
     try {
       const result = await signUpWithEmail({
@@ -50,13 +49,10 @@ export default function SignupForm() {
         email: data.email,
         password: data.password,
       })
-      console.log(result)
 
       if (result.error) {
         toast.error(result.error)
       }
-
-      console.log(result)
     } catch {
       toast.error("Something went wrong. Please try again.")
     } finally {
