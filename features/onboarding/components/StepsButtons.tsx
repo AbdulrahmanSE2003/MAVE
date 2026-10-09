@@ -34,7 +34,7 @@ const StepsButtons = ({
   }
 
   return (
-    <div className="flex items-center gap-2 self-end">
+    <div className="flex items-center gap-2 self-end max-md:grid max-md:w-full max-md:grid-cols-1">
       {step > 1 && (
         <Button
           onClick={onBack}

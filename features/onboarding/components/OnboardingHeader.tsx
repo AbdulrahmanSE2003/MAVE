@@ -12,7 +12,9 @@ const OnboardingHeader = ({ step }: { step: Steps }) => {
         <Logo />
 
         {/* Hint */}
-        <span className={`paragraph text-xs text-muted-foreground`}>
+        <span
+          className={`paragraph text-xs text-muted-foreground max-md:hidden`}
+        >
           Takes about 2 minutes{" "}
         </span>
 

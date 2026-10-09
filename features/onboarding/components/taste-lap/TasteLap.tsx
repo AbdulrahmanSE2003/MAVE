@@ -19,13 +19,13 @@ import {
 } from "../../utils"
 
 type TasteLapProps = {
-  mood: VisualMood | undefined
+  mood: VisualMood
   onMoodChange: (mood: VisualMood) => void
-  colorPalette: VisualColorPalette | undefined
+  colorPalette: VisualColorPalette
   onColorPaletteChange: (colorPalette: VisualColorPalette) => void
-  density: VisualDensity | undefined
+  density: VisualDensity
   onDensityChange: (density: VisualDensity) => void
-  typography: VisualTypography | undefined
+  typography: VisualTypography
   onTypographyChange: (typography: VisualTypography) => void
 }
 
@@ -87,7 +87,7 @@ const TasteLap = ({
       <div className={`flex w-full flex-col items-start gap-3`}>
         <span className={`text-xs font-medium uppercase`}>Density</span>
 
-        <div className="grid w-full grid-cols-3 gap-2.5">
+        <div className="grid w-full gap-2.5 md:grid-cols-3">
           {DENSITIES.map((d) => (
             <TasteOption
               key={d}
@@ -114,7 +114,9 @@ const TasteLap = ({
               onChange={onTypographyChange}
             >
               <div className="flex items-center justify-between gap-4">
-                <span className={cn("text-lg", TYPOGRAPHY_FONT_CLASS[t])}>
+                <span
+                  className={cn("text-md md:text-lg", TYPOGRAPHY_FONT_CLASS[t])}
+                >
                   {TYPOGRAPHY_SAMPLE[t]}
                 </span>
                 <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">

@@ -40,7 +40,7 @@ const Step3 = ({
       <StepIntro
         step="03"
         heading={
-          <h2 className={`relative z-10 text-7xl font-medium`}>
+          <h2 className={`relative z-10 text-5xl font-medium md:text-7xl`}>
             Teach{" "}
             <span className={`relative inline-block w-fit`}>
               <Highlight />

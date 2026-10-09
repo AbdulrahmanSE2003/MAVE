@@ -11,7 +11,7 @@ export type VisualColorPalette =
 
 export type VisualDensity = "Spacious" | "Balanced" | "Dense"
 
-export type VisualTypography = "serif" | "sans" | "display"
+export type VisualTypography = "Serif" | "Sans" | "Bold"
 
 // ──────────────────────────────────────────────────────────
 // 2. Derived generation-time properties (NOT asked from the user —
@@ -91,9 +91,9 @@ const DENSITY_TEXT: Record<VisualDensity, string> = {
 }
 
 const TYPOGRAPHY_TEXT: Record<VisualTypography, string> = {
-  serif: "editorial serif type character",
-  sans: "clean modern sans-serif character",
-  display: "bold expressive display type character",
+  Serif: "editorial serif type character",
+  Sans: "clean modern sans-serif character",
+  Bold: "bold expressive display type character",
 }
 
 // ──────────────────────────────────────────────────────────

@@ -25,10 +25,10 @@ export type SaveWritingExamplesInput = z.infer<typeof saveWritingExamplesSchema>
 
 // Visual style preferences schema
 const visualStylePreferencesSchema = z.object({
-  style: z.enum(["editorial", "bold", "minimal", "playful"]),
-  colorPalette: z.enum(["warm-neutral", "cool-muted", "monochrome", "vibrant"]),
-  density: z.enum(["spacious", "balanced", "dense"]),
-  typography: z.enum(["serif-editorial", "sans-modern", "bold-display"]),
+  style: z.enum(["Editorial", "Bold", "Minimal", "Playful"]),
+  colorPalette: z.enum(["Warm neutral", "Cool muted", "Monochrome", "Vibrant"]),
+  density: z.enum(["Spacious", "Balanced", "Dense"]),
+  typography: z.enum(["Serif", "Sans", "Bold"]),
 })
 
 export const saveVisualPreferencesSchema = z.object({

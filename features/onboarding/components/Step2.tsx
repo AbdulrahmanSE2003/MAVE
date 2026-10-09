@@ -20,12 +20,14 @@ const Step2 = ({ provider, setProvider, apiKey, setApiKey }: Step2Props) => {
       <StepIntro
         step="02"
         heading={
-          <h2 className={`text-7xl font-medium`}>Connect your AI provider.</h2>
+          <h2 className={`text-5xl font-medium md:text-7xl`}>
+            Connect your AI provider.
+          </h2>
         }
         para="MAVE uses your own provider account to generate content. Your API key is encrypted and securely stored."
       />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid gap-4 md:grid-cols-2">
         {providers.map((p) => (
           <ProviderCard
             provider={p}
@@ -36,7 +38,7 @@ const Step2 = ({ provider, setProvider, apiKey, setApiKey }: Step2Props) => {
         ))}
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-3">
         <Label htmlFor="api-key">API Key</Label>
 
         <Input

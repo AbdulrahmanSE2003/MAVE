@@ -8,123 +8,15 @@ import {
   VisualMood,
   VisualTypography,
   MOOD_DEFAULTS,
-  Lighting,
 } from "@/lib/visuals/taste"
-import { buildTasteDescription } from "../../utils"
-
-/* ---------- Color systems ---------- */
-
-const PALETTE_THEME: Record<
-  VisualColorPalette,
-  { bg: string; fg: string; accent: string; sub: string }
-> = {
-  "Warm neutral": {
-    bg: "#F2EEE5",
-    fg: "#28251F",
-    accent: "#C07B4A",
-    sub: "#8A8375",
-  },
-  Vibrant: {
-    bg: "#AD0555",
-    fg: "#FFFFFF",
-    accent: "#608DDD",
-    sub: "#FFCF56",
-  },
-  "Cool muted": {
-    bg: "#ECEFEF",
-    fg: "#282D2E",
-    accent: "#6E8385",
-    sub: "#8A9698",
-  },
-  Monochrome: {
-    bg: "#141414",
-    fg: "#F4F4F2",
-    accent: "#A8A8A4",
-    sub: "#6E6E6A",
-  },
-}
-
-const DENSITY_SCALE: Record<
-  VisualDensity,
-  {
-    pad: string
-    gap: string
-    title: string
-    eyebrow: string
-    detail: string
-  }
-> = {
-  Spacious: {
-    pad: "p-8 sm:p-10",
-    gap: "gap-7",
-    title: "text-3xl leading-snug",
-    eyebrow: "text-[10px]",
-    detail: "gap-3",
-  },
-  Balanced: {
-    pad: "p-7",
-    gap: "gap-5",
-    title: "text-4xl leading-tight",
-    eyebrow: "text-[10px]",
-    detail: "gap-2.5",
-  },
-  Dense: {
-    pad: "p-5",
-    gap: "gap-3.5",
-    title: "text-5xl leading-tight",
-    eyebrow: "text-[9px]",
-    detail: "gap-2",
-  },
-}
-
-const TYPE_CLASS: Record<VisualTypography, string> = {
-  serif: "font-serif font-normal tracking-[-0.045em]",
-  sans: "font-sans font-medium tracking-[-0.04em]",
-  display: "font-sans font-extrabold uppercase tracking-[-0.065em]",
-}
-
-const MOOD_LAYOUT: Record<
-  VisualMood,
-  {
-    align: string
-    justify: string
-    extras: "rules" | "bar" | "none" | "dots"
-  }
-> = {
-  Editorial: {
-    align: "items-start text-left",
-    justify: "justify-between",
-    extras: "rules",
-  },
-  Bold: {
-    align: "items-center text-center",
-    justify: "justify-center",
-    extras: "bar",
-  },
-  Minimal: {
-    align: "items-start text-left",
-    justify: "justify-end",
-    extras: "none",
-  },
-  Playful: {
-    align: "items-start text-left",
-    justify: "justify-between",
-    extras: "dots",
-  },
-}
-
-const LIGHTING_WASH: Record<Lighting, (bg: string, accent: string) => string> =
-  {
-    "soft-natural": (bg, accent) =>
-      `linear-gradient(135deg, transparent 30%, ${accent}14 100%)`,
-    "soft-gradient": (bg, accent) =>
-      `linear-gradient(160deg, ${accent}1F 0%, transparent 55%, ${accent}0A 100%)`,
-    "flat-clean": () => "none",
-    "flat-high-contrast": (bg) =>
-      `linear-gradient(180deg, transparent 55%, ${bg} 100%)`,
-  }
-
-/* ---------- Component ---------- */
+import {
+  buildTasteDescription,
+  DENSITY_SCALE,
+  LIGHTING_WASH,
+  MOOD_LAYOUT,
+  PALETTE_THEME,
+  TYPE_CLASS,
+} from "../../utils"
 
 type TastePreviewProps = {
   mood: VisualMood
@@ -148,19 +40,15 @@ const TastePreview = ({
   const wash = LIGHTING_WASH[moodProfile.lighting](theme.bg, theme.accent)
 
   return (
-    <aside className="sticky top-12 hidden w-2/5 flex-col gap-5 self-start lg:flex">
+    <aside className="flex w-full flex-col gap-5 self-start md:sticky md:top-12 md:w-2/5">
       {/* Preview header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-start">
         <div className="flex items-center gap-2">
           <span className="size-1.5 rounded-full bg-foreground" />
           <span className="text-[10px] font-semibold tracking-[0.18em] text-foreground uppercase">
             Live preview
           </span>
         </div>
-
-        <span className="text-[10px] text-muted-foreground tabular-nums">
-          01 / 01
-        </span>
       </div>
 
       {/* Art direction canvas */}
@@ -233,7 +121,7 @@ const TastePreview = ({
         {/* Main composition */}
         <div
           className={cn(
-            "relative z-10 flex h-full min-h-[22rem] flex-col sm:min-h-[26rem]",
+            "relative z-10 flex h-full min-h-88 flex-col sm:min-h-104",
             scale.pad,
             scale.gap,
             layout.align,
@@ -280,7 +168,7 @@ const TastePreview = ({
           <div className={cn("flex w-full flex-col", scale.detail)}>
             <h3
               className={cn(
-                "max-w-full break-words transition-all duration-500",
+                "wrap-break-words max-w-full transition-all duration-500",
                 scale.title,
                 TYPE_CLASS[typography],
                 mood === "Bold" && "max-w-[10ch]",
@@ -304,7 +192,7 @@ const TastePreview = ({
                   starts{" "}
                   <span
                     className={cn(
-                      typography === "serif" && "italic",
+                      typography === "Serif" && "italic",
                       mood === "Playful" &&
                         "underline decoration-2 underline-offset-4"
                     )}
@@ -354,7 +242,7 @@ const TastePreview = ({
               </span>
 
               <span
-                className="max-w-[15rem] text-[10px] leading-relaxed"
+                className="max-w-60 text-[10px] leading-relaxed"
                 style={{ color: theme.sub }}
               >
                 {moodProfile.medium}

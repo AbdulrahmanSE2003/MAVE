@@ -1,7 +1,8 @@
 import { StaticImageData } from "next/image"
 import { providerEnum } from "./schemas"
 
-export type SubmissionType = "credential" | "examples" | "skip" | null
+export type SubmissionType =
+  "credential" | "examples" | "skip" | "visual" | "completion" | null
 
 export type Steps = 1 | 2 | 3 | 4 | 5
 
