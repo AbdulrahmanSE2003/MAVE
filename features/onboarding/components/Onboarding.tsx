@@ -5,7 +5,7 @@ import Step2 from "./Step2"
 import Step3 from "./Step3"
 import Step4 from "./Step4"
 import StepsButtons from "./StepsButtons"
-import { ProviderValue, Steps } from "../types"
+import { ProviderValue, Steps, SubmissionType } from "../types"
 import OnboardingHeader from "./OnboardingHeader"
 import Step5 from "./Step5"
 import { SaveAiCredentialInput } from "../schemas"
@@ -19,12 +19,21 @@ const Onboarding = ({
   const [step, setStep] = useState<Steps>(state.step || 1)
   const [provider, setProvider] = useState<ProviderValue | null>(null)
   const [apiKey, setApiKey] = useState("")
-  const [isSaving, setIsSaving] = useState(false)
-  const [isSkipping, setIsSkipping] = useState(false)
+  const [submissionType, setSubmissionType] = useState<SubmissionType>(null)
+
   const [examples, setExamples] = useState<string[]>([""])
   const [error, setError] = useState("")
 
+  const isSubmitting = submissionType !== null
   const isStep2Valid = provider !== null && apiKey.trim().length > 0
+
+  // Handlers
+
+  const handleError = (message: string) => {
+    setError(message)
+    toast.error(message)
+  }
+
   const handleBack = () => {
     if (step === 1) return
     else {
@@ -33,7 +42,9 @@ const Onboarding = ({
   }
 
   const handleSkip = async () => {
-    setIsSkipping(true)
+    if (isSubmitting) return
+
+    setSubmissionType("skip")
     setError("")
 
     try {
@@ -46,53 +57,81 @@ const Onboarding = ({
 
       setStep(4)
     } catch {
-      setError("Failed to skip this step. Please try again.")
+      handleError("Failed to skip this step. Please try again.")
     } finally {
-      setIsSkipping(false)
+      setSubmissionType(null)
     }
   }
 
   const handleClick = async () => {
-    // Handle step 2 Ai credential saving
+    if (isSubmitting) return
+
     if (step === 2) {
-      setIsSaving(true)
-      const data: SaveAiCredentialInput = {
-        provider: provider as ProviderValue,
-        apiKey: apiKey.trim(),
+      setSubmissionType("credential")
+      setError("")
+
+      try {
+        const data: SaveAiCredentialInput = {
+          provider: provider as ProviderValue,
+          apiKey: apiKey.trim(),
+        }
+
+        const result = await saveAiCredential(data)
+
+        if (!result.success) {
+          handleError(result.error)
+          return
+        }
+
+        setStep(3)
+      } catch {
+        handleError("Failed to connect your AI provider. Please try again.")
+      } finally {
+        setSubmissionType(null)
       }
-      await saveAiCredential(data)
-      setIsSaving(false)
-    } else if (step === 3) {
-      setIsSaving(true)
+
+      return
+    }
+
+    if (step === 3) {
+      setSubmissionType("examples")
       setError("")
 
       try {
         const data = examples
-          .filter((ex) => ex.trim().length > 0)
+          .filter((example) => example.trim().length > 0)
           .map((content) => ({ content: content.trim() }))
 
-        const result = await saveWritingExamples({
-          examples: data,
-        })
+        const result = await saveWritingExamples({ examples: data })
 
         if (!result.success) {
-          setError(result.error)
+          handleError(result.error)
           return
         }
 
         setStep(4)
-        return
       } catch {
-        setError("Failed to save your writing examples. Please try again.")
-        toast.error("Failed to save your writing examples. Please try again.")
-        return
+        handleError("Failed to save your writing examples. Please try again.")
       } finally {
-        setIsSaving(false)
+        setSubmissionType(null)
       }
-    } else if (step === 5) {
-      //   TODO:
+
+      return
     }
-    setStep((prev) => (prev + 1) as 1 | 2 | 3 | 4 | 5)
+
+    if (step === 1) {
+      setStep(2)
+      return
+    }
+
+    if (step === 4) {
+      // هنضيف حفظ الـ visual preferences في الخطوة الجاية.
+      return
+    }
+
+    if (step === 5) {
+      // هنضيف إكمال الـ onboarding هنا لاحقًا.
+    }
   }
   return (
     <div className={``}>
@@ -122,8 +161,7 @@ const Onboarding = ({
           onBack={handleBack}
           onClick={handleClick}
           disabled={step === 2 && !isStep2Valid}
-          isSaving={isSaving }
-          isSkipping={isSkipping}
+          submissionType={submissionType}
         />
       </div>
     </div>

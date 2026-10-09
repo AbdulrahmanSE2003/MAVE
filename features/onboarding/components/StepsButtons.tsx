@@ -1,5 +1,3 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import {
   ArrowRight02Icon,
@@ -7,7 +5,7 @@ import {
   SkipForwardIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import type { Steps } from "../types"
+import type { Steps, SubmissionType } from "../types"
 
 const StepsButtons = ({
   step,
@@ -15,30 +13,38 @@ const StepsButtons = ({
   onClick,
   onSkip,
   disabled,
-  isSaving,
-  isSkipping,
+  submissionType,
 }: {
   step: Steps
   onBack: () => void
   onClick: () => void
   onSkip: () => void
   disabled?: boolean
-  isSaving?: boolean
-  isSkipping?: boolean
+  submissionType: SubmissionType
 }) => {
+  const isSubmitting = submissionType !== null
+  const isSkipping = submissionType === "skip"
+
   return (
     <div className="flex items-center gap-2 self-end">
       {step > 1 && (
-        <Button onClick={onBack} size="lg" variant="ghost" disabled={isSaving}>
+        <Button
+          onClick={onBack}
+          size="lg"
+          variant="ghost"
+          disabled={isSubmitting}
+        >
           Back
         </Button>
       )}
+
       {step === 3 && (
         <Button
           onClick={onSkip}
           size="lg"
           variant="secondary"
-          disabled={isSaving || isSkipping}
+          disabled={isSubmitting}
+          aria-busy={isSkipping}
         >
           {isSkipping ? (
             <>
@@ -55,7 +61,7 @@ const StepsButtons = ({
                 icon={SkipForwardIcon}
                 className="size-5"
                 aria-hidden="true"
-              />{" "}
+              />
             </>
           )}
         </Button>
@@ -63,12 +69,12 @@ const StepsButtons = ({
 
       <Button
         onClick={onClick}
-        disabled={disabled || isSaving || isSkipping}
+        disabled={disabled || isSubmitting}
         size="lg"
-        aria-busy={isSaving}
+        aria-busy={isSubmitting && !isSkipping}
         className="min-w-36 justify-center"
       >
-        {isSaving ? (
+        {isSubmitting && !isSkipping ? (
           <>
             <HugeiconsIcon
               icon={Loading03Icon}
