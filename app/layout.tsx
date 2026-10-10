@@ -81,7 +81,12 @@ export default function RootLayout({
     >
       <body className={``}>
         <ThemeProvider>
-          <Toaster closeButton position="top-center" />
+          <Toaster
+            richColors
+            visibleToasts={2}
+            closeButton
+            position="top-center"
+          />
           <TooltipProvider>{children}</TooltipProvider>
         </ThemeProvider>
       </body>

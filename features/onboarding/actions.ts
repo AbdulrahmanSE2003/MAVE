@@ -14,8 +14,7 @@ import {
 } from "./schemas"
 import { getOnboardingState } from "@/lib/users/onboarding"
 
-// AI credential Action
-export async function saveAiCredential(input: SaveAiCredentialInput) {
+export async function checkIsAuthenticated() {
   const { data } = await auth.getSession()
 
   if (!data?.user) {
@@ -23,6 +22,19 @@ export async function saveAiCredential(input: SaveAiCredentialInput) {
       success: false as const,
       error: "You must be signed in.",
     }
+  }
+  return {
+    success: true as const,
+    data,
+  }
+}
+
+// AI credential Action
+export async function saveAiCredential(input: SaveAiCredentialInput) {
+  const authResult = await checkIsAuthenticated()
+
+  if (!authResult.success) {
+    return authResult
   }
 
   const parsed = saveAiCredentialSchema.safeParse(input)
@@ -34,7 +46,7 @@ export async function saveAiCredential(input: SaveAiCredentialInput) {
     }
   }
 
-  const user = await getOrCreateUser(data.user.id)
+  const user = await getOrCreateUser(authResult.data.user.id)
   const encryptedApiKey = encryptSecret(parsed.data.apiKey)
 
   await prisma.aiCredential.upsert({
@@ -61,13 +73,10 @@ export async function saveAiCredential(input: SaveAiCredentialInput) {
 
 // Writing examples Action
 export async function saveWritingExamples(input: SaveWritingExamplesInput) {
-  const { data } = await auth.getSession()
+  const authResult = await checkIsAuthenticated()
 
-  if (!data?.user) {
-    return {
-      success: false as const,
-      error: "You must be signed in.",
-    }
+  if (!authResult.success) {
+    return authResult
   }
 
   const parsed = saveWritingExamplesSchema.safeParse(input)
@@ -79,8 +88,7 @@ export async function saveWritingExamples(input: SaveWritingExamplesInput) {
     }
   }
 
-  const user = await getOrCreateUser(data.user.id)
-
+  const user = await getOrCreateUser(authResult.data.user.id)
   const examples = parsed.data.examples.filter(
     (example) => example.content.trim().length > 0
   )
@@ -133,13 +141,10 @@ export async function saveWritingExamples(input: SaveWritingExamplesInput) {
 
 // Visual style preferences Action
 export async function saveVisualPreferences(input: SaveVisualPreferencesInput) {
-  const { data } = await auth.getSession()
+  const authResult = await checkIsAuthenticated()
 
-  if (!data?.user) {
-    return {
-      success: false as const,
-      error: "You must be signed in.",
-    }
+  if (!authResult.success) {
+    return authResult
   }
 
   const parsed = saveVisualPreferencesSchema.safeParse(input)
@@ -151,8 +156,7 @@ export async function saveVisualPreferences(input: SaveVisualPreferencesInput) {
     }
   }
 
-  const user = await getOrCreateUser(data.user.id)
-
+  const user = await getOrCreateUser(authResult.data.user.id)
   await prisma.user.update({
     where: {
       id: user.id,
@@ -169,17 +173,13 @@ export async function saveVisualPreferences(input: SaveVisualPreferencesInput) {
 
 // Complete onboarding Action
 export async function completeOnboarding() {
-  const { data } = await auth.getSession()
+  const authResult = await checkIsAuthenticated()
 
-  if (!data?.user) {
-    return {
-      success: false as const,
-      error: "You must be signed in.",
-    }
+  if (!authResult.success) {
+    return authResult
   }
 
-  const user = await getOrCreateUser(data.user.id)
-
+  const user = await getOrCreateUser(authResult.data.user.id)
   const state = await getOnboardingState(user.id)
 
   if (state.isCompleted) {

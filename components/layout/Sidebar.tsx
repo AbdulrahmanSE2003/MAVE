@@ -5,6 +5,7 @@ import { useSidebar } from "../SidebarProvider"
 import SidebarLinks from "./sidebar/SidebarLinks"
 import SidebarHeader from "./sidebar/SidebarHeader"
 import SidebarFooter from "./sidebar/SidebarFooter"
+import { Separator } from "../ui/separator"
 
 const Sidebar = () => {
   const { toggleSidebar, isOpen, openShortcuts } = useSidebar()
@@ -18,6 +19,7 @@ const Sidebar = () => {
     >
       {/* Header */}
       <SidebarHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+      <Separator />
 
       {/* Sidebar Links */}
       <SidebarLinks isOpen={isOpen} />
