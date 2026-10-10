@@ -11,3 +11,21 @@ export const SHORTCUT_GROUPS: ShortcutGroup[] = [
     ],
   },
 ]
+
+export const greetings = {
+  morning: [
+    "Rise and shine",
+    "Ready to build something great today",
+    "A fresh start for new ideas",
+  ],
+  afternoon: [
+    "Keep up the momentum",
+    "Let's make this afternoon productive",
+    "Time to ship some code",
+  ],
+  evening: [
+    "Good evening",
+    "Unwinding or still building",
+    "Hope it was a good day",
+  ],
+}

@@ -62,7 +62,7 @@ const SidebarFooter = ({
           isOpen ? "justify-start gap-3" : "justify-center"
         )}
       >
-        <Avatar className="size-7 shrink-0 rounded-lg">
+        <Avatar className="size-6 shrink-0 rounded-md">
           <AvatarImage
             src="https://github.com/evilrabbit.png"
             alt="Abdulrahman Saad"
@@ -74,7 +74,7 @@ const SidebarFooter = ({
         </Avatar>
 
         {isOpen && (
-          <div className="flex min-w-0 flex-1 flex-col items-start gap-1">
+          <div className="flex min-w-0 flex-1 flex-col items-start gap-0">
             <span className="w-full truncate text-sm font-medium text-foreground">
               Abdulrahman Saad
             </span>

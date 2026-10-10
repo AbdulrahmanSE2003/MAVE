@@ -8,10 +8,10 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen bg-muted">
+      <div className="flex h-screen overflow-hidden bg-muted">
         <Sidebar />
 
-        <div className="my-2 me-2 w-full rounded-xl border border-border bg-background p-8">
+        <div className="my-2 me-2 w-full rounded-xl border border-border bg-background p-10 py-7">
           {children}
         </div>
       </div>

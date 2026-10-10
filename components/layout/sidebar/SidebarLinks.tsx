@@ -15,6 +15,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { cn } from "cn"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+
 const links = [
   { label: "Home", icon: Home01Icon, href: "/app" },
   { label: "Write", icon: PencilEdit01Icon, href: "/app/write" },
@@ -47,10 +48,12 @@ const SidebarLinks = ({ isOpen }: { isOpen: boolean }) => {
           </Link>
         )
 
+        // Return the Link directly if open, bypassing the unnecessary Fragment
         if (isOpen) {
-          return <>{linkContent}</>
+          return linkContent
         }
 
+        // Return the Tooltip when closed (Tooltip has the key)
         return (
           <Tooltip key={l.label} delayDuration={0}>
             <TooltipTrigger asChild>{linkContent}</TooltipTrigger>

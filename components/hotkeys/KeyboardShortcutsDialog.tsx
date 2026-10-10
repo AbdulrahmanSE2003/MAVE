@@ -57,14 +57,14 @@ export default function KeyboardShortcutsDialog() {
               </p>
               <div className="space-y-1">
                 {group.items.map((item, i) => (
-                  <>
+                  <div key={item.label}>
                     <ShortcutRow
                       key={item.label}
                       label={item.label}
                       keys={item.keys}
                     />
                     {i !== group.items.length - 1 && <Separator />}
-                  </>
+                  </div>
                 ))}
               </div>
             </div>

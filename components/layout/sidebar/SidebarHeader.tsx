@@ -29,7 +29,7 @@ const SidebarHeader = ({
         isOpen ? "justify-between px-2" : "justify-center"
       )}
     >
-      {isOpen && <Logo />}
+      {isOpen && <Logo className={`${isOpen ? "truncate" : ""}`} />}
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
