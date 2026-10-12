@@ -51,8 +51,9 @@ const SidebarHeader = ({
           <div className="flex items-center gap-2">
             <span>Toggle Sidebar</span>
             <KbdGroup>
-              <Kbd>Ctrl</Kbd>
-              <Kbd>B</Kbd>
+              <Kbd>⌘</Kbd>
+              <span>+</span>
+              <Kbd>\</Kbd>
             </KbdGroup>
           </div>
         </TooltipContent>

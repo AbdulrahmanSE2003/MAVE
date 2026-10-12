@@ -24,7 +24,7 @@ const RecentWork = async () => {
           asChild
           variant={"invisible"}
         >
-          <Link href={"/write"}>View all</Link>
+          <Link href={"/app/history"}>View all</Link>
         </Button>
       </div>
 
@@ -33,8 +33,11 @@ const RecentWork = async () => {
       {!posts.length ? (
         <EmptyPostsState />
       ) : (
-        posts.map((postRow) => (
-          <RecentPost postRow={postRow} key={postRow.id} />
+        posts.map((postRow, i) => (
+          <div key={postRow.id}>
+            <RecentPost postRow={postRow} key={postRow.id} />
+            {i !== posts.length - 1 && <Separator />}
+          </div>
         ))
       )}
     </div>

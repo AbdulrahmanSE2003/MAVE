@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator"
 import { ChevronRight } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { generatePostRowIcon } from "../utils"
+import { generatePostRowIcon, htmlToPlainText } from "../utils"
 import Link from "next/link"
 import { Post } from "@/lib/generated/prisma/client"
 
@@ -29,7 +29,7 @@ const RecentPost = ({ postRow }: { postRow: Post }) => {
           <p
             className={`line-clamp-2 w-full truncate paragraph text-xs whitespace-normal`}
           >
-            {postRow.content}
+            {htmlToPlainText(postRow.content)}
           </p>
         </div>
 
@@ -45,7 +45,6 @@ const RecentPost = ({ postRow }: { postRow: Post }) => {
           />
         </div>
       </div>
-      <Separator />
     </Link>
   )
 }

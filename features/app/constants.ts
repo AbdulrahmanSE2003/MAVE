@@ -1,11 +1,18 @@
 import { ShortcutGroup } from "./types"
+import {
+  Home01Icon,
+  FileAddFreeIcons,
+  Time01Icon,
+  Settings02Icon,
+} from "@hugeicons/core-free-icons"
 
 export const SHORTCUT_GROUPS: ShortcutGroup[] = [
   {
     category: "Navigation",
     items: [
-      { label: "Toggle sidebar", keys: ["Ctrl", "\\"] },
-      { label: "Toggle theme", keys: ["Ctrl", "D"] },
+      { label: "Toggle sidebar", keys: ["⌘", "\\"] },
+      { label: "Toggle theme", keys: ["⌘", "D"] },
+      { label: "Command Center", keys: ["⌘", "K"] },
       { label: "Keyboard shortcuts", keys: ["F1"] },
       { label: "Close dialog", keys: ["Esc"] },
     ],
@@ -13,28 +20,28 @@ export const SHORTCUT_GROUPS: ShortcutGroup[] = [
   {
     category: "Editing",
     items: [
-      { label: "Save draft", keys: ["Ctrl", "S"] },
-      { label: "Undo", keys: ["Ctrl", "Z"] },
-      { label: "Redo", keys: ["Ctrl", "Shift", "Z"] },
+      { label: "Save draft", keys: ["⌘", "S"] },
+      { label: "Undo", keys: ["⌘", "Z"] },
+      { label: "Redo", keys: ["⌘", "Shift", "Z"] },
     ],
   },
   {
     category: "Formatting",
     items: [
-      { label: "Bold", keys: ["Ctrl", "B"] },
-      { label: "Italic", keys: ["Ctrl", "I"] },
-      { label: "Strikethrough", keys: ["Ctrl", "Shift", "X"] },
-      { label: "Heading 1", keys: ["Ctrl", "Alt", "1"] },
-      { label: "Heading 2", keys: ["Ctrl", "Alt", "2"] },
-      { label: "Heading 3", keys: ["Ctrl", "Alt", "3"] },
-      { label: "Paragraph", keys: ["Ctrl", "Alt", "0"] },
+      { label: "Bold", keys: ["⌘", "B"] },
+      { label: "Italic", keys: ["⌘", "I"] },
+      { label: "Strikethrough", keys: ["⌘", "Shift", "X"] },
+      { label: "Heading 1", keys: ["⌘", "Alt", "1"] },
+      { label: "Heading 2", keys: ["⌘", "Alt", "2"] },
+      { label: "Heading 3", keys: ["⌘", "Alt", "3"] },
+      { label: "Paragraph", keys: ["⌘", "Alt", "0"] },
     ],
   },
   {
     category: "Lists & Blocks",
     items: [
-      { label: "Bullet list", keys: ["Ctrl", "Shift", "8"] },
-      { label: "Numbered list", keys: ["Ctrl", "Shift", "7"] },
+      { label: "Bullet list", keys: ["⌘", "Shift", "8"] },
+      { label: "Numbered list", keys: ["⌘", "Shift", "7"] },
     ],
   },
 ]
@@ -96,3 +103,30 @@ export const greetings = {
 export const MAX_LENGTH = 2000
 
 export const MAX_TEXTAREA_HEIGHT = 320
+
+export const navigationItems = [
+  {
+    label: "Home",
+    href: "/app",
+    keywords: "dashboard home الرئيسية",
+    icon: Home01Icon,
+  },
+  {
+    label: "Create a post",
+    href: "/app/write",
+    keywords: "write create new post content إنشاء كتابة",
+    icon: FileAddFreeIcons,
+  },
+  {
+    label: "History",
+    href: "/app/history",
+    keywords: "history previous posts السجل",
+    icon: Time01Icon,
+  },
+  {
+    label: "Settings",
+    href: "/app/settings",
+    keywords: "settings preferences الإعدادات",
+    icon: Settings02Icon,
+  },
+]

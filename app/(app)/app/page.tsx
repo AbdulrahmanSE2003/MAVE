@@ -3,6 +3,8 @@ import { getCurrentSessionUser } from "@/lib/users/current-user"
 import AppHeader from "@/features/app/components/AppHeader"
 import GeneratePost from "@/features/app/components/GeneratePost"
 import RecentWork from "@/features/app/components/RecentWork"
+import { Suspense } from "react"
+import RecentWorkSkeleton from "@/features/app/components/RecentWorkSkeleton"
 
 const App = async () => {
   const user = await getCurrentSessionUser()
@@ -25,7 +27,9 @@ const App = async () => {
       <GeneratePost />
 
       {/* Recent Work */}
-      <RecentWork />
+      <Suspense fallback={<RecentWorkSkeleton />}>
+        <RecentWork />
+      </Suspense>
     </div>
   )
 }

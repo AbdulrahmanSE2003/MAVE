@@ -30,7 +30,7 @@ const SelectContentType = ({ value, onChange }: SelectContentTypeProps) => {
         <SelectGroup>
           {types.map((type) => (
             <SelectItem key={type} value={type} className={`capitalize`}>
-              {ContentType[type].split("_").join(" ").toLowerCase()}
+              {type}
             </SelectItem>
           ))}
         </SelectGroup>

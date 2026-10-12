@@ -14,10 +14,10 @@ export function generatePostRowIcon(type: ContentType): ReactNode {
     case "LINKEDIN_POST":
       return <HugeiconsIcon className={`size-5`} icon={Linkedin02Icon} />
 
-    case "INSTAGRAM_CAPTION":
+    case "Instagram Caption":
       return <HugeiconsIcon className={`size-5`} icon={Instagram} />
 
-    case "INSTAGRAM_CAROUSEL":
+    case "Instagram Carousel":
       return (
         <HugeiconsIcon
           className={`size-5`}
@@ -35,10 +35,10 @@ export const formatPostType = (type: ContentType) => {
     case "LINKEDIN_POST":
       return "Linkedin Post"
 
-    case "INSTAGRAM_CAPTION":
+    case "Instagram Caption":
       return "Instagram Caption"
 
-    case "INSTAGRAM_CAROUSEL":
+    case "Instagram Carousel":
       return "Instagram Carousel"
 
     default:
@@ -73,6 +73,21 @@ export function plainTextToHtml(text: string) {
     .join("")
 }
 
+export function htmlToPlainText(content: string) {
+  return content
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/<\/p\s*>/gi, " ")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/\s+/g, " ")
+    .trim()
+}
+
 export async function copyPlainTextContent(text: string) {
   await navigator.clipboard.writeText(text)
 }
@@ -90,7 +105,6 @@ export function postContentToHtml(content: string) {
   // Convert legacy plain-text posts to HTML.
   return plainTextToHtml(content)
 }
-
 
 export async function copyFormattedContent(html: string, plainText: string) {
   if (navigator.clipboard?.write && typeof ClipboardItem !== "undefined") {
