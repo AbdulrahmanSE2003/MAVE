@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { ContentType, Platform } from "@/lib/generated/prisma/enums"
+import { ContentType } from "@/lib/generated/prisma/enums"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   CarouselHorizontal02FreeIcons,
@@ -30,6 +30,22 @@ export function generatePostRowIcon(type: ContentType): ReactNode {
   }
 }
 
+export const formatPostType = (type: ContentType) => {
+  switch (type) {
+    case "LINKEDIN_POST":
+      return "Linkedin Post"
+
+    case "INSTAGRAM_CAPTION":
+      return "Instagram Caption"
+
+    case "INSTAGRAM_CAROUSEL":
+      return "Instagram Carousel"
+
+    default:
+      return "Post"
+  }
+}
+
 export const getRandomItem = (arr: string[]) =>
   arr[Math.floor(Math.random() * arr.length)]
 
@@ -38,4 +54,32 @@ export const getGreetingMessage = () => {
   if (hour < 12) return getRandomItem(greetings.morning)
   if (hour < 18) return getRandomItem(greetings.afternoon)
   return getRandomItem(greetings.evening)
+}
+
+export function plainTextToHtml(text: string) {
+  return text
+    .trim()
+    .split(/\n{2,}/)
+    .map((paragraph) => {
+      const escaped = paragraph
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;")
+
+      return `<p>${escaped.replace(/\n/g, "<br>")}</p>`
+    })
+    .join("")
+}
+
+export const handleCopy = async (text: string, onSuccess?: () => void) => {
+  if (!text) return
+
+  try {
+    await navigator.clipboard.writeText(text)
+    onSuccess?.()
+  } catch (error) {
+    console.error("Failed to copy text:", error)
+  }
 }

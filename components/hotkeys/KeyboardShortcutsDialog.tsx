@@ -38,7 +38,7 @@ export default function KeyboardShortcutsDialog() {
       onOpenChange={(open) => (open ? openShortcuts() : closeShortcuts())}
     >
       <DialogContent className="gap-0 overflow-hidden border-border/60 bg-background/95 p-0 shadow-2xl sm:max-w-lg">
-        <DialogHeader className="relative p-6 pb-5">
+        <DialogHeader className="relative gap-0 p-6 pb-5">
           <DialogTitle className="text-lg font-semibold tracking-tight">
             Keyboard shortcuts
           </DialogTitle>
@@ -55,7 +55,7 @@ export default function KeyboardShortcutsDialog() {
               <p className="px-3 text-[11px] font-bold tracking-wider text-muted-foreground/80 uppercase">
                 {group.category}
               </p>
-              <div className="space-y-1">
+              <div className="my-0.5 space-y-0">
                 {group.items.map((item, i) => (
                   <div key={item.label}>
                     <ShortcutRow
@@ -75,7 +75,7 @@ export default function KeyboardShortcutsDialog() {
 
         <div className="flex items-center justify-between bg-muted/20 px-6 py-3">
           <span className="text-xs text-muted-foreground/80">
-            More shortcuts arriving soon
+            Writing shortcuts work inside the editor
           </span>
         </div>
       </DialogContent>

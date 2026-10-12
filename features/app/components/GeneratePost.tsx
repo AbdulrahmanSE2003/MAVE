@@ -13,6 +13,7 @@ import { toast } from "sonner"
 import { MAX_LENGTH, MAX_TEXTAREA_HEIGHT } from "../constants"
 import SelectContentType from "./SelectContentType"
 import { ContentType } from "@/lib/generated/prisma/enums"
+import { useRouter } from "next/navigation"
 
 type Draft = Extract<GenerateContentResult, { success: true }>["data"]
 
@@ -27,6 +28,8 @@ const GeneratePost = () => {
   const [isGenerating, setIsGenerating] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  const router = useRouter()
 
   const canGenerate = idea.trim().length > 0 && !isGenerating
   const canSave = draft !== null && isDirty && !isSaving
@@ -64,9 +67,8 @@ const GeneratePost = () => {
         return
       }
 
-      setDraft(result.data)
-      setEditable(result.data.content)
-      setIsDirty(false)
+      router.push(`/app/write/${result.data.postId}`)
+
       toast.success("Draft generated and saved to your workspace.")
     } catch (err) {
       console.error("Generate failed:", err)
@@ -74,7 +76,7 @@ const GeneratePost = () => {
     } finally {
       setIsGenerating(false)
     }
-  }, [canGenerate, idea, contentType])
+  }, [canGenerate, idea, contentType, router])
 
   const handleSave = useCallback(async () => {
     if (!draft || !isDirty || isSaving) return

@@ -24,3 +24,33 @@ export const getUserPosts = async () => {
     data: posts,
   }
 }
+
+export const getPost = async (postId: string) => {
+  const user = await getCurrentUser()
+
+  if (!user) {
+    return {
+      success: false as const,
+      error: "You must be signed in.",
+    }
+  }
+
+  const post = await prisma.post.findUnique({
+    where: {
+      id: postId,
+      userId: user.id,
+    },
+  })
+
+  if (!post) {
+    return {
+      success: false as const,
+      error: "Post not found.",
+    }
+  }
+
+  return {
+    success: true as const,
+    data: post,
+  }
+}

@@ -16,7 +16,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
       <div className="flex h-screen overflow-hidden bg-muted">
         <Sidebar user={user} />
 
-        <div className="my-2 me-2 w-full rounded-xl border border-border bg-background p-4 sm:p-10 sm:py-7">
+        <div className="my-2 me-2 w-full rounded-xl border border-border bg-background">
           {children}
         </div>
       </div>

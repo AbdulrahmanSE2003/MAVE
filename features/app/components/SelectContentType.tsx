@@ -20,14 +20,17 @@ const SelectContentType = ({ value, onChange }: SelectContentTypeProps) => {
 
   return (
     <Select value={value} onValueChange={(val) => onChange(val as ContentType)}>
-      <SelectTrigger className="w-45 max-sm:w-full" aria-label="Content type">
+      <SelectTrigger
+        className="w-45 capitalize max-sm:w-full"
+        aria-label="Content type"
+      >
         <SelectValue placeholder="Content Type" />
       </SelectTrigger>
       <SelectContent position="popper">
         <SelectGroup>
           {types.map((type) => (
-            <SelectItem key={type} value={type}>
-              {type}
+            <SelectItem key={type} value={type} className={`capitalize`}>
+              {ContentType[type].split("_").join(" ").toLowerCase()}
             </SelectItem>
           ))}
         </SelectGroup>

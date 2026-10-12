@@ -4,14 +4,40 @@ export const SHORTCUT_GROUPS: ShortcutGroup[] = [
   {
     category: "Navigation",
     items: [
-      { label: "Toggle sidebar", keys: ["Ctrl", "B"] },
+      { label: "Toggle sidebar", keys: ["Ctrl", "\\"] },
       { label: "Toggle theme", keys: ["Ctrl", "D"] },
       { label: "Keyboard shortcuts", keys: ["F1"] },
       { label: "Close dialog", keys: ["Esc"] },
     ],
   },
+  {
+    category: "Editing",
+    items: [
+      { label: "Save draft", keys: ["Ctrl", "S"] },
+      { label: "Undo", keys: ["Ctrl", "Z"] },
+      { label: "Redo", keys: ["Ctrl", "Shift", "Z"] },
+    ],
+  },
+  {
+    category: "Formatting",
+    items: [
+      { label: "Bold", keys: ["Ctrl", "B"] },
+      { label: "Italic", keys: ["Ctrl", "I"] },
+      { label: "Strikethrough", keys: ["Ctrl", "Shift", "X"] },
+      { label: "Heading 1", keys: ["Ctrl", "Alt", "1"] },
+      { label: "Heading 2", keys: ["Ctrl", "Alt", "2"] },
+      { label: "Heading 3", keys: ["Ctrl", "Alt", "3"] },
+      { label: "Paragraph", keys: ["Ctrl", "Alt", "0"] },
+    ],
+  },
+  {
+    category: "Lists & Blocks",
+    items: [
+      { label: "Bullet list", keys: ["Ctrl", "Shift", "8"] },
+      { label: "Numbered list", keys: ["Ctrl", "Shift", "7"] },
+    ],
+  },
 ]
-
 export const greetings = {
   morning: [
     "Good morning",

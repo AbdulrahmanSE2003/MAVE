@@ -11,7 +11,7 @@ const App = async () => {
 
   return (
     <div
-      className={`relative flex h-full scrollbar-none flex-col gap-8 overflow-y-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden`}
+      className={`relative flex h-full scrollbar-thin flex-col gap-8 overflow-y-auto p-4 sm:p-10 sm:py-7`}
     >
       {/* Header */}
       <AppHeader name={firstName} />
