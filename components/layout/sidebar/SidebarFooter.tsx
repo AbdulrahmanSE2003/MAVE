@@ -12,13 +12,16 @@ import {
 } from "@/components/ui/tooltip"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Kbd } from "@/components/ui/kbd"
+import { User } from "@/features/app/types"
 
 const SidebarFooter = ({
   isOpen,
   openShortcuts,
+  user,
 }: {
   isOpen: boolean
   openShortcuts: () => void
+  user: User
 }) => {
   return (
     <div className={`flex flex-col gap-1.5`}>
@@ -64,19 +67,19 @@ const SidebarFooter = ({
       >
         <Avatar className="size-6 shrink-0 rounded-md">
           <AvatarImage
-            src="https://github.com/evilrabbit.png"
-            alt="Abdulrahman Saad"
+            src={user?.image ?? ""}
+            alt={user.name}
             className="rounded-lg"
           />
-          <AvatarFallback className="rounded-lg text-xs font-medium">
-            AS
+          <AvatarFallback className="rounded-lg text-xs font-medium uppercase">
+            {user.name.slice(0, 2)}
           </AvatarFallback>
         </Avatar>
 
         {isOpen && (
           <div className="flex min-w-0 flex-1 flex-col items-start gap-0">
-            <span className="w-full truncate text-sm font-medium text-foreground">
-              Abdulrahman Saad
+            <span className="w-full truncate text-start text-xs font-medium text-foreground">
+              {user.name}
             </span>
             <span className="text-xs text-muted-foreground">Beta user</span>
           </div>

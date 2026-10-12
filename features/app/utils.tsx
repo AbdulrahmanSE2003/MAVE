@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { Platform } from "./types"
+import { Platform } from "@/lib/generated/prisma/enums"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   Instagram,
@@ -12,17 +12,13 @@ export function generatePostRowIcon(platform: Platform): ReactNode {
   switch (platform) {
     case Platform.LINKEDIN:
       return <HugeiconsIcon className={`size-5`} icon={Linkedin02Icon} />
-      break
 
     case Platform.INSTAGRAM:
       return <HugeiconsIcon className={`size-5`} icon={Instagram} />
-      break
+
     default:
       return <HugeiconsIcon className={`size-5`} icon={Paperclip} />
-      break
   }
-
-  return <div className={``}>ss</div>
 }
 
 export const getRandomItem = (arr: string[]) =>

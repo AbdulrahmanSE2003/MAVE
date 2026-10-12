@@ -869,6 +869,7 @@ export const PostScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   platform: 'platform',
+  contentType: 'contentType',
   idea: 'idea',
   content: 'content',
   createdAt: 'createdAt',
@@ -1008,6 +1009,20 @@ export type EnumPlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Platform[]'
  */
 export type ListEnumPlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Platform[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ContentType'
+ */
+export type EnumContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContentType'>
+    
+
+
+/**
+ * Reference to a field of type 'ContentType[]'
+ */
+export type ListEnumContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContentType[]'>
     
 
 

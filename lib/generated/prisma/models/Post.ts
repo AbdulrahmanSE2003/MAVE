@@ -28,6 +28,7 @@ export type PostMinAggregateOutputType = {
   id: string | null
   userId: string | null
   platform: $Enums.Platform | null
+  contentType: $Enums.ContentType | null
   idea: string | null
   content: string | null
   createdAt: Date | null
@@ -38,6 +39,7 @@ export type PostMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   platform: $Enums.Platform | null
+  contentType: $Enums.ContentType | null
   idea: string | null
   content: string | null
   createdAt: Date | null
@@ -48,6 +50,7 @@ export type PostCountAggregateOutputType = {
   id: number
   userId: number
   platform: number
+  contentType: number
   idea: number
   content: number
   createdAt: number
@@ -60,6 +63,7 @@ export type PostMinAggregateInputType = {
   id?: true
   userId?: true
   platform?: true
+  contentType?: true
   idea?: true
   content?: true
   createdAt?: true
@@ -70,6 +74,7 @@ export type PostMaxAggregateInputType = {
   id?: true
   userId?: true
   platform?: true
+  contentType?: true
   idea?: true
   content?: true
   createdAt?: true
@@ -80,6 +85,7 @@ export type PostCountAggregateInputType = {
   id?: true
   userId?: true
   platform?: true
+  contentType?: true
   idea?: true
   content?: true
   createdAt?: true
@@ -163,6 +169,7 @@ export type PostGroupByOutputType = {
   id: string
   userId: string
   platform: $Enums.Platform
+  contentType: $Enums.ContentType
   idea: string
   content: string
   createdAt: Date
@@ -194,6 +201,7 @@ export type PostWhereInput = {
   id?: Prisma.StringFilter<"Post"> | string
   userId?: Prisma.StringFilter<"Post"> | string
   platform?: Prisma.EnumPlatformFilter<"Post"> | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFilter<"Post"> | $Enums.ContentType
   idea?: Prisma.StringFilter<"Post"> | string
   content?: Prisma.StringFilter<"Post"> | string
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
@@ -206,6 +214,7 @@ export type PostOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  contentType?: Prisma.SortOrder
   idea?: Prisma.SortOrder
   content?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -221,6 +230,7 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PostWhereInput | Prisma.PostWhereInput[]
   userId?: Prisma.StringFilter<"Post"> | string
   platform?: Prisma.EnumPlatformFilter<"Post"> | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFilter<"Post"> | $Enums.ContentType
   idea?: Prisma.StringFilter<"Post"> | string
   content?: Prisma.StringFilter<"Post"> | string
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
@@ -233,6 +243,7 @@ export type PostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  contentType?: Prisma.SortOrder
   idea?: Prisma.SortOrder
   content?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -249,6 +260,7 @@ export type PostScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Post"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Post"> | string
   platform?: Prisma.EnumPlatformWithAggregatesFilter<"Post"> | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeWithAggregatesFilter<"Post"> | $Enums.ContentType
   idea?: Prisma.StringWithAggregatesFilter<"Post"> | string
   content?: Prisma.StringWithAggregatesFilter<"Post"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
@@ -258,6 +270,7 @@ export type PostScalarWhereWithAggregatesInput = {
 export type PostCreateInput = {
   id?: string
   platform: $Enums.Platform
+  contentType?: $Enums.ContentType
   idea: string
   content: string
   createdAt?: Date | string
@@ -270,6 +283,7 @@ export type PostUncheckedCreateInput = {
   id?: string
   userId: string
   platform: $Enums.Platform
+  contentType?: $Enums.ContentType
   idea: string
   content: string
   createdAt?: Date | string
@@ -280,6 +294,7 @@ export type PostUncheckedCreateInput = {
 export type PostUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
   idea?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -292,6 +307,7 @@ export type PostUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
   idea?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -303,6 +319,7 @@ export type PostCreateManyInput = {
   id?: string
   userId: string
   platform: $Enums.Platform
+  contentType?: $Enums.ContentType
   idea: string
   content: string
   createdAt?: Date | string
@@ -312,6 +329,7 @@ export type PostCreateManyInput = {
 export type PostUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
   idea?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -322,6 +340,7 @@ export type PostUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
   idea?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -342,6 +361,7 @@ export type PostCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  contentType?: Prisma.SortOrder
   idea?: Prisma.SortOrder
   content?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -352,6 +372,7 @@ export type PostMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  contentType?: Prisma.SortOrder
   idea?: Prisma.SortOrder
   content?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -362,6 +383,7 @@ export type PostMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  contentType?: Prisma.SortOrder
   idea?: Prisma.SortOrder
   content?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -419,6 +441,10 @@ export type EnumPlatformFieldUpdateOperationsInput = {
   set?: $Enums.Platform
 }
 
+export type EnumContentTypeFieldUpdateOperationsInput = {
+  set?: $Enums.ContentType
+}
+
 export type PostCreateNestedOneWithoutVisualsInput = {
   create?: Prisma.XOR<Prisma.PostCreateWithoutVisualsInput, Prisma.PostUncheckedCreateWithoutVisualsInput>
   connectOrCreate?: Prisma.PostCreateOrConnectWithoutVisualsInput
@@ -438,6 +464,7 @@ export type PostUpdateOneWithoutVisualsNestedInput = {
 export type PostCreateWithoutUserInput = {
   id?: string
   platform: $Enums.Platform
+  contentType?: $Enums.ContentType
   idea: string
   content: string
   createdAt?: Date | string
@@ -448,6 +475,7 @@ export type PostCreateWithoutUserInput = {
 export type PostUncheckedCreateWithoutUserInput = {
   id?: string
   platform: $Enums.Platform
+  contentType?: $Enums.ContentType
   idea: string
   content: string
   createdAt?: Date | string
@@ -488,6 +516,7 @@ export type PostScalarWhereInput = {
   id?: Prisma.StringFilter<"Post"> | string
   userId?: Prisma.StringFilter<"Post"> | string
   platform?: Prisma.EnumPlatformFilter<"Post"> | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFilter<"Post"> | $Enums.ContentType
   idea?: Prisma.StringFilter<"Post"> | string
   content?: Prisma.StringFilter<"Post"> | string
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
@@ -497,6 +526,7 @@ export type PostScalarWhereInput = {
 export type PostCreateWithoutVisualsInput = {
   id?: string
   platform: $Enums.Platform
+  contentType?: $Enums.ContentType
   idea: string
   content: string
   createdAt?: Date | string
@@ -508,6 +538,7 @@ export type PostUncheckedCreateWithoutVisualsInput = {
   id?: string
   userId: string
   platform: $Enums.Platform
+  contentType?: $Enums.ContentType
   idea: string
   content: string
   createdAt?: Date | string
@@ -533,6 +564,7 @@ export type PostUpdateToOneWithWhereWithoutVisualsInput = {
 export type PostUpdateWithoutVisualsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
   idea?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -544,6 +576,7 @@ export type PostUncheckedUpdateWithoutVisualsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
   idea?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -553,6 +586,7 @@ export type PostUncheckedUpdateWithoutVisualsInput = {
 export type PostCreateManyUserInput = {
   id?: string
   platform: $Enums.Platform
+  contentType?: $Enums.ContentType
   idea: string
   content: string
   createdAt?: Date | string
@@ -562,6 +596,7 @@ export type PostCreateManyUserInput = {
 export type PostUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
   idea?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -572,6 +607,7 @@ export type PostUpdateWithoutUserInput = {
 export type PostUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
   idea?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -582,6 +618,7 @@ export type PostUncheckedUpdateWithoutUserInput = {
 export type PostUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
   idea?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -623,6 +660,7 @@ export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   userId?: boolean
   platform?: boolean
+  contentType?: boolean
   idea?: boolean
   content?: boolean
   createdAt?: boolean
@@ -636,6 +674,7 @@ export type PostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   userId?: boolean
   platform?: boolean
+  contentType?: boolean
   idea?: boolean
   content?: boolean
   createdAt?: boolean
@@ -647,6 +686,7 @@ export type PostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   userId?: boolean
   platform?: boolean
+  contentType?: boolean
   idea?: boolean
   content?: boolean
   createdAt?: boolean
@@ -658,13 +698,14 @@ export type PostSelectScalar = {
   id?: boolean
   userId?: boolean
   platform?: boolean
+  contentType?: boolean
   idea?: boolean
   content?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "platform" | "idea" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "platform" | "contentType" | "idea" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   visuals?: boolean | Prisma.Post$visualsArgs<ExtArgs>
@@ -687,6 +728,7 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     userId: string
     platform: $Enums.Platform
+    contentType: $Enums.ContentType
     idea: string
     content: string
     createdAt: Date
@@ -1119,6 +1161,7 @@ export interface PostFieldRefs {
   readonly id: Prisma.FieldRef<"Post", 'String'>
   readonly userId: Prisma.FieldRef<"Post", 'String'>
   readonly platform: Prisma.FieldRef<"Post", 'Platform'>
+  readonly contentType: Prisma.FieldRef<"Post", 'ContentType'>
   readonly idea: Prisma.FieldRef<"Post", 'String'>
   readonly content: Prisma.FieldRef<"Post", 'String'>
   readonly createdAt: Prisma.FieldRef<"Post", 'DateTime'>

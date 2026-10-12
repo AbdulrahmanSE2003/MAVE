@@ -68,3 +68,5 @@ export const greetings = {
   ],
 }
 export const MAX_LENGTH = 2000
+
+export const MAX_TEXTAREA_HEIGHT = 320

@@ -17,6 +17,15 @@ export const AiProvider = {
 export type AiProvider = (typeof AiProvider)[keyof typeof AiProvider]
 
 
+export const ContentType = {
+  LINKEDIN_POST: 'LINKEDIN_POST',
+  INSTAGRAM_CAPTION: 'INSTAGRAM_CAPTION',
+  INSTAGRAM_CAROUSEL: 'INSTAGRAM_CAROUSEL'
+} as const
+
+export type ContentType = (typeof ContentType)[keyof typeof ContentType]
+
+
 export const Platform = {
   LINKEDIN: 'LINKEDIN',
   INSTAGRAM: 'INSTAGRAM'

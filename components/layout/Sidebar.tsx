@@ -6,8 +6,9 @@ import SidebarLinks from "./sidebar/SidebarLinks"
 import SidebarHeader from "./sidebar/SidebarHeader"
 import SidebarFooter from "./sidebar/SidebarFooter"
 import { Separator } from "../ui/separator"
+import { User } from "@/features/app/types"
 
-const Sidebar = () => {
+const Sidebar = ({ user }: { user: User }) => {
   const { toggleSidebar, isOpen, openShortcuts } = useSidebar()
 
   return (
@@ -26,7 +27,7 @@ const Sidebar = () => {
 
       {/* Sidebar Footer */}
 
-      <SidebarFooter isOpen={isOpen} openShortcuts={openShortcuts} />
+      <SidebarFooter user={user} isOpen={isOpen} openShortcuts={openShortcuts} />
     </aside>
   )
 }
