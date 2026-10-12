@@ -1,6 +1,7 @@
 import { Editor } from "@tiptap/react"
 import { toast } from "sonner"
 import { copyFormattedContent, copyPlainTextContent } from "../app/utils"
+import { EditorState } from "./types"
 
 type MenuAction = {
   label: string
@@ -33,7 +34,10 @@ export async function copyPostAsFormatted(editor: Editor) {
   }
 }
 
-export function buildMenus(editor: Editor): Record<string, MenuEntry[]> {
+export function buildMenus(
+  editor: Editor,
+  editorState: EditorState
+): Record<string, MenuEntry[]> {
   return {
     Edit: [
       {
@@ -42,7 +46,7 @@ export function buildMenus(editor: Editor): Record<string, MenuEntry[]> {
           label: "Undo",
           shortcut: "Ctrl+Z",
           onSelect: () => editor.chain().focus().undo().run(),
-          isDisabled: () => !editor.can().undo(),
+          isDisabled: () => !editorState?.canUndo,
         },
       },
       {
@@ -51,7 +55,7 @@ export function buildMenus(editor: Editor): Record<string, MenuEntry[]> {
           label: "Redo",
           shortcut: "Ctrl+Y",
           onSelect: () => editor.chain().focus().redo().run(),
-          isDisabled: () => !editor.can().redo(),
+          isDisabled: () => !editorState?.canRedo,
         },
       },
       { type: "separator" },

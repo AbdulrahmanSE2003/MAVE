@@ -1,21 +1,29 @@
 "use client"
 
 import { useEffect, useMemo, useRef } from "react"
-import { Extension } from "@tiptap/core"
+import { Editor, Extension } from "@tiptap/core"
 import StarterKit from "@tiptap/starter-kit"
-import { useEditor, EditorContent } from "@tiptap/react"
+import { useEditor, EditorContent, useEditorState } from "@tiptap/react"
 import EditorBar from "./EditorBar"
 import { copyPostAsFormatted, copyPostAsPlainText } from "../utils"
+import TextEditorSkeleton from "./TextEditorSkeleton"
+
 type RichTextEditorProps = {
   initContent: string
   onChange?: (html: string) => void
   onSave?: () => void | Promise<void>
+  // Hands the live Tiptap Editor instance up to the parent once it's
+  // ready, so actions like "Cancel" can call editor.commands.setContent()
+  // directly — RichTextEditor stays the one place useEditor() is created,
+  // the parent just gets a handle to drive it.
+  onEditorReady?: (editor: Editor) => void
 }
 
 export default function RichTextEditor({
   initContent,
   onChange,
   onSave,
+  onEditorReady,
 }: RichTextEditorProps) {
   const onSaveRef = useRef(onSave)
 
@@ -90,11 +98,31 @@ export default function RichTextEditor({
     },
   })
 
-  if (!editor) return null
+  const editorState = useEditorState({
+    editor,
+    selector: ({ editor }) => {
+      if (!editor) return { canUndo: false, canRedo: false }
+      return {
+        canUndo: editor.can().undo(),
+        canRedo: editor.can().redo(),
+      }
+    },
+  })
+
+  // Fires once, right after the editor instance exists — not on every
+  // render. onEditorReady itself isn't a dependency on purpose: parents
+  // typically pass an inline function, and we only care about the first
+  // time `editor` goes from null to a real instance.
+  useEffect(() => {
+    if (editor) onEditorReady?.(editor)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor])
+
+  if (!editor) return <TextEditorSkeleton />
 
   return (
-    <div className="mb-3 h-[90%] overflow-hidden rounded-lg border border-border bg-background">
-      <EditorBar editor={editor} />
+    <div className="mb-3 h-auto overflow-hidden rounded-lg border border-border bg-background">
+      <EditorBar editor={editor} editorState={editorState} />
 
       <EditorContent
         editor={editor}

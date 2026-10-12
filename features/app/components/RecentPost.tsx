@@ -8,7 +8,7 @@ import { Post } from "@/lib/generated/prisma/client"
 const RecentPost = ({ postRow }: { postRow: Post }) => {
   return (
     <Link
-      href={"#"}
+      href={`/app/write/${postRow.id}`}
       key={postRow.id}
       className={`group flex w-full flex-col items-center gap-3`}
     >

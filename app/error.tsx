@@ -20,7 +20,7 @@ export default function Error({
   return (
     <section
       role="alert"
-      className="flex min-h-[50svh] flex-col items-center justify-center px-6 py-12 text-center"
+      className="flex min-h-svh flex-col items-center justify-center px-6 py-12 text-center"
     >
       <div className="mb-5 flex size-14 items-center justify-center rounded-2xl border border-border bg-background">
         <HugeiconsIcon

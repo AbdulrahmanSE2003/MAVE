@@ -10,6 +10,7 @@ import {
   Image01Icon,
   PencilEdit01Icon,
   Settings02Icon,
+  TimeHalfPassIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { cn } from "cn"
@@ -20,6 +21,7 @@ const links = [
   { label: "Home", icon: Home01Icon, href: "/app" },
   { label: "Write", icon: PencilEdit01Icon, href: "/app/write" },
   { label: "Visuals", icon: Image01Icon, href: "/app/visuals" },
+  { label: "History", icon: TimeHalfPassIcon, href: "/app/history" },
   { label: "Settings", icon: Settings02Icon, href: "/app/settings" },
 ]
 

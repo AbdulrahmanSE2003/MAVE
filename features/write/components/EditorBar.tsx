@@ -11,14 +11,17 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar"
 import { buildMenus } from "../utils"
+import { EditorState } from "../types"
+
 type EditorBarProps = {
   editor: Editor | null
+  editorState: EditorState
 }
 
-const EditorBar = ({ editor }: EditorBarProps) => {
+const EditorBar = ({ editor, editorState }: EditorBarProps) => {
   if (!editor) return null
 
-  const menus = buildMenus(editor)
+  const menus = buildMenus(editor, editorState)
 
   return (
     <div className={`flex-between items-center`}>

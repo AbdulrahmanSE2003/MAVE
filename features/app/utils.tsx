@@ -77,6 +77,21 @@ export async function copyPlainTextContent(text: string) {
   await navigator.clipboard.writeText(text)
 }
 
+export function postContentToHtml(content: string) {
+  const trimmedContent = content.trim()
+
+  if (!trimmedContent) return ""
+
+  // Support existing posts that already contain HTML.
+  if (/<\/?[a-z][\s\S]*?>/i.test(trimmedContent)) {
+    return trimmedContent
+  }
+
+  // Convert legacy plain-text posts to HTML.
+  return plainTextToHtml(content)
+}
+
+
 export async function copyFormattedContent(html: string, plainText: string) {
   if (navigator.clipboard?.write && typeof ClipboardItem !== "undefined") {
     await navigator.clipboard.write([
