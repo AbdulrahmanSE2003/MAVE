@@ -1,5 +1,5 @@
+import { Platform } from "@/lib/generated/prisma/enums"
 import z from "zod"
-import { Platform } from "./types"
 
 export const saveAiPostSchema = z.object({
   userId: z.string(),

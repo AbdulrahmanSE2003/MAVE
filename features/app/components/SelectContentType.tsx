@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ContentType } from "../types"
+import { ContentType } from "@/lib/generated/prisma/enums"
 
 type SelectContentTypeProps = {
   value: ContentType

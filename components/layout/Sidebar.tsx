@@ -27,7 +27,11 @@ const Sidebar = ({ user }: { user: User }) => {
 
       {/* Sidebar Footer */}
 
-      <SidebarFooter user={user} isOpen={isOpen} openShortcuts={openShortcuts} />
+      <SidebarFooter
+        user={user}
+        isOpen={isOpen}
+        openShortcuts={openShortcuts}
+      />
     </aside>
   )
 }

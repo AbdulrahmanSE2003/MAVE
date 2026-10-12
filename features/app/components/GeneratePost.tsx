@@ -11,8 +11,8 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 import { MAX_LENGTH, MAX_TEXTAREA_HEIGHT } from "../constants"
-import { ContentType } from "../types"
 import SelectContentType from "./SelectContentType"
+import { ContentType } from "@/lib/generated/prisma/enums"
 
 type Draft = Extract<GenerateContentResult, { success: true }>["data"]
 

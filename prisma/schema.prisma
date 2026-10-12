@@ -73,7 +73,7 @@ model Post {
   id          String      @id @default(cuid())
   userId      String
   platform    Platform
-  contentType ContentType @default(LINKEDIN_POST) // ← new field
+  contentType ContentType @default(LINKEDIN_POST)
   idea        String
   content     String
   createdAt   DateTime    @default(now())

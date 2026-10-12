@@ -1,16 +1,16 @@
-import { ContentType } from "../app/types"
+import { ContentType } from "@/lib/generated/prisma/enums"
 
 const CONTENT_TYPE_INSTRUCTIONS: Record<ContentType, string> = {
-  "Linkedin Post": `Write a LinkedIn post. Professional but human, not corporate-sounding.
+  LINKEDIN_POST: `Write a LinkedIn post. Professional but human, not corporate-sounding.
 Use short paragraphs and line breaks for readability. No hashtags unless the idea
 clearly calls for them. Return plain text only — no markdown, no quotation marks
 around the whole post.`,
 
-  "Instagram Caption": `Write an Instagram caption. Shorter and more casual than a LinkedIn
+  INSTAGRAM_CAPTION: `Write an Instagram caption. Shorter and more casual than a LinkedIn
 post. Emojis are fine where they feel natural, but don't force them. Return plain
 text only — no markdown, no quotation marks around the whole caption.`,
 
-  "Instagram Carousel": `Write an Instagram carousel (a sequence of slides) based on the idea.
+  INSTAGRAM_CAROUSEL: `Write an Instagram carousel (a sequence of slides) based on the idea.
 Break the idea into 4 to 7 slides that build on each other logically — a hook,
 development, and a closing slide. Return ONLY valid JSON matching exactly this
 shape, with no markdown fences and no extra commentary:

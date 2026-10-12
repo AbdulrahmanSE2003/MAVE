@@ -1,6 +1,5 @@
 import { z } from "zod"
-import { ContentType } from "../app/types"
-import { AiProvider } from "@/lib/generated/prisma/enums"
+import { AiProvider, ContentType } from "@/lib/generated/prisma/enums"
 
 export const generateContentInputSchema = z.object({
   idea: z.string().trim().min(1, "Please enter an idea.").max(2000),

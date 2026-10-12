@@ -2,10 +2,10 @@ import { prisma } from "@/lib/prisma"
 import { decryptSecret } from "@/lib/security/encryption"
 import {
   AiProvider,
+  ContentType,
   ContentType as DbContentType,
   Platform as DbPlatform,
 } from "@/lib/generated/prisma/enums"
-import { ContentType } from "../app/types"
 import { buildSystemPrompt, buildUserPrompt } from "./prompt-builder"
 import { openaiAdapter } from "./providers/openai"
 import { geminiAdapter } from "./providers/gemini"

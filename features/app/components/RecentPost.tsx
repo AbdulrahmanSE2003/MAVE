@@ -3,14 +3,14 @@ import { ChevronRight } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { generatePostRowIcon } from "../utils"
 import Link from "next/link"
+import { Post } from "@/lib/generated/prisma/client"
 
-// TODO Handle type
-const RecentPost = ({ postRow }: { postRow: unknown }) => {
+const RecentPost = ({ postRow }: { postRow: Post }) => {
   return (
     <Link
       href={"#"}
       key={postRow.id}
-      className={`group flex w-full flex-col gap-3`}
+      className={`group flex w-full flex-col items-center gap-3`}
     >
       <div
         key={postRow.id}
@@ -20,13 +20,17 @@ const RecentPost = ({ postRow }: { postRow: unknown }) => {
         <div
           className={`flex-center rounded-lg border border-muted-foreground/50 p-1.5 transition-colors duration-300 group-hover:bg-primary group-hover:text-black`}
         >
-          {generatePostRowIcon(postRow.platform)}
+          {generatePostRowIcon(postRow.contentType)}
         </div>
 
         {/* Content */}
-        <div className={`flex flex-col gap-0.5`}>
+        <div className={`me-2 flex w-full flex-col gap-0.5`}>
           <h6 className={`font-medium`}>{postRow.idea}</h6>
-          <p className={`paragraph text-xs`}>{postRow.content}</p>
+          <p
+            className={`line-clamp-2 w-full truncate paragraph text-xs whitespace-normal`}
+          >
+            {postRow.content}
+          </p>
         </div>
 
         {/* Meta Data */}

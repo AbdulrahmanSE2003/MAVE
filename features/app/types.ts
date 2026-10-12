@@ -1,18 +1,20 @@
+import { ContentType, Platform } from "@/lib/generated/prisma/enums"
+
 export interface ShortcutGroup {
   category: string
   items: { label: string; keys: string[] }[]
 }
 
-export enum Platform {
-  LINKEDIN = "Linkedin",
-  INSTAGRAM = "Instagram",
+export const PLATFORM_LABELS: Record<Platform, string> = {
+  LINKEDIN: "Linkedin",
+  INSTAGRAM: "Instagram",
 }
 
-export enum ContentType {
-  LINKEDIN_POST = "Linkedin Post",
-  INSTAGRAM_CAPTION = "Instagram Caption",
-  INSTAGRAM_CAROUSEL = "Instagram Carousel",
-}
+// export enum ContentType {
+//   LINKEDIN_POST = "Linkedin Post",
+//   INSTAGRAM_CAPTION = "Instagram Caption",
+//   INSTAGRAM_CAROUSEL = "Instagram Carousel",
+// }
 export type CarouselSlide = {
   id: string
   order: number
@@ -42,6 +44,3 @@ export interface User {
   banExpires?: Date | null | undefined
   id: string
 }
-
-// TODO
-// interface Post {}

@@ -1,7 +1,6 @@
 // features/generation/types.ts
 
-import { AiProvider } from "@/lib/generated/prisma/enums"
-import { ContentType } from "../app/types"
+import { AiProvider, ContentType } from "@/lib/generated/prisma/enums"
 
 export type GenerateContentParams = {
   idea: string
