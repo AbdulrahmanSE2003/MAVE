@@ -73,13 +73,24 @@ export function plainTextToHtml(text: string) {
     .join("")
 }
 
-export const handleCopy = async (text: string, onSuccess?: () => void) => {
-  if (!text) return
+export async function copyPlainTextContent(text: string) {
+  await navigator.clipboard.writeText(text)
+}
 
-  try {
-    await navigator.clipboard.writeText(text)
-    onSuccess?.()
-  } catch (error) {
-    console.error("Failed to copy text:", error)
+export async function copyFormattedContent(html: string, plainText: string) {
+  if (navigator.clipboard?.write && typeof ClipboardItem !== "undefined") {
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        "text/html": new Blob([html], {
+          type: "text/html",
+        }),
+        "text/plain": new Blob([plainText], {
+          type: "text/plain",
+        }),
+      }),
+    ])
+    return
   }
+
+  await navigator.clipboard.writeText(plainText)
 }

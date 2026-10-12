@@ -24,7 +24,7 @@ const TopBar = ({ type }: { type: ContentType }) => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/write">Write</BreadcrumbLink>
+            <BreadcrumbLink href="/app/write">Write</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

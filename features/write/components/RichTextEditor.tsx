@@ -3,17 +3,9 @@
 import { useEffect, useMemo, useRef } from "react"
 import { Extension } from "@tiptap/core"
 import StarterKit from "@tiptap/starter-kit"
-import { useEditor, useEditorState, EditorContent } from "@tiptap/react"
-
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
-} from "@/components/ui/menubar"
+import { useEditor, EditorContent } from "@tiptap/react"
+import EditorBar from "./EditorBar"
+import { copyPostAsFormatted, copyPostAsPlainText } from "../utils"
 type RichTextEditorProps = {
   initContent: string
   onChange?: (html: string) => void
@@ -64,6 +56,23 @@ export default function RichTextEditor({
 
             "Mod-Shift-7": () =>
               this.editor.chain().focus().toggleOrderedList().run(),
+
+            "Mod-c": () => {
+              if (!this.editor.state.selection.empty) return false
+
+              void copyPostAsPlainText(this.editor)
+              return true
+            },
+
+            "Mod-Shift-y": () => {
+              void copyPostAsPlainText(this.editor)
+              return true
+            },
+
+            "Mod-Alt-c": () => {
+              void copyPostAsFormatted(this.editor)
+              return true
+            },
           }
         },
       }),
@@ -81,142 +90,11 @@ export default function RichTextEditor({
     },
   })
 
-  const editorState = useEditorState({
-    editor,
-    selector: ({ editor }) => ({
-      canUndo: editor?.can().undo(),
-      canRedo: editor?.can().redo(),
-    }),
-  })
   if (!editor) return null
 
   return (
-    <div className="mb-3 h-[90%] overflow-hidden rounded-lg border border-border bg-background pb-8">
-      <Menubar className="h-auto w-full justify-start rounded-none border-0 border-b bg-muted/30 p-1">
-        <MenubarMenu>
-          <MenubarTrigger>Edit</MenubarTrigger>
-
-          <MenubarContent>
-            <MenubarItem
-              disabled={!editorState?.canUndo}
-              onSelect={() => editor.chain().focus().undo().run()}
-            >
-              Undo <MenubarShortcut>Ctrl+Z</MenubarShortcut>
-            </MenubarItem>
-
-            <MenubarItem
-              disabled={!editorState?.canRedo}
-              onSelect={() => editor.chain().focus().redo().run()}
-            >
-              Redo <MenubarShortcut>Ctrl+Y</MenubarShortcut>
-            </MenubarItem>
-
-            <MenubarSeparator />
-
-            <MenubarItem
-              onSelect={() => editor.chain().focus().toggleBold().run()}
-            >
-              Bold <MenubarShortcut>Ctrl+B</MenubarShortcut>
-            </MenubarItem>
-
-            <MenubarItem
-              onSelect={() => editor.chain().focus().toggleItalic().run()}
-            >
-              Italic <MenubarShortcut>Ctrl+I</MenubarShortcut>
-            </MenubarItem>
-
-            <MenubarItem
-              onSelect={() => editor.chain().focus().toggleStrike().run()}
-            >
-              Strikethrough <MenubarShortcut>Ctrl+Shift+X</MenubarShortcut>
-            </MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-
-        <MenubarMenu>
-          <MenubarTrigger>Format</MenubarTrigger>
-
-          <MenubarContent>
-            <MenubarItem
-              onSelect={() => editor.chain().focus().setParagraph().run()}
-            >
-              Paragraph <MenubarShortcut>Ctrl+Alt+0</MenubarShortcut>
-            </MenubarItem>
-
-            <MenubarSeparator />
-
-            {[1, 2, 3].map((level) => (
-              <MenubarItem
-                key={level}
-                onSelect={() =>
-                  editor
-                    .chain()
-                    .focus()
-                    .toggleHeading({
-                      level: level as 1 | 2 | 3,
-                    })
-                    .run()
-                }
-              >
-                Heading {level}
-                <MenubarShortcut>Ctrl+Alt+{level}</MenubarShortcut>
-              </MenubarItem>
-            ))}
-
-            <MenubarSeparator />
-
-            <MenubarItem
-              onSelect={() => editor.chain().focus().toggleCode().run()}
-            >
-              Inline code
-            </MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-
-        <MenubarMenu>
-          <MenubarTrigger>Lists</MenubarTrigger>
-
-          <MenubarContent>
-            <MenubarItem
-              onSelect={() => editor.chain().focus().toggleBulletList().run()}
-            >
-              Bullet list <MenubarShortcut>Ctrl+Shift+8</MenubarShortcut>
-            </MenubarItem>
-
-            <MenubarItem
-              onSelect={() => editor.chain().focus().toggleOrderedList().run()}
-            >
-              Numbered list <MenubarShortcut>Ctrl+Shift+7</MenubarShortcut>
-            </MenubarItem>
-
-            <MenubarSeparator />
-
-            <MenubarItem
-              onSelect={() => editor.chain().focus().toggleBlockquote().run()}
-            >
-              Blockquote
-            </MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-
-        <MenubarMenu>
-          <MenubarTrigger>Insert</MenubarTrigger>
-
-          <MenubarContent>
-            <MenubarItem
-              onSelect={() => editor.chain().focus().setHorizontalRule().run()}
-            >
-              Horizontal divider
-            </MenubarItem>
-
-            <MenubarItem
-              onSelect={() => editor.chain().focus().setHardBreak().run()}
-            >
-              Line break
-            </MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
+    <div className="mb-3 h-[90%] overflow-hidden rounded-lg border border-border bg-background">
+      <EditorBar editor={editor} />
 
       <EditorContent
         editor={editor}

@@ -1,7 +1,7 @@
 "use client"
 
 import { HugeiconsIcon } from "@hugeicons/react"
-import { MoreHorizontal, Question } from "@hugeicons/core-free-icons"
+import { Question } from "@hugeicons/core-free-icons"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { cn } from "cn"
