@@ -9,7 +9,7 @@ const WriteHeader = () => {
         Let&apos;s make something.
       </h1>
 
-      <p className="max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">
+      <p className="max-w-lg text-sm leading-6 text-muted-foreground">
         Start with an idea. We&apos;ll help you find the words.
       </p>
     </header>

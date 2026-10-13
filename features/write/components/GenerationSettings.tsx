@@ -17,6 +17,7 @@ import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Button } from "@/components/ui/button"
 
+// TODO
 const GenerationSettings = () => {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [goal, setGoal] = useState("educate")

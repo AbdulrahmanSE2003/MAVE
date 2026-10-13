@@ -39,12 +39,17 @@ const SidebarFooter = ({
           <Button
             variant="outline"
             className={cn(
-              "p-3 py-5.5",
+              "",
               "transition-colors hover:translate-0 hover:bg-muted/50",
-              isOpen ? "justify-start" : "justify-center"
+              isOpen ? "justify-start p-3 py-5.5" : "justify-center p-px"
             )}
           >
-            <div className="flex w-full min-w-0 items-center gap-3">
+            <div
+              className={cn(
+                "flex w-full min-w-0 items-center",
+                isOpen ? "gap-3" : "justify-center"
+              )}
+            >
               <Avatar className="size-6 shrink-0 rounded-md">
                 <AvatarImage
                   src={user?.image ?? ""}
@@ -71,9 +76,10 @@ const SidebarFooter = ({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
-          side="top"
-          align={isOpen ? "start" : "center"}
-          className="w-56"
+          className={`w-56`}
+          side="right"
+          align={"end"}
+          sideOffset={12}
         >
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col gap-1">

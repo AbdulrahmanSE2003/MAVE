@@ -4,6 +4,7 @@ import {
   FileAddFreeIcons,
   Time01Icon,
   Settings02Icon,
+  ImagePlus,
 } from "@hugeicons/core-free-icons"
 
 export const SHORTCUT_GROUPS: ShortcutGroup[] = [
@@ -116,6 +117,12 @@ export const navigationItems = [
     href: "/app/write",
     keywords: "write create new post content إنشاء كتابة",
     icon: FileAddFreeIcons,
+  },
+  {
+    label: "Generate a visual",
+    href: "/app/visual",
+    keywords: "generate create new image visual picture  توليد إنشاء صور",
+    icon: ImagePlus,
   },
   {
     label: "History",

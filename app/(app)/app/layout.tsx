@@ -17,7 +17,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
       <div className="flex h-screen bg-muted">
         <Sidebar user={user} />
 
-        <div className="my-2 me-2 mb-0 h-auto w-full overflow-auto rounded-xl rounded-b-none border border-border bg-background">
+        <div className="my-2 me-2 mb-0 h-auto w-full scrollbar-thin overflow-auto rounded-xl rounded-b-none border border-border bg-background">
           <CommandMenu />
           {children}
         </div>

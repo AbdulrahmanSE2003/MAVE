@@ -29,6 +29,8 @@ export default function WriteLap() {
 
         <GenerationSettings />
 
+        {/* Footer */}
+        {/* TODO */}
         <div className="mt-6 flex flex-col gap-4 border-t pt-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted-foreground">
             Your idea, your voice.
