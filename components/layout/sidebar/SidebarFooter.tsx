@@ -2,8 +2,10 @@
 
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
+  ChevronUpFreeIcons,
   KeyboardIcon,
   Logout01Icon,
+  Moon02Icon,
   UserCircleIcon,
 } from "@hugeicons/core-free-icons"
 import { Separator } from "@/components/ui/separator"
@@ -20,6 +22,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Kbd } from "@/components/ui/kbd"
+import { useTheme } from "next-themes"
 
 const SidebarFooter = ({
   isOpen,
@@ -30,6 +34,9 @@ const SidebarFooter = ({
   openShortcuts: () => void
   user: User
 }) => {
+  const { resolvedTheme, setTheme } = useTheme()
+  const isDark = resolvedTheme === "dark"
+
   return (
     <div className="flex flex-col gap-1.5">
       <Separator className="my-1 mt-2" />
@@ -41,7 +48,7 @@ const SidebarFooter = ({
             className={cn(
               "",
               "transition-colors hover:translate-0 hover:bg-muted/50",
-              isOpen ? "justify-start p-3 py-5.5" : "justify-center p-px"
+              isOpen ? "justify-start p-1.5 py-5.5" : "justify-center p-px"
             )}
           >
             <div
@@ -62,13 +69,16 @@ const SidebarFooter = ({
               </Avatar>
 
               {isOpen && (
-                <div className="flex min-w-0 flex-1 flex-col items-start gap-0">
-                  <span className="w-full truncate text-start text-xs font-medium text-foreground">
-                    {user.name}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    Beta user
-                  </span>
+                <div className={`flex-between w-full items-center gap-0`}>
+                  <div className="flex min-w-0 flex-1 flex-col items-start gap-0">
+                    <span className="w-full truncate text-start text-xs font-medium text-foreground">
+                      {user.name}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      Beta user
+                    </span>
+                  </div>
+                  <HugeiconsIcon icon={ChevronUpFreeIcons} />
                 </div>
               )}
             </div>
@@ -77,9 +87,9 @@ const SidebarFooter = ({
 
         <DropdownMenuContent
           className={`w-56`}
-          side="right"
-          align={"end"}
-          sideOffset={12}
+          side="top"
+          align={"start"}
+          sideOffset={8}
         >
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col gap-1">
@@ -96,15 +106,24 @@ const SidebarFooter = ({
             <DropdownMenuItem disabled>
               <HugeiconsIcon icon={UserCircleIcon} className="mr-2 size-4" />
               Profile
-              <span className="ml-auto text-xs text-muted-foreground">
-                Soon
-              </span>
+              <Kbd className="ml-auto text-xs text-muted-foreground">Soon</Kbd>
             </DropdownMenuItem>
 
             <DropdownMenuItem onSelect={openShortcuts}>
               <HugeiconsIcon icon={KeyboardIcon} className="mr-2 size-4" />
               Keyboard shortcuts
-              <span className="ml-auto text-xs text-muted-foreground">F1</span>
+              <Kbd className="ml-auto text-xs text-muted-foreground">F1</Kbd>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={() => setTheme(isDark ? "light" : "dark")}
+            >
+              <HugeiconsIcon icon={Moon02Icon} className="mr-2 size-4" />
+              Toggle Theme
+              <span className="ml-auto text-xs text-muted-foreground">
+                <Kbd>⌘</Kbd>
+                <span>+</span>
+                <Kbd>\</Kbd>
+              </span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
 

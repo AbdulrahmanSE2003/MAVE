@@ -2,19 +2,21 @@
 
 import { useState } from "react"
 
-import { Button } from "@/components/ui/button"
-import { HugeiconsIcon } from "@hugeicons/react"
 import WriteHeader from "@/features/write/components/WriteHeader"
 import WhatOnYourMind from "@/features/write/components/WhatOnYourMind"
 import PlatformSelector from "./PlatformSelector"
 import { ContentType } from "@/lib/generated/prisma/enums"
 import GenerationSettings from "./GenerationSettings"
-import { SparklesIcon } from "@hugeicons/core-free-icons"
+import { Goal } from "../types"
+import { Tones } from "../constants"
+import WriteLapFooter from "./WriteLapFooter"
 
 export default function WriteLap() {
   const [idea, setIdea] = useState("")
   const [contentType, setContentType] = useState<ContentType>("Linkedin Post")
-
+  const [goal, setGoal] = useState<Goal["value"]>("educate")
+  const [tone, setTone] = useState<(typeof Tones)[number]>("My usual voice")
+  const [context, setContext] = useState("")
   return (
     <div>
       <WriteHeader />
@@ -27,28 +29,18 @@ export default function WriteLap() {
           setContentType={setContentType}
         />
 
-        <GenerationSettings />
+        <GenerationSettings
+          goal={goal}
+          setGoal={setGoal}
+          tone={tone}
+          setTone={setTone}
+          context={context}
+          setContext={setContext}
+        />
 
         {/* Footer */}
         {/* TODO */}
-        <div className="mt-6 flex flex-col gap-4 border-t pt-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-muted-foreground">
-            Your idea, your voice.
-          </p>
-
-          <Button
-            type="button"
-            size="lg"
-            disabled={!idea.trim()}
-            className="gap-2"
-            onClick={() => {
-              // Connect generation to the existing flow later.
-            }}
-          >
-            <HugeiconsIcon icon={SparklesIcon} className="size-4" />
-            Generate
-          </Button>
-        </div>
+        <WriteLapFooter idea={idea} />
       </section>
     </div>
   )

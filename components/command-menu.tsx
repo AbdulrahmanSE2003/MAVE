@@ -46,7 +46,7 @@ export function CommandMenu() {
       open={open}
       onOpenChange={setOpen}
       title="Command Menu"
-      className={`rounded-md`}
+      className={`rounded-md bg-popover`}
       description="Search and navigate around MAVE."
     >
       <Command>
