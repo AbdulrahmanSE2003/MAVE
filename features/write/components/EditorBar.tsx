@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/menubar"
 import { buildMenus } from "../utils"
 import { EditorState } from "../types"
+import { useT } from "@/lib/i18n"
 
 type EditorBarProps = {
   editor: Editor | null
@@ -19,9 +20,11 @@ type EditorBarProps = {
 }
 
 const EditorBar = ({ editor, editorState }: EditorBarProps) => {
+  const t = useT()
+
   if (!editor) return null
 
-  const menus = buildMenus(editor, editorState)
+  const menus = buildMenus(editor, editorState, t)
 
   return (
     <div className={`flex-between items-center`}>

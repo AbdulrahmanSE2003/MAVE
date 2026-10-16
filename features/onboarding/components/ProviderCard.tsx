@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useT } from "@/lib/i18n"
 import { Provider } from "../types"
 
 const ProviderCard = ({
@@ -10,6 +11,8 @@ const ProviderCard = ({
   selected: boolean
   onClick: (value: Provider["value"]) => void
 }) => {
+  const t = useT()
+
   return (
     <button
       type="button"
@@ -35,7 +38,9 @@ const ProviderCard = ({
 
       <div className="flex flex-col gap-0">
         <h6 className="font-medium">{provider.provider}</h6>
-        <p className="paragraph text-sm">Bring your own API key</p>
+        <p className="paragraph text-sm">
+          {t("onboarding.steps.provider.bringOwnKey")}
+        </p>
       </div>
     </button>
   )

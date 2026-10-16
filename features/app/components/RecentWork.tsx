@@ -6,25 +6,31 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import EmptyPostsState from "./EmptyPostsState"
 import RecentPost from "./RecentPost"
+import { getI18n } from "@/lib/i18n/server"
 
 const RecentWork = async () => {
   const postsRes = await getUserPosts()
   if (!postsRes.success) return <Error />
 
   const posts: Post[] = postsRes.data
+  const { t } = await getI18n()
 
   return (
     <div className={`flex min-h-64 w-full flex-col gap-3`}>
       {/* Header */}
       <div className={`flex-between`}>
-        <span className={`text-2xl tracking-tighter`}>Recent Work</span>
+        <span className={`text-2xl tracking-tighter`}>
+          {t("app.dashboard.recentWork.heading")}
+        </span>
         <Button
           className={`font-semibold`}
           size={"lg"}
           asChild
           variant={"invisible"}
         >
-          <Link href={"/app/history"}>View all</Link>
+          <Link href={"/app/history"}>
+            {t("app.dashboard.recentWork.viewAll")}
+          </Link>
         </Button>
       </div>
 

@@ -10,14 +10,14 @@ import { ReactNode } from "react"
 export const MOODS: {
   id: number
   mood: VisualMood
-  element: ReactNode
+  element: (label: string) => ReactNode
 }[] = [
   {
     id: 1,
     mood: "Editorial",
-    element: (
+    element: (label) => (
       <div className="flex h-12 flex-col justify-between">
-        <span className="font-semibold">Editorial</span>
+        <span className="font-semibold">{label}</span>
         <div className="flex h-4 w-20 flex-col gap-1.5 [&_span]:inline-block">
           <span className="h-0.5 w-full bg-foreground" />
           <span className="h-0.5 w-full bg-foreground/75" />
@@ -29,9 +29,9 @@ export const MOODS: {
   {
     id: 2,
     mood: "Bold",
-    element: (
+    element: (label) => (
       <div className="flex h-12 flex-col justify-between">
-        <span className="font-bold">Bold</span>
+        <span className="font-bold">{label}</span>
         <span className="h-2.5 w-16 bg-foreground" />
       </div>
     ),
@@ -39,9 +39,9 @@ export const MOODS: {
   {
     id: 3,
     mood: "Minimal",
-    element: (
+    element: (label) => (
       <div className="flex h-12 flex-col justify-between">
-        <span className="font-medium">Minimal</span>
+        <span className="font-medium">{label}</span>
         <span className="h-0.5 w-10 bg-foreground/60" />
       </div>
     ),
@@ -49,9 +49,9 @@ export const MOODS: {
   {
     id: 4,
     mood: "Playful",
-    element: (
+    element: (label) => (
       <div className="flex h-12 flex-col justify-between">
-        <span className="font-semibold">Playful</span>
+        <span className="font-semibold">{label}</span>
         <div className="flex items-center gap-1.5">
           <span className="size-3 rounded-full bg-foreground" />
           <span className="size-3 rounded-full bg-primary" />
@@ -91,22 +91,10 @@ export const COLOR_PALETTES: {
 
 export const TYPOGRAPHIES: VisualTypography[] = ["Serif", "Sans", "Bold"]
 
-export const TYPOGRAPHY_SAMPLE: Record<VisualTypography, string> = {
-  Serif: "The idea starts here.",
-  Sans: "The idea starts here.",
-  Bold: "The idea starts here.",
-}
-
 export const TYPOGRAPHY_FONT_CLASS: Record<VisualTypography, string> = {
   Serif: "font-serif",
   Sans: "font-sans",
   Bold: "font-sans font-extrabold uppercase",
-}
-
-export const TYPOGRAPHY_LABEL: Record<VisualTypography, string> = {
-  Serif: "Serif Editorial",
-  Sans: "Sans Modern",
-  Bold: "Bold Display",
 }
 
 export const DENSITIES: VisualDensity[] = ["Spacious", "Balanced", "Dense"]
@@ -115,39 +103,6 @@ export const DENSITY_PREVIEW_CLASS: Record<VisualDensity, string> = {
   Spacious: "py-8",
   Balanced: "py-5",
   Dense: "py-2",
-}
-
-const MOOD_FEEL: Record<VisualMood, string> = {
-  Editorial: "refined",
-  Bold: "confident",
-  Minimal: "intentional",
-  Playful: "expressive",
-}
-
-const COLOR_FEEL: Record<VisualColorPalette, string> = {
-  "Warm neutral": "warm",
-  Vibrant: "vibrant",
-  "Cool muted": "cool",
-  Monochrome: "monochrome",
-}
-
-const DENSITY_FEEL: Record<VisualDensity, string> = {
-  Spacious: "spacious",
-  Balanced: "balanced",
-  Dense: "dense",
-}
-
-export function buildTasteDescription(
-  mood: VisualMood,
-  colorPalette: VisualColorPalette,
-  density: VisualDensity
-): string {
-  const moodLower = mood.toLowerCase()
-  const colorFeel = COLOR_FEEL[colorPalette]
-  const densityFeel = DENSITY_FEEL[density]
-  const feel = MOOD_FEEL[mood]
-
-  return `${moodLower[0].toUpperCase()}${moodLower.slice(1)}, ${colorFeel}, ${densityFeel} and ${feel}.`
 }
 
 /* ---------- Color systems ---------- */

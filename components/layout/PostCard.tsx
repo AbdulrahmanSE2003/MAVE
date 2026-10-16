@@ -9,6 +9,7 @@ import {
 } from "@hugeicons/core-free-icons"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import { getI18n } from "@/lib/i18n/server"
 
 interface PostCardProps {
   platform: "LinkedIn" | "Instagram"
@@ -17,12 +18,13 @@ interface PostCardProps {
   isCommercial?: boolean
 }
 
-const PostCard = ({
+const PostCard = async ({
   platform,
   content,
   className,
   isCommercial,
 }: PostCardProps) => {
+  const { t } = await getI18n()
   return (
     <article
       className={cn(
@@ -55,7 +57,7 @@ const PostCard = ({
             em: ({ children }) => <em className="italic">{children}</em>,
 
             blockquote: ({ children }) => (
-              <blockquote className="my-6 border-l-2 border-primary pl-4 text-muted-foreground">
+              <blockquote className="my-6 border-s-2 border-primary ps-4 text-muted-foreground">
                 {children}
               </blockquote>
             ),
@@ -74,7 +76,7 @@ const PostCard = ({
           className={`disabled:opacity-100`}
           variant={"outline"}
         >
-          Edit
+          {t("marketing.postCard.edit")}
           <HugeiconsIcon icon={Edit} />
         </Button>
         <Button
@@ -82,7 +84,7 @@ const PostCard = ({
           className={`disabled:opacity-100`}
           variant={"outline"}
         >
-          Copy
+          {t("common.actions.copy")}
           <HugeiconsIcon icon={Copy} />
         </Button>
         <Button
@@ -90,7 +92,7 @@ const PostCard = ({
           className={`disabled:opacity-100`}
           variant={"outline"}
         >
-          Regenerate
+          {t("marketing.postCard.regenerate")}
           <HugeiconsIcon icon={ArrowReloadHorizontalFreeIcons} />
         </Button>
       </div>

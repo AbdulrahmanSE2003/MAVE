@@ -1,8 +1,11 @@
 import Logo from "@/components/layout/Logo"
 import { Progress } from "@/components/ui/progress"
+import { useT } from "@/lib/i18n"
 import { Steps } from "../types"
 
 const OnboardingHeader = ({ step }: { step: Steps }) => {
+  const t = useT()
+
   return (
     <div className={`w-full`}>
       <div
@@ -15,16 +18,16 @@ const OnboardingHeader = ({ step }: { step: Steps }) => {
         <span
           className={`paragraph text-xs text-muted-foreground max-md:hidden`}
         >
-          Takes about 2 minutes{" "}
+          {t("onboarding.header.timeHint")}
         </span>
 
         {/* Step Indicator */}
         <span className={`font-mono text-xs font-semibold`}>
-          SETUP ·{" "}
+          {t("onboarding.header.setup")}{" "}
           <span className={`font-bold text-sidebar-primary dark:text-primary`}>
             {step}{" "}
           </span>
-          OF 5
+          {t("onboarding.header.ofTotal")}
         </span>
       </div>
       <Progress

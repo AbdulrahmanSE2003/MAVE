@@ -1,27 +1,30 @@
-import { changelogs } from "@/lib/constants"
 import { CheckIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { cn } from "cn"
+import { getI18n } from "@/lib/i18n/server"
 
-const ChangelogTimeline = () => {
+const ChangelogTimeline = async () => {
+  const { dict } = await getI18n()
+  const entries = dict.marketing.changelog.entries
+
   return (
     <div className="max-w-5xl">
-      {changelogs.map((entry, i) => (
+      {entries.map((entry, i) => (
         <article
           key={entry.id}
           className="relative grid grid-cols-[auto_1fr] gap-5 pb-14 last:pb-0 sm:gap-8 md:grid-cols-[1fr_2fr] md:gap-12"
         >
           {/* Timeline rail */}
-          <div className="md:pr-8">
-            {i !== changelogs.length && (
-              <div className="absolute top-3 left-72 h-full w-px bg-border" />
+          <div className="md:pe-8">
+            {i !== entries.length && (
+              <div className="absolute start-72 top-3 h-full w-px bg-border" />
             )}
 
             <div className="relative flex gap-5">
               <div
                 className={cn(
                   "relative left-70 mt-1.5 size-4.5 shrink-0 rounded-full bg-primary ring-2 ring-background",
-                  entry !== changelogs[0] ? "grayscale-100" : "animate-pulse"
+                  entry !== entries[0] ? "grayscale-100" : "animate-pulse"
                 )}
               >
                 <div

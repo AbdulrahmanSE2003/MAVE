@@ -19,9 +19,12 @@ import { signinSchema, type SigninFormValues } from "../schema"
 import GoogleButton from "../../GoogleButton"
 import { authClient } from "@/lib/auth/client"
 import { useRouter } from "next/navigation"
+import { useI18n, useT } from "@/lib/i18n"
 
 export default function SigninForm() {
   const router = useRouter()
+  const t = useT()
+  const { tm } = useI18n()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
@@ -47,10 +50,10 @@ export default function SigninForm() {
       const result = await signInWithEmail(data)
 
       if (result?.error) {
-        toast.error(result.error)
+        toast.error(tm(result.error))
       }
     } catch {
-      toast.error("Something went wrong. Please try again.")
+      toast.error(t("auth.errors.unexpected"))
     } finally {
       setIsSubmitting(false)
     }
@@ -59,11 +62,13 @@ export default function SigninForm() {
   return (
     <div className="flex w-full flex-col justify-center">
       <div className="mb-8 flex flex-col gap-3">
-        <span className={`text-xs font-medium uppercase`}>welcome back</span>
-        <h5 className="text-3xl">Sign in to MAVE.</h5>
+        <span className={`text-xs font-medium uppercase`}>
+          {t("auth.signin.eyebrow")}
+        </span>
+        <h5 className="text-3xl">{t("auth.signin.title")}</h5>
 
         <p className="paragraph text-sm text-muted-foreground">
-          Pick up where you left off.
+          {t("auth.signin.subtitle")}
         </p>
       </div>
 
@@ -88,7 +93,9 @@ export default function SigninForm() {
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Signing in..." : "Sign in"}
+            {isSubmitting
+              ? t("auth.signin.submitting")
+              : t("auth.signin.submit")}
 
             {isSubmitting ? (
               <HugeiconsIcon
@@ -101,7 +108,7 @@ export default function SigninForm() {
           </Button>
 
           <Marker variant="separator">
-            <MarkerContent>OR</MarkerContent>
+            <MarkerContent>{t("auth.separator.or")}</MarkerContent>
           </Marker>
 
           <GoogleButton />
@@ -109,9 +116,9 @@ export default function SigninForm() {
       </form>
 
       <p className="mt-2 text-center text-sm text-muted-foreground">
-        Don&apos;t have an account?
+        {t("auth.signin.noAccount")}
         <Button variant="link" asChild className="px-1">
-          <Link href="/signup">Create account</Link>
+          <Link href="/signup">{t("auth.signin.createAccount")}</Link>
         </Button>
       </p>
     </div>

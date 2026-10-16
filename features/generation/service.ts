@@ -12,6 +12,7 @@ import { geminiAdapter } from "./providers/gemini"
 import { carouselOutputSchema } from "./schemas"
 import type { GenerateContentInput } from "./schemas"
 import type { GenerateContentResult, GenerationAdapter } from "./types"
+import { getI18n } from "@/lib/i18n/server"
 
 export type UpdatePostResult =
   | { success: true; data: { postId: string } }
@@ -50,15 +51,15 @@ export async function createGeneratedPost(
   userId: string,
   input: GenerateContentInput
 ): Promise<GenerateContentResult> {
+  const { t, tm } = await getI18n()
+
   // 3. Resolve the credential. Never pick one at random.
   const credentials = await prisma.aiCredential.findMany({
     where: { userId },
   })
 
   if (credentials.length === 0) {
-    return fail(
-      "No AI provider is connected yet. Connect one to start writing."
-    )
+    return fail(t("write.generation.noProvider"))
   }
 
   const credential = (() => {
@@ -77,12 +78,10 @@ export async function createGeneratedPost(
 
   if (!credential) {
     if (!input.provider && credentials.length > 1) {
-      return fail(
-        "You have more than one provider saved. Choose which one to use."
-      )
+      return fail(t("write.generation.multipleProviders"))
     }
 
-    return fail("No API key is saved for that provider. Reconnect it first.")
+    return fail(t("write.generation.noApiKey"))
   }
 
   // 4. Decrypt only here, and only for the lifetime of this request.
@@ -90,12 +89,12 @@ export async function createGeneratedPost(
   try {
     apiKey = decryptSecret(credential.encryptedApiKey)
   } catch {
-    return fail("Your saved API key can't be read. Please reconnect it.")
+    return fail(t("write.generation.apiKeyUnreadable"))
   }
 
   const model = getModel(credential.provider)
   if (!model) {
-    return fail("This provider isn't configured on the server yet.")
+    return fail(t("write.generation.providerNotConfigured"))
   }
 
   // 5. Prompt built from the user's real writing examples.
@@ -130,14 +129,14 @@ export async function createGeneratedPost(
     const code = error instanceof Error ? error.message : ""
 
     if (code === "OPENAI_EMPTY_RESPONSE" || code === "GEMINI_EMPTY_RESPONSE") {
-      return fail("The provider came back empty. Please try again.")
+      return fail(t("write.generation.providerEmpty"))
     }
 
     return fail(
       error instanceof Error &&
         error.message === "GEMINI_TEMPORARILY_UNAVAILABLE"
-        ? "Gemini is temporarily unavailable due to high demand. Please try again in a moment."
-        : "Your AI provider couldn't be reached. Please check your connection and try again."
+        ? t("write.generation.geminiHighDemand")
+        : t("write.generation.providerUnreachable")
     )
   }
 
@@ -149,15 +148,17 @@ export async function createGeneratedPost(
     try {
       parsedJson = JSON.parse(raw)
     } catch {
-      return fail("The carousel came back malformed. Please try again.")
+      return fail(t("write.generation.carouselMalformed"))
     }
 
     const validated = carouselOutputSchema.safeParse(parsedJson)
 
     if (!validated.success) {
       return fail(
-        validated.error.issues[0]?.message ??
-          "The carousel didn't match the expected format. Please try again."
+        tm(
+          validated.error.issues[0]?.message ??
+            "write.generation.carouselInvalidFormat"
+        )
       )
     }
 
@@ -190,19 +191,20 @@ export async function updatePostContent(
   userId: string,
   input: { postId: string; content: string }
 ): Promise<UpdatePostResult> {
+  const { t } = await getI18n()
   const post = await prisma.post.findUnique({
     where: { id: input.postId },
     select: { userId: true },
   })
 
   if (!post) {
-    return { success: false, error: "This post could not be found." }
+    return { success: false, error: t("write.generation.postNotFound") }
   }
 
   if (post.userId !== userId) {
     return {
       success: false,
-      error: "You don't have permission to edit this post.",
+      error: t("write.generation.noPermission"),
     }
   }
 

@@ -1,10 +1,12 @@
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono, IBM_Plex_Sans_Arabic } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
-import { Metadata } from "next"
+import { type Metadata } from "next"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { HTML_DIR, I18nProvider } from "@/lib/i18n"
+import { getI18n } from "@/lib/i18n/server"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -13,70 +15,87 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://mave.app"),
+// Arabic fallback for every font stack: Geist has no Arabic glyphs, so
+// per-glyph fallback picks this up for Arabic text while Latin stays Geist.
+const arabicFont = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-arabic",
+  display: "swap",
+})
 
-  title: {
-    default: "MAVE — Your ideas, your voice.",
-    template: "%s — MAVE",
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getI18n()
 
-  description:
-    "MAVE turns your ideas into content that sounds like you — written for the platforms you create on.",
+  return {
+    metadataBase: new URL("https://mave.app"),
 
-  applicationName: "MAVE",
+    title: {
+      default: t("common.metadata.titleDefault"),
+      template: t("common.metadata.titleTemplate"),
+    },
 
-  keywords: [
-    "MAVE",
-    "AI writing",
-    "content creation",
-    "content studio",
-    "social media content",
-    "LinkedIn content",
-    "Instagram content",
-  ],
+    description: t("common.metadata.description"),
 
-  authors: [{ name: "Abdulrahman Saad" }],
-  creator: "Abdulrahman Saad",
-  publisher: "MAVE",
+    applicationName: "MAVE",
 
-  robots: {
-    index: true,
-    follow: true,
-  },
+    keywords: [
+      "MAVE",
+      "AI writing",
+      "content creation",
+      "content studio",
+      "social media content",
+      "LinkedIn content",
+      "Instagram content",
+    ],
 
-  openGraph: {
-    type: "website",
-    siteName: "MAVE",
-    title: "MAVE — Your ideas, your voice.",
-    description: "Turn your ideas into content that sounds like you.",
-    url: "https://mave.app",
-  },
+    authors: [{ name: "Abdulrahman Saad" }],
+    creator: "Abdulrahman Saad",
+    publisher: "MAVE",
 
-  twitter: {
-    card: "summary_large_image",
-    title: "MAVE — Your ideas, your voice.",
-    description: "Turn your ideas into content that sounds like you.",
-  },
+    robots: {
+      index: true,
+      follow: true,
+    },
 
-  icons: {
-    icon: "/icon.png",
-  },
+    openGraph: {
+      type: "website",
+      siteName: "MAVE",
+      title: t("common.metadata.titleDefault"),
+      description: t("common.metadata.ogDescription"),
+      url: "https://mave.app",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: t("common.metadata.titleDefault"),
+      description: t("common.metadata.ogDescription"),
+    },
+
+    icons: {
+      icon: "/icon.png",
+    },
+  }
 }
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const { locale } = await getI18n()
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={HTML_DIR[locale]}
       suppressHydrationWarning
       className={cn(
         "antialiased",
         fontMono.variable,
         "font-sans",
-        geist.variable
+        geist.variable,
+        arabicFont.variable
       )}
     >
       <body className={``}>
@@ -87,7 +106,9 @@ export default function RootLayout({
             closeButton
             position="top-center"
           />
-          <TooltipProvider>{children}</TooltipProvider>
+          <I18nProvider locale={locale}>
+            <TooltipProvider>{children}</TooltipProvider>
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

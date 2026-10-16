@@ -5,6 +5,7 @@ import {
   SkipForwardIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
+import { useT } from "@/lib/i18n"
 import type { Steps, SubmissionType } from "../types"
 
 const StepsButtons = ({
@@ -22,15 +23,16 @@ const StepsButtons = ({
   disabled?: boolean
   submissionType: SubmissionType
 }) => {
+  const t = useT()
   const isSubmitting = submissionType !== null
   const isSkipping = submissionType === "skip"
 
   const STEP_LABELS: Record<number, string> = {
-    1: "Let's begin",
-    2: "Connect & continue",
-    3: "Teach MAVE",
-    4: "Looks like me",
-    5: "Start Creating",
+    1: t("onboarding.buttons.letsBegin"),
+    2: t("onboarding.buttons.connectContinue"),
+    3: t("onboarding.buttons.teachMave"),
+    4: t("onboarding.buttons.looksLikeMe"),
+    5: t("onboarding.buttons.startCreating"),
   }
 
   return (
@@ -42,7 +44,7 @@ const StepsButtons = ({
           variant="ghost"
           disabled={isSubmitting}
         >
-          Back
+          {t("common.actions.back")}
         </Button>
       )}
 
@@ -60,11 +62,11 @@ const StepsButtons = ({
                 icon={Loading03Icon}
                 className="size-5 animate-spin"
               />
-              <span>Skipping...</span>
+              <span>{t("onboarding.buttons.skipping")}</span>
             </>
           ) : (
             <>
-              <span>Skip for now</span>
+              <span>{t("onboarding.buttons.skipForNow")}</span>
               <HugeiconsIcon
                 icon={SkipForwardIcon}
                 className="size-5"
@@ -88,7 +90,7 @@ const StepsButtons = ({
               icon={Loading03Icon}
               className="size-5 animate-spin"
             />
-            <span>Saving…</span>
+            <span>{t("common.status.saving")}</span>
           </>
         ) : (
           <>

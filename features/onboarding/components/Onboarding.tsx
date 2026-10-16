@@ -17,6 +17,7 @@ import {
 } from "../actions"
 import { toast } from "sonner"
 import { cn } from "cn"
+import { useT } from "@/lib/i18n"
 import {
   VisualColorPalette,
   VisualDensity,
@@ -45,6 +46,7 @@ const Onboarding = ({
   const [examples, setExamples] = useState<string[]>([""])
   const [error, setError] = useState("")
   const router = useRouter()
+  const t = useT()
 
   const isSubmitting = submissionType !== null
   const isStep2Valid = provider !== null && apiKey.trim().length > 0
@@ -78,7 +80,7 @@ const Onboarding = ({
 
       setStep(4)
     } catch {
-      handleError("Failed to skip this step. Please try again.")
+      handleError(t("onboarding.errors.skipFailed"))
     } finally {
       setSubmissionType(null)
     }
@@ -110,7 +112,7 @@ const Onboarding = ({
 
         setStep(3)
       } catch {
-        handleError("Failed to connect your AI provider. Please try again.")
+        handleError(t("onboarding.errors.connectFailed"))
       } finally {
         setSubmissionType(null)
       }
@@ -136,7 +138,7 @@ const Onboarding = ({
 
         setStep(4)
       } catch {
-        handleError("Failed to save your writing examples. Please try again.")
+        handleError(t("onboarding.errors.saveExamplesFailed"))
       } finally {
         setSubmissionType(null)
       }
@@ -167,7 +169,7 @@ const Onboarding = ({
 
         setStep(5)
       } catch {
-        handleError("Failed to save your visual preferences. Please try again.")
+        handleError(t("onboarding.errors.savePreferencesFailed"))
       } finally {
         setSubmissionType(null)
       }
@@ -189,7 +191,7 @@ const Onboarding = ({
         router.replace("/app")
         router.refresh()
       } catch (error) {
-        handleError("Failed to complete onboarding. Please try again.")
+        handleError(t("onboarding.errors.completeFailed"))
       } finally {
         setSubmissionType(null)
       }

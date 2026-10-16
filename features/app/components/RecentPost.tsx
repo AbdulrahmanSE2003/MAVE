@@ -4,8 +4,10 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { generatePostRowIcon, htmlToPlainText } from "../utils"
 import Link from "next/link"
 import { Post } from "@/lib/generated/prisma/client"
+import { getI18n } from "@/lib/i18n/server"
 
-const RecentPost = ({ postRow }: { postRow: Post }) => {
+const RecentPost = async ({ postRow }: { postRow: Post }) => {
+  const { t } = await getI18n()
   return (
     <Link
       href={`/app/write/${postRow.id}`}
@@ -37,7 +39,9 @@ const RecentPost = ({ postRow }: { postRow: Post }) => {
         <div className={`ml-auto flex items-center gap-3`}>
           <div className={`flex flex-col items-center gap-1`}>
             <span className={`text-xs`}>{postRow.platform}</span>
-            <span className={`paragraph text-[9px]`}>2 hours ago</span>
+            <span className={`paragraph text-[9px]`}>
+              {t("app.dashboard.recentWork.twoHoursAgo")}
+            </span>
           </div>
           <HugeiconsIcon
             icon={ChevronRight}

@@ -9,15 +9,19 @@ import {
   Linkedin01Icon,
   MoreHorizontalIcon,
 } from "@hugeicons/core-free-icons"
+import { useT } from "@/lib/i18n"
 import type { HistoryItem } from "../types"
 
 const HistoryItemCard = ({ item }: { item: HistoryItem }) => {
+  const t = useT()
   const [openMenu, setOpenMenu] = useState(false)
   const [copied, setCopied] = useState(false)
 
   async function copyContent() {
     try {
-      await navigator.clipboard.writeText(`${item.title}\n\n${item.excerpt}`)
+      await navigator.clipboard.writeText(
+        `${t(item.title)}\n\n${t(item.excerpt)}`
+      )
       setCopied(true)
       setOpenMenu(false)
     } catch {
@@ -36,7 +40,7 @@ const HistoryItemCard = ({ item }: { item: HistoryItem }) => {
             MAVE
           </span>
           <span className="line-clamp-3 text-xs leading-4 font-semibold text-black">
-            {item.title}
+            {t(item.title)}
           </span>
         </div>
 
@@ -54,21 +58,23 @@ const HistoryItemCard = ({ item }: { item: HistoryItem }) => {
             </span>
 
             <span className="rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
-              {item.status}
+              {item.status === "Generated"
+                ? t("history.status.generated")
+                : t("history.status.edited")}
             </span>
           </div>
 
           <div className="space-y-1.5">
             <h2 className="truncate text-base font-semibold tracking-tight sm:text-lg">
-              {item.title}
+              {t(item.title)}
             </h2>
 
             <p className="line-clamp-2 max-w-3xl text-sm leading-6 text-muted-foreground">
-              {item.excerpt}
+              {t(item.excerpt)}
             </p>
           </div>
 
-          <p className="text-xs text-muted-foreground">{item.date}</p>
+          <p className="text-xs text-muted-foreground">{t(item.date)}</p>
         </div>
 
         {/* Actions */}
@@ -76,8 +82,14 @@ const HistoryItemCard = ({ item }: { item: HistoryItem }) => {
           <button
             type="button"
             onClick={copyContent}
-            aria-label={`Copy ${item.title}`}
-            title={copied ? "Copied" : "Copy content"}
+            aria-label={t("history.card.copyAriaLabel", {
+              title: t(item.title),
+            })}
+            title={
+              copied
+                ? t("common.actions.copied")
+                : t("history.card.copyContent")
+            }
             className="hidden size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:flex"
           >
             <HugeiconsIcon icon={Copy01Icon} className="size-4" />
@@ -86,7 +98,9 @@ const HistoryItemCard = ({ item }: { item: HistoryItem }) => {
           <button
             type="button"
             onClick={() => setOpenMenu((current) => !current)}
-            aria-label={`More actions for ${item.title}`}
+            aria-label={t("history.card.moreActionsAriaLabel", {
+              title: t(item.title),
+            })}
             aria-expanded={openMenu}
             className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
@@ -94,24 +108,24 @@ const HistoryItemCard = ({ item }: { item: HistoryItem }) => {
           </button>
 
           {openMenu && (
-            <div className="absolute top-10 right-0 z-20 w-44 rounded-xl border bg-popover p-1.5 shadow-lg">
+            <div className="absolute end-0 top-10 z-20 w-44 rounded-xl border bg-popover p-1.5 shadow-lg">
               <button
                 type="button"
                 onClick={copyContent}
-                className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm hover:bg-muted"
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-start text-sm hover:bg-muted"
               >
                 <HugeiconsIcon icon={Copy01Icon} className="size-4" />
-                Copy content
+                {t("history.card.copyContent")}
               </button>
 
               <button
                 type="button"
                 disabled
-                title="Removing entries will be available once history is connected."
-                className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm text-destructive hover:bg-destructive/10 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-transparent"
+                title={t("history.card.removeUnavailableTitle")}
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-start text-sm text-destructive hover:bg-destructive/10 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-transparent"
               >
                 <HugeiconsIcon icon={Delete02Icon} className="size-4" />
-                Remove from list
+                {t("history.card.removeFromList")}
               </button>
             </div>
           )}
@@ -120,7 +134,7 @@ const HistoryItemCard = ({ item }: { item: HistoryItem }) => {
 
       {copied && (
         <p className="mt-3 text-xs text-muted-foreground">
-          Content copied to clipboard.
+          {t("history.card.copiedMessage")}
         </p>
       )}
     </article>

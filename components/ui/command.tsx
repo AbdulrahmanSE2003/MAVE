@@ -13,11 +13,8 @@ import {
 } from "@/components/ui/dialog"
 import { InputGroup, InputGroupAddon } from "@/components/ui/input-group"
 import { HugeiconsIcon } from "@hugeicons/react"
-import {
-  Search01Icon,
-  SearchIcon,
-  Tick02Icon,
-} from "@hugeicons/core-free-icons"
+import { Search01Icon, Tick02Icon } from "@hugeicons/core-free-icons"
+import { useT } from "@/lib/i18n"
 
 function Command({
   className,
@@ -36,8 +33,8 @@ function Command({
 }
 
 function CommandDialog({
-  title = "Command Palette",
-  description = "Search for a command to run...",
+  title,
+  description,
   children,
   className,
   showCloseButton = false,
@@ -48,11 +45,15 @@ function CommandDialog({
   className?: string
   showCloseButton?: boolean
 }) {
+  const t = useT()
+
   return (
     <Dialog {...props}>
       <DialogHeader className="sr-only">
-        <DialogTitle>{title}</DialogTitle>
-        <DialogDescription>{description}</DialogDescription>
+        <DialogTitle>{title ?? t("app.commandDialog.title")}</DialogTitle>
+        <DialogDescription>
+          {description ?? t("app.commandDialog.description")}
+        </DialogDescription>
       </DialogHeader>
       <DialogContent
         className={cn(
@@ -75,7 +76,7 @@ function CommandInput({
     <div className="flex items-center border-b px-3" cmdk-input-wrapper="">
       <HugeiconsIcon
         icon={Search01Icon}
-        className="mr-2 size-4 shrink-0 opacity-50"
+        className="me-2 size-4 shrink-0 opacity-50"
       />
       <CommandPrimitive.Input
         className={cn(

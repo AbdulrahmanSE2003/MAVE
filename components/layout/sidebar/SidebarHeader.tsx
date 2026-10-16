@@ -14,6 +14,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Kbd, KbdGroup } from "@/components/ui/kbd"
+import { useT } from "@/lib/i18n"
 
 const SidebarHeader = ({
   isOpen,
@@ -22,6 +23,8 @@ const SidebarHeader = ({
   isOpen: boolean
   toggleSidebar: () => void
 }) => {
+  const t = useT()
+
   return (
     <div
       className={cn(
@@ -36,7 +39,7 @@ const SidebarHeader = ({
             onClick={toggleSidebar}
             variant="invisible"
             size="icon"
-            aria-label="Toggle Sidebar"
+            aria-label={t("app.sidebar.toggleSidebar")}
             className={`opacity-85 transition-opacity duration-150 hover:translate-0 hover:opacity-100`}
           >
             {!isOpen ? (
@@ -49,7 +52,7 @@ const SidebarHeader = ({
 
         <TooltipContent side="right" className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
-            <span>Toggle Sidebar</span>
+            <span>{t("app.sidebar.toggleSidebar")}</span>
             <KbdGroup>
               <Kbd>⌘</Kbd>
               <span>+</span>

@@ -11,16 +11,18 @@ import {
 import { useState } from "react"
 import { ThemeToggle } from "../ui/theme-toggle"
 import Logo from "./Logo"
+import { useT } from "@/lib/i18n"
 
 const links = [
-  { label: "home", href: "/" },
-  { label: "about", href: "/about" },
-  { label: "changelog", href: "/changelog" },
-]
+  { labelKey: "marketing.nav.home", href: "/" },
+  { labelKey: "marketing.nav.about", href: "/about" },
+  { labelKey: "marketing.nav.changelog", href: "/changelog" },
+] as const
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
   const toggle = () => setOpen((v) => !v)
+  const t = useT()
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 flex-between bg-background p-4">
@@ -31,11 +33,11 @@ const Navbar = () => {
         <div className="flex items-center gap-6">
           {links.map((link) => (
             <Link
-              key={link.label}
+              key={link.labelKey}
               href={link.href}
               className="capitalize transition-opacity duration-150 hover:opacity-75"
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
         </div>
@@ -43,7 +45,7 @@ const Navbar = () => {
         <ThemeToggle />
         <Button asChild className="capitalize">
           <Link href="/signup">
-            <span>Start Creating</span>
+            <span>{t("marketing.startCreating")}</span>
             <HugeiconsIcon icon={ArrowRight02Icon} />
           </Link>
         </Button>
@@ -54,7 +56,7 @@ const Navbar = () => {
         variant="ghost"
         size="icon"
         onClick={toggle}
-        aria-label="Toggle menu"
+        aria-label={t("marketing.nav.toggleMenu")}
         aria-expanded={open}
         className="md:hidden"
       >
@@ -66,17 +68,17 @@ const Navbar = () => {
         <div className="absolute inset-x-0 top-full flex flex-col gap-2 border-b bg-background p-4 shadow-md md:hidden">
           {links.map((link) => (
             <Link
-              key={link.label}
+              key={link.labelKey}
               href={link.href}
               onClick={() => setOpen(false)}
               className="rounded-md px-2 py-2 capitalize hover:bg-accent"
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
           <Button size={"lg"} asChild className="mt-2 w-full capitalize">
             <Link href="/signup" onClick={() => setOpen(false)}>
-              <span>Start Creating</span>
+              <span>{t("marketing.startCreating")}</span>
               <HugeiconsIcon icon={ArrowRight02Icon} />
             </Link>
           </Button>

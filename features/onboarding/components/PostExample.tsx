@@ -3,6 +3,7 @@ import { Field, FieldLabel } from "@/components/ui/field"
 import { Textarea } from "@/components/ui/textarea"
 import { Trash2 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
+import { useT } from "@/lib/i18n"
 
 const PostExample = ({
   num,
@@ -17,16 +18,20 @@ const PostExample = ({
   onDelete: (index: number) => void
   isDisabled: boolean
 }) => {
+  const t = useT()
+
   return (
     <Field>
       <div className={`mb-2 flex-between`}>
-        <FieldLabel htmlFor="textarea-message">Example {num}</FieldLabel>
+        <FieldLabel htmlFor="textarea-message">
+          {t("onboarding.steps.examples.exampleLabel", { num })}
+        </FieldLabel>
         <Button
           size={"icon"}
           variant={"destructive"}
           type="button"
-          aria-label="Delete item"
-          title="Delete item"
+          aria-label={t("onboarding.steps.examples.deleteItem")}
+          title={t("onboarding.steps.examples.deleteItem")}
           disabled={isDisabled}
           onClick={() => onDelete(num - 1)}
         >
@@ -38,7 +43,7 @@ const PostExample = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
 
-        placeholder="Post something you've written..."
+        placeholder={t("onboarding.steps.examples.placeholder")}
       />
     </Field>
   )

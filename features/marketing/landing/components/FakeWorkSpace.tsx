@@ -1,35 +1,43 @@
 import Logo from "@/components/layout/Logo"
 import { Badge } from "@/components/ui/badge"
 import PostCard from "@/components/layout/PostCard"
-import { instagramPost, linkedinPost } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight02Icon, Picture } from "@hugeicons/core-free-icons"
+import { getI18n } from "@/lib/i18n/server"
 
-const FakeContentArea = () => {
+const FakeContentArea = async () => {
+  const { t, dict } = await getI18n()
+
   return (
     <div
       className={`flex h-full w-full flex-col gap-5 rounded-lg border border-border bg-muted p-4 shadow-xl max-md:flex-1 md:p-10`}
     >
       {/*Header*/}
       <div className={`flex-between border-b border-border pb-5`}>
-        <span className={`font-semibold`}>Writing workspace</span>
+        <span className={`font-semibold`}>
+          {t("marketing.workspace.title")}
+        </span>
         <Badge variant={"outline"} className={`p-3`}>
           <span
             className={`h-2 w-2 animate-pulse rounded-full bg-primary shadow-primary`}
           ></span>
-          Generated
+          {t("marketing.workspace.generated")}
         </Badge>
       </div>
 
       {/*Content Area*/}
       <div className={`grid w-full gap-4 xl:grid-cols-2`}>
-        <PostCard isCommercial platform={"LinkedIn"} content={linkedinPost} />
+        <PostCard
+          isCommercial
+          platform={"LinkedIn"}
+          content={dict.marketing.workspace.demoLinkedin}
+        />
         <PostCard
           isCommercial
           className={`max-xl:hidden`}
           platform={"Instagram"}
-          content={instagramPost}
+          content={dict.marketing.workspace.demoInstagram}
         />
       </div>
       <Button
@@ -38,10 +46,10 @@ const FakeContentArea = () => {
       >
         <div className={`flex-center gap-2 text-xs font-light`}>
           <HugeiconsIcon icon={Picture} />
-          <span>Turn this post into a visual</span>
+          <span>{t("marketing.workspace.turnIntoVisual")}</span>
         </div>
         <div className={`flex-center gap-2`}>
-          <span>Continue</span>
+          <span>{t("marketing.workspace.continue")}</span>
           <HugeiconsIcon icon={ArrowRight02Icon} />
         </div>
       </Button>

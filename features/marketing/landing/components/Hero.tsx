@@ -3,8 +3,11 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight02Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import Link from "next/link"
+import { getI18n } from "@/lib/i18n/server"
 
-const Hero = () => {
+const Hero = async () => {
+  const { t } = await getI18n()
+
   return (
     <div
       id="hero"
@@ -15,25 +18,24 @@ const Hero = () => {
         className={`flex-col gap-1 [&_h1]:text-6xl sm:[&_h1]:text-8xl [&_h2]:text-6xl sm:[&_h2]:text-8xl`}
       >
         <Badge className={`mb-2 p-3 uppercase`} variant={"outline"}>
-          Personal content studio
+          {t("marketing.hero.badge")}
         </Badge>
-        <h1 className={`font-bold`}>Your ideas,</h1>
-        <h2 className={`font-normal`}>your voice.</h2>
+        <h1 className={`font-bold`}>{t("marketing.hero.titleLine1")}</h1>
+        <h2 className={`font-normal`}>{t("marketing.hero.titleLine2")}</h2>
         <p className={`mt-3 text-muted-foreground sm:max-w-md`}>
-          MAVE turns the thoughts in your head into polished social content that
-          still sounds unmistakably like you.
+          {t("marketing.hero.description")}
         </p>
 
         {/*Hero Buttons*/}
         <div className={`mt-8 flex gap-4`}>
           <Button asChild size={"lg"}>
             <Link href={"/signup"}>
-              Start Creating
+              {t("marketing.startCreating")}
               <HugeiconsIcon icon={ArrowRight02Icon} />
             </Link>
           </Button>
           <Button asChild size={"lg"} variant="outline">
-            <Link href="#howitworks">See how it works</Link>
+            <Link href="#howitworks">{t("marketing.hero.seeHowItWorks")}</Link>
           </Button>
         </div>
       </div>
@@ -41,16 +43,16 @@ const Hero = () => {
       <div
         className={`absolute right-4 bottom-6 flex items-center gap-2 text-muted-foreground uppercase max-sm:text-xs`}
       >
-        <span>Idea</span>
+        <span>{t("marketing.hero.flow.idea")}</span>
         <HugeiconsIcon size={18} icon={ArrowRight02Icon} />
-        <span>Writing style</span>
+        <span>{t("marketing.hero.flow.writingStyle")}</span>
         <HugeiconsIcon size={18} icon={ArrowRight02Icon} />
-        <span>Content</span>
+        <span>{t("marketing.hero.flow.content")}</span>
         <HugeiconsIcon size={18} icon={ArrowRight02Icon} />
         <span
           className={`rounded-full bg-primary p-3 py-1.5 font-semibold text-black`}
         >
-          Visual
+          {t("marketing.hero.flow.visual")}
         </span>
       </div>
     </div>

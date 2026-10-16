@@ -1,8 +1,11 @@
 import Logo from "@/components/layout/Logo"
 import AuthErrorHandler from "./AuthErrorHandler"
 import { ReactNode } from "react"
+import { getI18n } from "@/lib/i18n/server"
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
+  const { t } = await getI18n()
+
   return (
     <main className={`flex justify-start`}>
       <AuthErrorHandler />
@@ -15,17 +18,19 @@ export default function Layout({ children }: { children: ReactNode }) {
 
         {/*Intro Text*/}
         <div className={`relative z-10 leading-relaxed`}>
-          <h2 className={`text-6xl`}>Your ideas,</h2>
-          <h2 className={`text-6xl text-primary`}>your voice.</h2>
+          <h2 className={`text-6xl`}>{t("auth.layout.taglineLine1")}</h2>
+          <h2 className={`text-6xl text-primary`}>
+            {t("auth.layout.taglineLine2")}
+          </h2>
           <p
             className={`mt-6 paragraph text-sm font-normal not-dark:text-background/70`}
           >
-            A personal studio for content that sounds like you.
+            {t("auth.layout.intro")}
           </p>
         </div>
 
         <p className={`paragraph text-xs not-dark:text-background/70`}>
-          &copy; {new Date().getFullYear()} MAVE
+          {t("auth.layout.copyright", { year: new Date().getFullYear() })}
         </p>
 
         {/*Circle*/}

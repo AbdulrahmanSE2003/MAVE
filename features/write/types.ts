@@ -1,4 +1,4 @@
-import { goalValues, Tones } from "./constants"
+import { Tones } from "./constants"
 
 export type EditorState = {
   canUndo: boolean
@@ -11,5 +11,4 @@ export type GoalValue = "educate" | "experience" | "story" | "discussion"
 
 export interface Goal {
   value: GoalValue
-  label: string
 }

@@ -4,6 +4,7 @@ import StepIntro from "./StepIntro"
 import TasteLap from "./taste-lap/TasteLap"
 import TastePreview from "./taste-lap/TastePreview"
 import { Separator } from "@/components/ui/separator"
+import { useT } from "@/lib/i18n"
 import {
   VisualColorPalette,
   VisualDensity,
@@ -34,6 +35,7 @@ const Step4 = ({
   typography,
   setTypography,
 }: Step4Props) => {
+  const t = useT()
   const moodProfile = MOOD_DEFAULTS[mood]
 
   return (
@@ -51,10 +53,10 @@ const Step4 = ({
             step="04"
             heading={
               <h2 className="relative z-10 max-w-2xl text-5xl font-medium">
-                Select your visual style.
+                {t("onboarding.steps.style.heading")}
               </h2>
             }
-            para="Choose the visual style that feels most like you. Pick what catches your eye."
+            para={t("onboarding.steps.style.paragraph")}
           />
         </div>
 

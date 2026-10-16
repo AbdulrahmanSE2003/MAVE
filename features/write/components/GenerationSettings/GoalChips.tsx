@@ -1,5 +1,6 @@
 import { goals } from "../../constants"
 import { Goal } from "../../types"
+import { useI18n } from "@/lib/i18n"
 
 type GoalChipsProps = {
   goal: Goal["value"]
@@ -7,6 +8,8 @@ type GoalChipsProps = {
 }
 
 const GoalChips = ({ goal, setGoal }: GoalChipsProps) => {
+  const { dict } = useI18n()
+
   return (
     <div className="flex flex-wrap gap-2">
       {goals.map((item) => (
@@ -21,7 +24,7 @@ const GoalChips = ({ goal, setGoal }: GoalChipsProps) => {
               : "border-border text-muted-foreground hover:bg-muted"
           }`}
         >
-          {item.label}
+          {dict.write.settings.goals[item.value]}
         </button>
       ))}
     </div>

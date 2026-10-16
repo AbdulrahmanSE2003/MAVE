@@ -1,8 +1,8 @@
 import { z } from "zod"
 
 export const signinSchema = z.object({
-  email: z.email("Please enter a valid email address."),
-  password: z.string().min(8, "Password must be at least 8 characters."),
+  email: z.email("auth.validation.emailInvalid"),
+  password: z.string().min(8, "auth.validation.passwordTooShort"),
 })
 
 export type SigninFormValues = z.infer<typeof signinSchema>

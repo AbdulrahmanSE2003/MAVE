@@ -5,7 +5,7 @@ export const providerEnum = ["OPENAI", "GEMINI"] as const
 // AI credential schema
 export const saveAiCredentialSchema = z.object({
   provider: z.enum(providerEnum),
-  apiKey: z.string().trim().min(1, "API key is required."),
+  apiKey: z.string().trim().min(1, "onboarding.validation.apiKeyRequired"),
 })
 
 export type SaveAiCredentialInput = z.infer<typeof saveAiCredentialSchema>
@@ -15,10 +15,10 @@ export const saveWritingExamplesSchema = z.object({
   examples: z
     .array(
       z.object({
-        content: z.string().trim().min(1, "Example cannot be empty."),
+        content: z.string().trim().min(1, "onboarding.validation.exampleEmpty"),
       })
     )
-    .max(5, "You can add up to 5 writing examples."),
+    .max(5, "onboarding.validation.maxExamples"),
 })
 
 export type SaveWritingExamplesInput = z.infer<typeof saveWritingExamplesSchema>

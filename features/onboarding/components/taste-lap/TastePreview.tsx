@@ -2,6 +2,7 @@
 
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
+import { useI18n, useT } from "@/lib/i18n"
 import {
   VisualColorPalette,
   VisualDensity,
@@ -10,7 +11,6 @@ import {
   MOOD_DEFAULTS,
 } from "@/lib/visuals/taste"
 import {
-  buildTasteDescription,
   DENSITY_SCALE,
   LIGHTING_WASH,
   MOOD_LAYOUT,
@@ -33,6 +33,8 @@ const TastePreview = ({
   typography,
   moodProfile,
 }: TastePreviewProps) => {
+  const t = useT()
+  const { dict } = useI18n()
   const theme = PALETTE_THEME[colorPalette]
   const scale = DENSITY_SCALE[density]
   const layout = MOOD_LAYOUT[mood]
@@ -46,7 +48,7 @@ const TastePreview = ({
         <div className="flex items-center gap-2">
           <span className="size-1.5 rounded-full bg-foreground" />
           <span className="text-[10px] font-semibold tracking-[0.18em] text-foreground uppercase">
-            Live preview
+            {t("onboarding.preview.livePreview")}
           </span>
         </div>
       </div>
@@ -139,7 +141,7 @@ const TastePreview = ({
             >
               MAVE
               <span className="mx-1.5 opacity-50">/</span>
-              Content studio
+              {t("onboarding.preview.contentStudio")}
             </span>
 
             <span
@@ -159,7 +161,7 @@ const TastePreview = ({
                 style={{ backgroundColor: theme.accent }}
               />
               <span className="text-[9px] font-medium tracking-[0.16em] uppercase">
-                A study in ideas
+                {t("onboarding.preview.studyInIdeas")}
               </span>
             </div>
           )}
@@ -179,17 +181,17 @@ const TastePreview = ({
             >
               {mood === "Bold" ? (
                 <>
-                  MAKE
+                  {t("onboarding.preview.headlineMake")}
                   <br />
-                  IT
+                  {t("onboarding.preview.headlineIt")}
                   <br />
-                  MATTER.
+                  {t("onboarding.preview.headlineMatter")}
                 </>
               ) : (
                 <>
-                  The idea
+                  {t("onboarding.preview.headlineIdea")}
                   <br />
-                  starts{" "}
+                  {t("onboarding.preview.headlineStarts")}{" "}
                   <span
                     className={cn(
                       typography === "Serif" && "italic",
@@ -201,7 +203,7 @@ const TastePreview = ({
                       textDecorationColor: theme.accent,
                     }}
                   >
-                    here.
+                    {t("onboarding.preview.headlineHere")}
                   </span>
                 </>
               )}
@@ -238,16 +240,16 @@ const TastePreview = ({
                 className="text-[9px] font-medium tracking-[0.15em] uppercase"
                 style={{ color: theme.sub }}
               >
-                {mood}
+                {dict.onboarding.taste.moods[mood]}
               </span>
 
               <span
                 className="max-w-60 text-[10px] leading-relaxed"
                 style={{ color: theme.sub }}
               >
-                {moodProfile.medium}
+                {dict.onboarding.preview.mediums[moodProfile.medium]}
                 <span className="mx-1.5 opacity-50">/</span>
-                {moodProfile.composition}
+                {dict.onboarding.preview.compositions[moodProfile.composition]}
               </span>
             </div>
 
@@ -308,11 +310,16 @@ const TastePreview = ({
 
         <div className="min-w-0 flex-1 space-y-1.5">
           <span className="block text-[10px] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-            MAVE&apos;S READ
+            {t("onboarding.preview.mavesRead")}
           </span>
 
           <p className="text-sm leading-6 text-foreground/80">
-            {buildTasteDescription(mood, colorPalette, density)}
+            {t("onboarding.preview.description", {
+              mood: dict.onboarding.taste.moods[mood],
+              color: dict.onboarding.preview.colorFeels[colorPalette],
+              density: dict.onboarding.preview.densityFeels[density],
+              feel: dict.onboarding.preview.moodFeels[mood],
+            })}
           </p>
         </div>
       </div>
@@ -321,7 +328,12 @@ const TastePreview = ({
 
       {/* Selection summary */}
       <div className="flex flex-wrap items-center gap-2">
-        {[mood, colorPalette, density, typography].map((value) => (
+        {[
+          dict.onboarding.taste.moods[mood],
+          dict.onboarding.taste.paletteLabels[colorPalette],
+          dict.onboarding.taste.densityLabels[density],
+          dict.onboarding.taste.typographyOptions[typography],
+        ].map((value) => (
           <span
             key={value}
             className="rounded-full border border-border/80 px-2.5 py-1 text-[10px] text-muted-foreground"

@@ -8,8 +8,10 @@ import { Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Kbd, KbdGroup } from "./kbd"
 import { Skeleton } from "./skeleton"
+import { useT } from "@/lib/i18n"
 
 export function ThemeToggle() {
+  const t = useT()
   const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
@@ -22,7 +24,7 @@ export function ThemeToggle() {
         variant="outline"
         size="sm"
         className={`min-w-24`}
-        aria-label="Toggle theme"
+        aria-label={t("app.theme.toggle")}
         disabled
       >
         <Skeleton className={`w-full`} />
@@ -37,7 +39,11 @@ export function ThemeToggle() {
       variant="outline"
       size="sm"
       className="gap-2"
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={
+        isDark
+          ? t("app.theme.switchToLightMode")
+          : t("app.theme.switchToDarkMode")
+      }
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       <span className="relative size-4">

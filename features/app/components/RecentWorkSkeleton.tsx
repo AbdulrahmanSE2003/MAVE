@@ -26,7 +26,7 @@ export default function RecentWorkSkeleton() {
             </div>
 
             {/* Meta Skeleton */}
-            <div className="ml-auto flex items-center gap-3">
+            <div className="ms-auto flex items-center gap-3">
               <div className="flex flex-col items-center gap-1.5">
                 <Skeleton className="h-3 w-12" />
                 <Skeleton className="h-2.5 w-14" />

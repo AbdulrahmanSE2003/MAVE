@@ -7,6 +7,7 @@ import { useEditor, EditorContent, useEditorState } from "@tiptap/react"
 import EditorBar from "./EditorBar"
 import { copyPostAsFormatted, copyPostAsPlainText } from "../utils"
 import TextEditorSkeleton from "./TextEditorSkeleton"
+import { useT } from "@/lib/i18n"
 
 type RichTextEditorProps = {
   initContent: string
@@ -26,10 +27,16 @@ export default function RichTextEditor({
   onEditorReady,
 }: RichTextEditorProps) {
   const onSaveRef = useRef(onSave)
+  const t = useT()
+  const tRef = useRef(t)
 
   useEffect(() => {
     onSaveRef.current = onSave
   }, [onSave])
+
+  useEffect(() => {
+    tRef.current = t
+  }, [t])
 
   const extensions = useMemo(
     () => [
@@ -68,17 +75,17 @@ export default function RichTextEditor({
             "Mod-c": () => {
               if (!this.editor.state.selection.empty) return false
 
-              void copyPostAsPlainText(this.editor)
+              void copyPostAsPlainText(this.editor, tRef.current)
               return true
             },
 
             "Mod-Shift-y": () => {
-              void copyPostAsPlainText(this.editor)
+              void copyPostAsPlainText(this.editor, tRef.current)
               return true
             },
 
             "Mod-Alt-c": () => {
-              void copyPostAsFormatted(this.editor)
+              void copyPostAsFormatted(this.editor, tRef.current)
               return true
             },
           }

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Alert01Icon, Refresh01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
+import { useT } from "@/lib/i18n"
 
 type ErrorStateProps = {
   title?: string
@@ -12,11 +13,17 @@ type ErrorStateProps = {
 }
 
 export default function Error({
-  title = "Something went wrong",
-  description = "We couldn't load this page. Please try again.",
+  title,
+  description,
   onRetry,
-  retryLabel = "Try again",
+  retryLabel,
 }: ErrorStateProps) {
+  const t = useT()
+
+  const resolvedTitle = title ?? t("errors.error.title")
+  const resolvedDescription = description ?? t("errors.error.description")
+  const resolvedRetryLabel = retryLabel ?? t("errors.error.retry")
+
   return (
     <section
       role="alert"
@@ -31,11 +38,11 @@ export default function Error({
       </div>
 
       <h1 className="text-xl font-semibold tracking-tight text-foreground">
-        {title}
+        {resolvedTitle}
       </h1>
 
       <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
-        {description}
+        {resolvedDescription}
       </p>
 
       {onRetry && (
@@ -45,7 +52,7 @@ export default function Error({
             aria-hidden="true"
             className="size-4"
           />
-          {retryLabel}
+          {resolvedRetryLabel}
         </Button>
       )}
     </section>

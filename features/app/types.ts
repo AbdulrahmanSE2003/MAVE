@@ -1,8 +1,9 @@
 import { ContentType, Platform } from "@/lib/generated/prisma/enums"
+import type { TranslationKey } from "@/lib/i18n/translator"
 
 export interface ShortcutGroup {
-  category: string
-  items: { label: string; keys: string[] }[]
+  categoryKey: TranslationKey
+  items: { labelKey: TranslationKey; keys: string[] }[]
 }
 
 export const PLATFORM_LABELS: Record<Platform, string> = {
@@ -10,11 +11,6 @@ export const PLATFORM_LABELS: Record<Platform, string> = {
   INSTAGRAM: "Instagram",
 }
 
-// export enum ContentType {
-//   LINKEDIN_POST = "Linkedin Post",
-//   INSTAGRAM_CAPTION = "Instagram Caption",
-//   INSTAGRAM_CAROUSEL = "Instagram Carousel",
-// }
 export type CarouselSlide = {
   id: string
   order: number

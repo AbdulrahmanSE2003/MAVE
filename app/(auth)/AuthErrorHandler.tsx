@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import { AUTH_ERRORS } from "@/features/auth/constants"
-
-
+import { useI18n } from "@/lib/i18n"
 
 export default function AuthErrorHandler() {
+  const { tm } = useI18n()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -20,9 +20,7 @@ export default function AuthErrorHandler() {
 
     handledError.current = error
 
-    const message =
-      AUTH_ERRORS[error] ??
-      "Something went wrong while signing you in. Please try again."
+    const message = tm(AUTH_ERRORS[error] ?? "auth.errors.signInFailed")
 
     toast.error(message)
 
@@ -30,7 +28,7 @@ export default function AuthErrorHandler() {
     url.searchParams.delete("error")
 
     router.replace(`${pathname}${url.search}`)
-  }, [searchParams, pathname, router])
+  }, [searchParams, pathname, router, tm])
 
   return null
 }

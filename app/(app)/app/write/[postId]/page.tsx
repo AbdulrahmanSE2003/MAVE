@@ -3,18 +3,21 @@ import { getPost } from "@/features/app/actions"
 import { plainTextToHtml } from "@/features/app/utils"
 import TopBar from "@/features/write/components/TopBar"
 import WriteWorkspace from "@/features/write/components/WriteWorkspace"
+import { getI18n } from "@/lib/i18n/server"
 const App = async ({ params }: { params: Promise<{ postId: string }> }) => {
   const { postId } = await params
   const postRes = await getPost(postId)
-  if (!postRes.success)
+  if (!postRes.success) {
+    const { t } = await getI18n()
     return (
       <NotFound
-        title="Post not found"
-        description="This post doesn't exist or is no longer available."
-        homeLabel="Back to posts"
+        title={t("write.notFound.title")}
+        description={t("write.notFound.description")}
+        homeLabel={t("write.notFound.backToPosts")}
         homeHref="/app/write"
       />
     )
+  }
   const post = postRes.data
 
   return (

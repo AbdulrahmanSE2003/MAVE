@@ -13,14 +13,16 @@ import {
   type SaveAiCredentialInput,
 } from "./schemas"
 import { getOnboardingState } from "@/lib/users/onboarding"
+import { getI18n } from "@/lib/i18n/server"
 
 export async function checkIsAuthenticated() {
   const { data } = await auth.getSession()
 
   if (!data?.user) {
+    const { t } = await getI18n()
     return {
       success: false as const,
-      error: "You must be signed in.",
+      error: t("onboarding.errors.mustBeSignedIn"),
     }
   }
   return {
@@ -37,12 +39,15 @@ export async function saveAiCredential(input: SaveAiCredentialInput) {
     return authResult
   }
 
+  const { tm } = await getI18n()
   const parsed = saveAiCredentialSchema.safeParse(input)
 
   if (!parsed.success) {
     return {
       success: false as const,
-      error: parsed.error.issues[0]?.message ?? "Invalid input.",
+      error: tm(
+        parsed.error.issues[0]?.message ?? "onboarding.errors.invalidInput"
+      ),
     }
   }
 
@@ -79,12 +84,15 @@ export async function saveWritingExamples(input: SaveWritingExamplesInput) {
     return authResult
   }
 
+  const { tm } = await getI18n()
   const parsed = saveWritingExamplesSchema.safeParse(input)
 
   if (!parsed.success) {
     return {
       success: false as const,
-      error: parsed.error.issues[0]?.message ?? "Invalid input.",
+      error: tm(
+        parsed.error.issues[0]?.message ?? "onboarding.errors.invalidInput"
+      ),
     }
   }
 
@@ -147,12 +155,16 @@ export async function saveVisualPreferences(input: SaveVisualPreferencesInput) {
     return authResult
   }
 
+  const { tm } = await getI18n()
   const parsed = saveVisualPreferencesSchema.safeParse(input)
 
   if (!parsed.success) {
     return {
       success: false as const,
-      error: parsed.error.issues[0]?.message ?? "Invalid preferences.",
+      error: tm(
+        parsed.error.issues[0]?.message ??
+          "onboarding.errors.invalidPreferences"
+      ),
     }
   }
 
@@ -189,9 +201,10 @@ export async function completeOnboarding() {
   }
 
   if (state.step !== 5) {
+    const { t } = await getI18n()
     return {
       success: false as const,
-      error: "Onboarding is not ready to be completed.",
+      error: t("onboarding.errors.notReadyToComplete"),
     }
   }
 

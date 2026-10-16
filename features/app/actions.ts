@@ -2,14 +2,16 @@
 
 import { getCurrentUser } from "@/lib/users/current-user"
 import { prisma } from "@/lib/prisma"
+import { getI18n } from "@/lib/i18n/server"
 
 export const getUserPosts = async () => {
   const user = await getCurrentUser()
 
   if (!user) {
+    const { t } = await getI18n()
     return {
       success: false as const,
-      error: "You must be signed in.",
+      error: t("app.actions.errors.signedOut"),
     }
   }
 
@@ -32,9 +34,10 @@ export const getPost = async (postId: string) => {
   const user = await getCurrentUser()
 
   if (!user) {
+    const { t } = await getI18n()
     return {
       success: false as const,
-      error: "You must be signed in.",
+      error: t("app.actions.errors.signedOut"),
     }
   }
 
@@ -46,9 +49,10 @@ export const getPost = async (postId: string) => {
   })
 
   if (!post) {
+    const { t } = await getI18n()
     return {
       success: false as const,
-      error: "Post not found.",
+      error: t("app.actions.errors.postNotFound"),
     }
   }
 

@@ -1,5 +1,6 @@
 import { Editor } from "@tiptap/react"
 import { toast } from "sonner"
+import type { Translator } from "@/lib/i18n"
 import { copyFormattedContent, copyPlainTextContent } from "../app/utils"
 import { EditorState } from "./types"
 
@@ -13,37 +14,38 @@ type MenuAction = {
 
 type MenuEntry = { type: "item"; action: MenuAction } | { type: "separator" }
 
-export async function copyPostAsPlainText(editor: Editor) {
+export async function copyPostAsPlainText(editor: Editor, t: Translator) {
   try {
     await copyPlainTextContent(editor.getText({ blockSeparator: "\n\n" }))
-    toast.success("Post copied successfully.")
+    toast.success(t("write.editor.copySuccess"))
   } catch {
-    toast.error("Failed to copy post.")
+    toast.error(t("write.editor.copyFailed"))
   }
 }
 
-export async function copyPostAsFormatted(editor: Editor) {
+export async function copyPostAsFormatted(editor: Editor, t: Translator) {
   try {
     await copyFormattedContent(
       editor.getHTML(),
       editor.getText({ blockSeparator: "\n\n" })
     )
-    toast.success("Formatted post copied successfully.")
+    toast.success(t("write.editor.copyFormattedSuccess"))
   } catch {
-    toast.error("Failed to copy post.")
+    toast.error(t("write.editor.copyFailed"))
   }
 }
 
 export function buildMenus(
   editor: Editor,
-  editorState: EditorState
+  editorState: EditorState,
+  t: Translator
 ): Record<string, MenuEntry[]> {
   return {
-    Edit: [
+    [t("write.editor.menus.edit")]: [
       {
         type: "item",
         action: {
-          label: "Undo",
+          label: t("write.editor.undo"),
           shortcut: "Ctrl+Z",
           onSelect: () => editor.chain().focus().undo().run(),
           isDisabled: () => !editorState?.canUndo,
@@ -52,7 +54,7 @@ export function buildMenus(
       {
         type: "item",
         action: {
-          label: "Redo",
+          label: t("write.editor.redo"),
           shortcut: "Ctrl+Y",
           onSelect: () => editor.chain().focus().redo().run(),
           isDisabled: () => !editorState?.canRedo,
@@ -62,7 +64,7 @@ export function buildMenus(
       {
         type: "item",
         action: {
-          label: "Bold",
+          label: t("write.editor.bold"),
           shortcut: "Ctrl+B",
           onSelect: () => editor.chain().focus().toggleBold().run(),
           isActive: () => editor.isActive("bold"),
@@ -71,7 +73,7 @@ export function buildMenus(
       {
         type: "item",
         action: {
-          label: "Italic",
+          label: t("write.editor.italic"),
           shortcut: "Ctrl+I",
           onSelect: () => editor.chain().focus().toggleItalic().run(),
           isActive: () => editor.isActive("italic"),
@@ -80,7 +82,7 @@ export function buildMenus(
       {
         type: "item",
         action: {
-          label: "Strikethrough",
+          label: t("write.editor.strikethrough"),
           shortcut: "Ctrl+Shift+X",
           onSelect: () => editor.chain().focus().toggleStrike().run(),
           isActive: () => editor.isActive("strike"),
@@ -88,11 +90,11 @@ export function buildMenus(
       },
     ],
 
-    Format: [
+    [t("write.editor.menus.format")]: [
       {
         type: "item",
         action: {
-          label: "Paragraph",
+          label: t("write.editor.paragraph"),
           shortcut: "Ctrl+Alt+0",
           onSelect: () => editor.chain().focus().setParagraph().run(),
           isActive: () => editor.isActive("paragraph"),
@@ -102,7 +104,7 @@ export function buildMenus(
       ...[1, 2, 3].map((level): MenuEntry => ({
         type: "item",
         action: {
-          label: `Heading ${level}`,
+          label: t("write.editor.heading", { level }),
           shortcut: `Ctrl+Alt+${level}`,
           onSelect: () =>
             editor
@@ -117,18 +119,18 @@ export function buildMenus(
       {
         type: "item",
         action: {
-          label: "Inline code",
+          label: t("write.editor.inlineCode"),
           onSelect: () => editor.chain().focus().toggleCode().run(),
           isActive: () => editor.isActive("code"),
         },
       },
     ],
 
-    Lists: [
+    [t("write.editor.menus.lists")]: [
       {
         type: "item",
         action: {
-          label: "Bullet list",
+          label: t("write.editor.bulletList"),
           shortcut: "Ctrl+Shift+8",
           onSelect: () => editor.chain().focus().toggleBulletList().run(),
           isActive: () => editor.isActive("bulletList"),
@@ -137,7 +139,7 @@ export function buildMenus(
       {
         type: "item",
         action: {
-          label: "Numbered list",
+          label: t("write.editor.orderedList"),
           shortcut: "Ctrl+Shift+7",
           onSelect: () => editor.chain().focus().toggleOrderedList().run(),
           isActive: () => editor.isActive("orderedList"),
@@ -147,44 +149,44 @@ export function buildMenus(
       {
         type: "item",
         action: {
-          label: "Blockquote",
+          label: t("write.editor.blockquote"),
           onSelect: () => editor.chain().focus().toggleBlockquote().run(),
           isActive: () => editor.isActive("blockquote"),
         },
       },
     ],
 
-    Insert: [
+    [t("write.editor.menus.insert")]: [
       {
         type: "item",
         action: {
-          label: "Horizontal divider",
+          label: t("write.editor.horizontalDivider"),
           onSelect: () => editor.chain().focus().setHorizontalRule().run(),
         },
       },
       {
         type: "item",
         action: {
-          label: "Line break",
+          label: t("write.editor.lineBreak"),
           onSelect: () => editor.chain().focus().setHardBreak().run(),
         },
       },
     ],
-    Actions: [
+    [t("write.editor.menus.actions")]: [
       {
         type: "item",
         action: {
-          label: "Copy as plain text",
+          label: t("write.editor.copyPlainText"),
           shortcut: "Ctrl+Shift+Y",
-          onSelect: () => copyPostAsPlainText(editor),
+          onSelect: () => copyPostAsPlainText(editor, t),
         },
       },
       {
         type: "item",
         action: {
-          label: "Copy as HTML",
+          label: t("write.editor.copyHtml"),
           shortcut: "Ctrl+Alt+C",
-          onSelect: () => copyPostAsFormatted(editor),
+          onSelect: () => copyPostAsFormatted(editor, t),
         },
       },
     ],

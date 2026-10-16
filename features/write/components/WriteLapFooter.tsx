@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Kbd, KbdGroup } from "@/components/ui/kbd"
 import { Loading03Icon, SparklesIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
+import { useT } from "@/lib/i18n"
 
 type WriteLapFooterProps = {
   idea: string
@@ -16,9 +17,13 @@ const WriteLapFooter = ({
   isGenerating,
   onGenerate,
 }: WriteLapFooterProps) => {
+  const t = useT()
+
   return (
     <div className="mt-6 flex flex-col gap-4 border-t pt-5 sm:flex-row sm:items-center sm:justify-between">
-      <p className="text-xs text-muted-foreground">Your idea, your voice.</p>
+      <p className="text-xs text-muted-foreground">
+        {t("write.footer.tagline")}
+      </p>
 
       <div className={`flex items-center gap-1.5`}>
         <KbdGroup className={`max-sm:hidden`}>
@@ -42,7 +47,9 @@ const WriteLapFooter = ({
             <HugeiconsIcon icon={SparklesIcon} className="size-4" />
           )}
 
-          {isGenerating ? "Generating..." : "Generate"}
+          {isGenerating
+            ? t("write.footer.generating")
+            : t("write.footer.generate")}
         </Button>
       </div>
     </div>

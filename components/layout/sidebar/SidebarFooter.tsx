@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Kbd } from "@/components/ui/kbd"
 import { useTheme } from "next-themes"
+import { useT } from "@/lib/i18n"
 
 const SidebarFooter = ({
   isOpen,
@@ -34,6 +35,7 @@ const SidebarFooter = ({
   openShortcuts: () => void
   user: User
 }) => {
+  const t = useT()
   const { resolvedTheme, setTheme } = useTheme()
   const isDark = resolvedTheme === "dark"
 
@@ -75,7 +77,7 @@ const SidebarFooter = ({
                       {user.name}
                     </span>
                     <span className="text-xs text-muted-foreground">
-                      Beta user
+                      {t("app.sidebar.footer.betaUser")}
                     </span>
                   </div>
                   <HugeiconsIcon icon={ChevronUpFreeIcons} />
@@ -104,22 +106,24 @@ const SidebarFooter = ({
 
           <DropdownMenuGroup>
             <DropdownMenuItem disabled>
-              <HugeiconsIcon icon={UserCircleIcon} className="mr-2 size-4" />
-              Profile
-              <Kbd className="ml-auto text-xs text-muted-foreground">Soon</Kbd>
+              <HugeiconsIcon icon={UserCircleIcon} className="me-2 size-4" />
+              {t("app.sidebar.footer.profile")}
+              <Kbd className="ms-auto text-xs text-muted-foreground">
+                {t("common.status.comingSoon")}
+              </Kbd>
             </DropdownMenuItem>
 
             <DropdownMenuItem onSelect={openShortcuts}>
-              <HugeiconsIcon icon={KeyboardIcon} className="mr-2 size-4" />
-              Keyboard shortcuts
-              <Kbd className="ml-auto text-xs text-muted-foreground">F1</Kbd>
+              <HugeiconsIcon icon={KeyboardIcon} className="me-2 size-4" />
+              {t("app.sidebar.footer.keyboardShortcuts")}
+              <Kbd className="ms-auto text-xs text-muted-foreground">F1</Kbd>
             </DropdownMenuItem>
             <DropdownMenuItem
               onSelect={() => setTheme(isDark ? "light" : "dark")}
             >
-              <HugeiconsIcon icon={Moon02Icon} className="mr-2 size-4" />
-              Toggle Theme
-              <span className="ml-auto text-xs text-muted-foreground">
+              <HugeiconsIcon icon={Moon02Icon} className="me-2 size-4" />
+              {t("app.sidebar.footer.toggleTheme")}
+              <span className="ms-auto text-xs text-muted-foreground">
                 <Kbd>⌘</Kbd>
                 <span>+</span>
                 <Kbd>D</Kbd>
@@ -130,9 +134,11 @@ const SidebarFooter = ({
           <DropdownMenuSeparator />
 
           <DropdownMenuItem variant="destructive" disabled>
-            <HugeiconsIcon icon={Logout01Icon} className="mr-2 size-4" />
-            Log out
-            <span className="ml-auto text-xs text-muted-foreground">Soon</span>
+            <HugeiconsIcon icon={Logout01Icon} className="me-2 size-4" />
+            {t("app.sidebar.footer.logOut")}
+            <span className="ms-auto text-xs text-muted-foreground">
+              {t("common.status.comingSoon")}
+            </span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

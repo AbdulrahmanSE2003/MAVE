@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button"
 import ArrowRight02Icon from "@hugeicons/core-free-icons/ArrowRight02Icon"
 import { HugeiconsIcon } from "@hugeicons/react"
+import { getI18n } from "@/lib/i18n/server"
 
-const CTA = () => {
+const CTA = async () => {
+  const { t } = await getI18n()
+
   return (
     <div
       id="CTA"
@@ -12,13 +15,11 @@ const CTA = () => {
       <h6
         className={`text-center text-[2.5rem] font-medium max-md:leading-none md:max-w-2xl md:text-7xl`}
       >
-        There’s something worth sharing.
+        {t("marketing.cta.heading")}
       </h6>
-      <p className={`max-md:max-w-64`}>
-        Give your next idea a place to become clear.
-      </p>
+      <p className={`max-md:max-w-64`}>{t("marketing.cta.description")}</p>
       <Button variant={"third"} size={"lg"} className={`p-4 py-5`}>
-        Start Creating
+        {t("marketing.startCreating")}
         <HugeiconsIcon icon={ArrowRight02Icon} />
       </Button>
     </div>

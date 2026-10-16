@@ -1,6 +1,9 @@
 import FakeWorkSpace from "./FakeWorkSpace"
+import { getI18n } from "@/lib/i18n/server"
 
-const MiniWorkspace = () => {
+const MiniWorkspace = async () => {
+  const { t } = await getI18n()
+
   return (
     <div
       id="miniworkspace"
@@ -9,8 +12,8 @@ const MiniWorkspace = () => {
       <div
         className={`flex-between text-xs tracking-widest text-muted-foreground uppercase`}
       >
-        <span>Inside MAVE</span>
-        <span>Writing workspace</span>
+        <span>{t("marketing.workspace.insideMave")}</span>
+        <span>{t("marketing.workspace.title")}</span>
       </div>
       <FakeWorkSpace />
     </div>

@@ -2,6 +2,7 @@
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useT } from "@/lib/i18n"
 import { providers } from "../constants"
 import type { ProviderValue } from "../types"
 import ProviderCard from "./ProviderCard"
@@ -16,6 +17,8 @@ interface Step2Props {
 }
 
 const Step2 = ({ provider, setProvider, apiKey, setApiKey }: Step2Props) => {
+  const t = useT()
+
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}
@@ -28,10 +31,10 @@ const Step2 = ({ provider, setProvider, apiKey, setApiKey }: Step2Props) => {
         step="02"
         heading={
           <h2 className={`text-5xl font-medium md:text-7xl`}>
-            Connect your AI provider.
+            {t("onboarding.steps.provider.heading")}
           </h2>
         }
-        para="MAVE uses your own provider account to generate content. Your API key is encrypted and securely stored."
+        para={t("onboarding.steps.provider.paragraph")}
       />
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -46,7 +49,9 @@ const Step2 = ({ provider, setProvider, apiKey, setApiKey }: Step2Props) => {
       </div>
 
       <div className="flex flex-col gap-3">
-        <Label htmlFor="api-key">API Key</Label>
+        <Label htmlFor="api-key">
+          {t("onboarding.steps.provider.apiKeyLabel")}
+        </Label>
 
         <Input
           id="api-key"
@@ -57,8 +62,7 @@ const Step2 = ({ provider, setProvider, apiKey, setApiKey }: Step2Props) => {
         />
 
         <p className="paragraph text-xs">
-          Your key belongs to you. MAVE never uses it for anything outside your
-          workspace.
+          {t("onboarding.steps.provider.apiKeyHint")}
         </p>
       </div>
     </motion.div>

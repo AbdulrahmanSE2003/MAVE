@@ -14,14 +14,19 @@ import { Goal } from "../types"
 import { Tones } from "../constants"
 import { generateContent } from "@/features/generation/actions"
 import { useRouter } from "next/navigation"
+import { useI18n, useT } from "@/lib/i18n"
 
 export default function WriteLap() {
   const [idea, setIdea] = useState("")
-  const [contentType, setContentType] = useState<ContentType>("LINKEDIN_POST")
+  const [contentType, setContentType] = useState<ContentType>(
+    ContentType.LINKEDIN_POST
+  )
   const [goal, setGoal] = useState<Goal["value"]>("educate")
   const [tone, setTone] = useState<(typeof Tones)[number]>("My usual voice")
   const [context, setContext] = useState("")
   const router = useRouter()
+  const t = useT()
+  const { tm } = useI18n()
 
   const [isGenerating, setIsGenerating] = useState(false)
 
@@ -40,18 +45,18 @@ export default function WriteLap() {
       })
 
       if (!result.success) {
-        toast.error(result.error)
+        toast.error(tm(result.error))
         return
       }
 
-      toast.success("Your content is ready.")
+      toast.success(t("write.toasts.contentReady"))
       router.push(`/app/write/${result.data.postId}`)
     } catch {
-      toast.error("Something went wrong. Please try again.")
+      toast.error(t("write.errors.somethingWentWrong"))
     } finally {
       setIsGenerating(false)
     }
-  }, [idea, isGenerating, contentType, goal, tone, context, router])
+  }, [idea, isGenerating, contentType, goal, tone, context, router, t, tm])
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {

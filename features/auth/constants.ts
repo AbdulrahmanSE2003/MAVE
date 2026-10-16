@@ -1,14 +1,17 @@
+/**
+ * Maps URL error codes (e.g. `?error=invalid_credentials`) to translation
+ * keys. Rendered with `tm()` so the message lands in the active locale.
+ */
 export const AUTH_ERRORS: Record<string, string> = {
-  account_not_linked:
-    "This Google account is not linked to an existing MAVE account.",
+  account_not_linked: "auth.errors.accountNotLinked",
 
-  invalid_credentials: "The email or password is incorrect.",
+  invalid_credentials: "auth.errors.invalidCredentials",
 
-  email_exists: "An account with this email already exists.",
+  email_exists: "auth.errors.emailExists",
 
-  user_already_exists: "An account with this email already exists.",
+  user_already_exists: "auth.errors.userAlreadyExists",
 
-  access_denied: "Google sign-in was cancelled.",
+  access_denied: "auth.errors.accessDenied",
 
-  oauth_error: "Google sign-in failed. Please try again.",
+  oauth_error: "auth.errors.oauthError",
 }

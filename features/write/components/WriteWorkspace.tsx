@@ -8,8 +8,9 @@ import { updatePost } from "@/features/generation/actions"
 import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Sparkles } from "@hugeicons/core-free-icons"
-import { formatPostType, postContentToHtml } from "@/features/app/utils"
+import { postContentToHtml } from "@/features/app/utils"
 import { Post } from "@/lib/generated/prisma/client"
+import { useI18n, useT } from "@/lib/i18n"
 
 type WriteWorkspaceProps = {
   initContent: string
@@ -17,6 +18,8 @@ type WriteWorkspaceProps = {
 }
 
 const WriteWorkspace = ({ post, initContent }: WriteWorkspaceProps) => {
+  const t = useT()
+  const { dict, tm } = useI18n()
   const [isSaving, setIsSaving] = useState(false)
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(post.updatedAt)
 
@@ -30,6 +33,8 @@ const WriteWorkspace = ({ post, initContent }: WriteWorkspaceProps) => {
   const editorRef = useRef<Editor | null>(null)
 
   const handleSave = async () => {
+    if (!isDirty || isSaving) return
+
     setIsSaving(true)
     try {
       const result = await updatePost({
@@ -38,16 +43,16 @@ const WriteWorkspace = ({ post, initContent }: WriteWorkspaceProps) => {
       })
 
       if (!result.success) {
-        toast.error(result.error)
+        toast.error(tm(result.error))
         return
       }
 
       savedContentRef.current = draftContentRef.current
       setLastSavedAt(new Date())
       setIsDirty(false)
-      toast.success("Changes saved.")
+      toast.success(t("write.toasts.changesSaved"))
     } catch {
-      toast.error("Failed to save changes.")
+      toast.error(t("write.toasts.saveFailed"))
     } finally {
       setIsSaving(false)
     }
@@ -64,7 +69,7 @@ const WriteWorkspace = ({ post, initContent }: WriteWorkspaceProps) => {
     <div>
       <div className="mb-4 flex items-center justify-between">
         <span className="text-xs font-semibold uppercase">
-          {formatPostType(post.contentType)}
+          {dict.common.contentTypes[post.contentType]}
         </span>
         <div className="flex gap-2">
           <Button
@@ -72,10 +77,12 @@ const WriteWorkspace = ({ post, initContent }: WriteWorkspaceProps) => {
             onClick={handleCancel}
             disabled={!isDirty || isSaving}
           >
-            Cancel
+            {t("common.actions.cancel")}
           </Button>
           <Button onClick={handleSave} disabled={!isDirty || isSaving}>
-            {isSaving ? "Saving…" : "Save changes"}
+            {isSaving
+              ? t("common.status.saving")
+              : t("write.workspace.saveChanges")}
           </Button>
         </div>
       </div>
@@ -101,14 +108,16 @@ const WriteWorkspace = ({ post, initContent }: WriteWorkspaceProps) => {
           size="lg"
           className="text-md mt-2 w-full flex-1 py-6 font-medium"
         >
-          Generate Image for this post
+          {t("write.workspace.generateImage")}
           <HugeiconsIcon icon={Sparkles} />
         </Button>
         <span className="flex flex-col gap-1 text-xs opacity-50">
           {lastSavedAt
-            ? `Last saved ${lastSavedAt.toLocaleTimeString()}`
-            : "Not saved yet"}
-          <span>⌘ + S to save</span>
+            ? t("write.workspace.lastSaved", {
+                time: lastSavedAt.toLocaleTimeString(),
+              })
+            : t("write.workspace.notSavedYet")}
+          <span>{t("write.workspace.saveShortcut")}</span>
         </span>
       </div>
     </div>

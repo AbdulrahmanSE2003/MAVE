@@ -5,17 +5,20 @@ import { EyeIcon, EyeOffIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useState } from "react"
 import { Control, Controller } from "react-hook-form"
+import { useI18n, useT } from "@/lib/i18n"
 
 const fields = [
   {
     name: "email",
     type: "email",
-    placeholder: "Email",
+    labelKey: "auth.signin.fields.email.label",
+    placeholderKey: "auth.signin.fields.email.placeholder",
   },
   {
     name: "password",
     type: "password",
-    placeholder: "Password",
+    labelKey: "auth.signin.fields.password.label",
+    placeholderKey: "auth.signin.fields.password.placeholder",
   },
 ] as const
 
@@ -30,6 +33,8 @@ const GroupField = ({
   }>
 }) => {
   const [showPassword, setShowPassword] = useState(false)
+  const t = useT()
+  const { tm } = useI18n()
 
   return (
     <FieldGroup className="gap-3">
@@ -46,7 +51,7 @@ const GroupField = ({
                 className="gap-0 space-y-1.5"
               >
                 <Label className={`text-sm capitalize`}>
-                  {fieldConfig.name}
+                  {t(fieldConfig.labelKey)}
                 </Label>
                 <div className="relative">
                   <Input
@@ -55,7 +60,7 @@ const GroupField = ({
                     type={
                       isPassword && showPassword ? "text" : fieldConfig.type
                     }
-                    placeholder={fieldConfig.placeholder}
+                    placeholder={t(fieldConfig.placeholderKey)}
                     className=""
                     aria-invalid={fieldState.invalid}
                     disabled={isSubmitting}
@@ -65,9 +70,11 @@ const GroupField = ({
                     <button
                       type="button"
                       onClick={() => setShowPassword((current) => !current)}
-                      className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                      className="absolute end-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
                       aria-label={
-                        showPassword ? "Hide password" : "Show password"
+                        showPassword
+                          ? t("auth.hidePassword")
+                          : t("auth.showPassword")
                       }
                     >
                       <HugeiconsIcon
@@ -83,7 +90,7 @@ const GroupField = ({
                     className={`text-xs`}
                     errors={
                       fieldState.error
-                        ? [{ message: fieldState.error.message }]
+                        ? [{ message: tm(fieldState.error.message ?? "") }]
                         : []
                     }
                   />

@@ -6,9 +6,11 @@ import { GoogleIcon, Loading03Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useState } from "react"
 import { toast } from "sonner"
+import { useT } from "@/lib/i18n"
 
 const GoogleButton = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const t = useT()
 
   const handleGoogleSignIn = async () => {
     try {
@@ -19,7 +21,7 @@ const GoogleButton = () => {
         callbackURL: `${window.location.origin}/signin`,
       })
     } catch (error) {
-      toast.error(`Google sign-in error: ${error}`)
+      toast.error(t("auth.google.error", { error: String(error) }))
     } finally {
       setIsSubmitting(false)
     }
@@ -39,7 +41,7 @@ const GoogleButton = () => {
       ) : (
         <HugeiconsIcon size={20} icon={GoogleIcon} />
       )}
-      {isSubmitting ? "Signing in with Google" : "Continue with Google"}
+      {isSubmitting ? t("auth.google.signingIn") : t("auth.google.continue")}
     </Button>
   )
 }

@@ -9,45 +9,46 @@ import {
   type UpdatePostResult,
 } from "./service"
 import type { GenerateContentResult } from "./types"
+import { getI18n } from "@/lib/i18n/server"
+import type { Translator } from "@/lib/i18n"
 
-const GENERIC_ERROR = "Something went wrong. Please try again."
-
-function getGenerationErrorMessage(error: unknown): string {
+function getGenerationErrorMessage(error: unknown, t: Translator): string {
   if (!(error instanceof Error)) {
-    return GENERIC_ERROR
+    return t("write.errors.somethingWentWrong")
   }
 
   switch (error.message) {
     case "GEMINI_NETWORK_ERROR":
-      return "Couldn't connect to the AI provider. Check your connection and try again."
+      return t("write.generation.networkError")
 
     case "GEMINI_TEMPORARILY_UNAVAILABLE":
-      return "Gemini is temporarily unavailable. Please try again in a moment."
+      return t("write.generation.temporarilyUnavailable")
 
     case "GEMINI_RATE_LIMITED":
-      return "Gemini is receiving too many requests. Please wait a moment and try again."
+      return t("write.generation.rateLimited")
 
     case "GEMINI_INVALID_API_KEY":
-      return "Your Gemini API key is invalid. Please check your provider settings."
+      return t("write.generation.invalidApiKey")
 
     case "GEMINI_PERMISSION_DENIED":
-      return "Gemini denied this request. Check your API key permissions and model access."
+      return t("write.generation.permissionDenied")
 
     case "GEMINI_EMPTY_RESPONSE":
-      return "The AI returned an empty response. Please try again."
+      return t("write.generation.emptyResponse")
 
     default:
-      return GENERIC_ERROR
+      return t("write.errors.somethingWentWrong")
   }
 }
 
 export async function generateContent(
   input: GenerateContentInput
 ): Promise<GenerateContentResult> {
+  const { t, tm } = await getI18n()
   const user = await getCurrentUser()
 
   if (!user) {
-    return { success: false, error: "You must be signed in to generate." }
+    return { success: false, error: t("write.errors.signInGenerate") }
   }
 
   const parsed = generateContentInputSchema.safeParse(input)
@@ -55,7 +56,7 @@ export async function generateContent(
   if (!parsed.success) {
     return {
       success: false,
-      error: parsed.error.issues[0]?.message ?? "Invalid input.",
+      error: tm(parsed.error.issues[0]?.message ?? "write.errors.invalidInput"),
     }
   }
 
@@ -66,7 +67,7 @@ export async function generateContent(
 
     return {
       success: false,
-      error: getGenerationErrorMessage(error),
+      error: getGenerationErrorMessage(error, t),
     }
   }
 }
@@ -74,10 +75,11 @@ export async function generateContent(
 export async function updatePost(
   input: UpdatePostInput
 ): Promise<UpdatePostResult> {
+  const { t, tm } = await getI18n()
   const user = await getCurrentUser()
 
   if (!user) {
-    return { success: false, error: "You must be signed in to save changes." }
+    return { success: false, error: t("write.errors.signInSave") }
   }
 
   const parsed = updatePostInputSchema.safeParse(input)
@@ -85,13 +87,13 @@ export async function updatePost(
   if (!parsed.success) {
     return {
       success: false,
-      error: parsed.error.issues[0]?.message ?? "Invalid input.",
+      error: tm(parsed.error.issues[0]?.message ?? "write.errors.invalidInput"),
     }
   }
 
   try {
     return await updatePostContent(user.id, parsed.data)
   } catch {
-    return { success: false, error: GENERIC_ERROR }
+    return { success: false, error: t("write.errors.somethingWentWrong") }
   }
 }

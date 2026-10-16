@@ -3,7 +3,7 @@ import { AiProvider, ContentType } from "@/lib/generated/prisma/enums"
 import { goalValues, Tones } from "../write/constants"
 
 export const generateContentInputSchema = z.object({
-  idea: z.string().trim().min(1, "Please enter an idea.").max(2000),
+  idea: z.string().trim().min(1, "write.validation.ideaRequired").max(2000),
   contentType: z.enum(ContentType),
   provider: z.enum(AiProvider).optional(),
 
@@ -25,13 +25,13 @@ export const carouselOutputSchema = z.object({
         body: z.string().trim().min(1).max(280),
       })
     )
-    .min(1, "Carousel must have at least one slide.")
-    .max(10, "Carousel cannot exceed 10 slides."),
+    .min(1, "write.validation.carouselMinSlides")
+    .max(10, "write.validation.carouselMaxSlides"),
 })
 
 export const updatePostInputSchema = z.object({
   postId: z.string().cuid(),
-  content: z.string().trim().min(1, "Content cannot be empty."),
+  content: z.string().trim().min(1, "write.validation.contentEmpty"),
 })
 
 export type UpdatePostInput = z.infer<typeof updatePostInputSchema>

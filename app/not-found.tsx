@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Search01Icon, ArrowLeft01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
+import { useT } from "@/lib/i18n"
 
 type NotFoundProps = {
   title?: string
@@ -13,11 +14,16 @@ type NotFoundProps = {
 }
 
 export default function NotFound({
-  title = "Page not found",
-  description = "The page you're looking for doesn't exist or may have been moved.",
-  homeLabel = "Back to home",
+  title,
+  description,
+  homeLabel,
   homeHref = "/",
 }: NotFoundProps) {
+  const t = useT()
+
+  const resolvedTitle = title ?? t("errors.notFound.title")
+  const resolvedDescription = description ?? t("errors.notFound.description")
+  const resolvedHomeLabel = homeLabel ?? t("errors.notFound.backHome")
   return (
     <section
       role="status"
@@ -36,11 +42,11 @@ export default function NotFound({
       </p>
 
       <h1 className="text-xl font-semibold tracking-tight text-foreground">
-        {title}
+        {resolvedTitle}
       </h1>
 
       <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
-        {description}
+        {resolvedDescription}
       </p>
 
       <Button asChild className="mt-6 gap-2">
@@ -48,9 +54,9 @@ export default function NotFound({
           <HugeiconsIcon
             icon={ArrowLeft01Icon}
             aria-hidden="true"
-            className="size-4"
+            className="size-4 rtl:-scale-x-100"
           />
-          {homeLabel}
+          {resolvedHomeLabel}
         </Link>
       </Button>
     </section>

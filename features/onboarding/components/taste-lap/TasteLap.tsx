@@ -1,6 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
+import { useI18n, useT } from "@/lib/i18n"
 import {
   VisualColorPalette,
   VisualDensity,
@@ -14,8 +15,6 @@ import {
   MOODS,
   TYPOGRAPHIES,
   TYPOGRAPHY_FONT_CLASS,
-  TYPOGRAPHY_LABEL,
-  TYPOGRAPHY_SAMPLE,
 } from "../../utils"
 
 type TasteLapProps = {
@@ -39,11 +38,16 @@ const TasteLap = ({
   typography,
   onTypographyChange,
 }: TasteLapProps) => {
+  const t = useT()
+  const { dict } = useI18n()
+
   return (
     <div className={`flex w-full flex-col gap-8`}>
       {/* Mood */}
       <div className={`flex w-full flex-col items-start gap-3`}>
-        <span className={`text-xs font-medium uppercase`}>Mood</span>
+        <span className={`text-xs font-medium uppercase`}>
+          {t("onboarding.taste.mood")}
+        </span>
         <div className={`grid w-full grid-cols-2 gap-2.5`}>
           {MOODS.map((m) => (
             <TasteOption
@@ -52,7 +56,7 @@ const TasteLap = ({
               key={m.id}
               onChange={onMoodChange}
             >
-              {m.element}
+              {m.element(dict.onboarding.taste.moods[m.mood])}
             </TasteOption>
           ))}
         </div>
@@ -60,7 +64,9 @@ const TasteLap = ({
 
       {/* Color Palette */}
       <div className={`flex w-full flex-col items-start gap-3`}>
-        <span className={`text-xs font-medium uppercase`}>Color palettes</span>
+        <span className={`text-xs font-medium uppercase`}>
+          {t("onboarding.taste.colorPalettes")}
+        </span>
 
         <div className="grid w-full grid-cols-2 gap-2.5">
           {COLOR_PALETTES.map((c) => (
@@ -76,7 +82,9 @@ const TasteLap = ({
                     <span key={color} style={{ backgroundColor: color }} />
                   ))}
                 </div>
-                <span className="text-sm font-medium">{c.palette}</span>
+                <span className="text-sm font-medium">
+                  {dict.onboarding.taste.paletteLabels[c.palette]}
+                </span>
               </div>
             </TasteOption>
           ))}
@@ -85,7 +93,9 @@ const TasteLap = ({
 
       {/* Density */}
       <div className={`flex w-full flex-col items-start gap-3`}>
-        <span className={`text-xs font-medium uppercase`}>Density</span>
+        <span className={`text-xs font-medium uppercase`}>
+          {t("onboarding.taste.density")}
+        </span>
 
         <div className="grid w-full gap-2.5 md:grid-cols-3">
           {DENSITIES.map((d) => (
@@ -95,7 +105,9 @@ const TasteLap = ({
               value={d}
               onChange={onDensityChange}
             >
-              <span className="flex-center text-sm font-medium">{d}</span>
+              <span className="flex-center text-sm font-medium">
+                {dict.onboarding.taste.densityLabels[d]}
+              </span>
             </TasteOption>
           ))}
         </div>
@@ -103,24 +115,29 @@ const TasteLap = ({
 
       {/* Typography */}
       <div className={`flex w-full flex-col items-start gap-3`}>
-        <span className={`text-xs font-medium uppercase`}>Typography</span>
+        <span className={`text-xs font-medium uppercase`}>
+          {t("onboarding.taste.typography")}
+        </span>
 
         <div className="grid w-full grid-cols-1 gap-2.5">
-          {TYPOGRAPHIES.map((t) => (
+          {TYPOGRAPHIES.map((typo) => (
             <TasteOption
-              key={t}
-              isActive={typography === t}
-              value={t}
+              key={typo}
+              isActive={typography === typo}
+              value={typo}
               onChange={onTypographyChange}
             >
               <div className="flex items-center justify-between gap-4">
                 <span
-                  className={cn("text-md md:text-lg", TYPOGRAPHY_FONT_CLASS[t])}
+                  className={cn(
+                    "text-md md:text-lg",
+                    TYPOGRAPHY_FONT_CLASS[typo]
+                  )}
                 >
-                  {TYPOGRAPHY_SAMPLE[t]}
+                  {t("onboarding.taste.typographySample")}
                 </span>
                 <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                  {TYPOGRAPHY_LABEL[t]}
+                  {dict.onboarding.taste.typographyStyles[typo]}
                 </span>
               </div>
             </TasteOption>

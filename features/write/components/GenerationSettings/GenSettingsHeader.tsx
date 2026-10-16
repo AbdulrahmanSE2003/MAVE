@@ -1,9 +1,15 @@
+import { useT } from "@/lib/i18n"
+
 const GenSettingsHeader = () => {
+  const t = useT()
+
   return (
     <span className="space-y-1">
-      <span className="block text-sm font-semibold">Generation settings</span>
+      <span className="block text-sm font-semibold">
+        {t("write.settings.title")}
+      </span>
       <span className="block text-xs text-muted-foreground">
-        Customize the direction of your post (optional)
+        {t("write.settings.description")}
       </span>
     </span>
   )

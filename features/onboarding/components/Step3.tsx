@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction } from "react"
 import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { PlusSignCircleFreeIcons } from "@hugeicons/core-free-icons"
+import { useT } from "@/lib/i18n"
 import { motion } from "framer-motion"
 
 const Step3 = ({
@@ -16,6 +17,8 @@ const Step3 = ({
   examples: string[]
   setExamples: Dispatch<SetStateAction<string[]>>
 }) => {
+  const t = useT()
+
   const updateExample = (index: number, value: string) => {
     setExamples((prev) => {
       const next = [...prev]
@@ -48,16 +51,15 @@ const Step3 = ({
         step="03"
         heading={
           <h2 className={`relative z-10 text-5xl font-medium md:text-7xl`}>
-            Teach{" "}
+            {t("onboarding.steps.examples.teachLead")}{" "}
             <span className={`relative inline-block w-fit`}>
               <Highlight />
               MAVE.
             </span>
-            <br /> your voice.{" "}
+            <br /> {t("onboarding.steps.examples.teachTail")}{" "}
           </h2>
         }
-        para="Add a few pieces of writing that feel like you, Posts or even long
-        messages all work."
+        para={t("onboarding.steps.examples.paragraph")}
       />
 
       {/* Examples */}
@@ -65,12 +67,15 @@ const Step3 = ({
         {/* Example Header */}
         <div className={`flex-between`}>
           <span className={`text-sm`}>
-            Writing examples{" "}
+            {t("onboarding.steps.examples.label")}{" "}
             <span className={`text-xs text-primary-foreground`}>
-              (optional)
+              {t("onboarding.steps.examples.optional")}
             </span>
           </span>
-          <span className={`font-medium`}> {examples.length}/5 examples</span>
+          <span className={`font-medium`}>
+            {" "}
+            {t("onboarding.steps.examples.count", { count: examples.length })}
+          </span>
         </div>
         {/* Textarea */}
         {examples.map((content, i) => (
@@ -92,7 +97,7 @@ const Step3 = ({
           className={`w-fit`}
           onClick={addExample}
         >
-          Add another example
+          {t("onboarding.steps.examples.addAnother")}
           <HugeiconsIcon icon={PlusSignCircleFreeIcons} />
         </Button>
       )}

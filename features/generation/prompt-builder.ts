@@ -52,7 +52,7 @@ LANGUAGE AND LOCALIZATION
 `.trim()
 
 const CONTENT_TYPE_INSTRUCTIONS: Record<ContentType, string> = {
-  LINKEDIN_POST: `
+  [ContentType.LINKEDIN_POST]: `
 PLATFORM: LINKEDIN
 FORMAT: SINGLE POST
 
@@ -74,7 +74,7 @@ Return only the post as plain text. Do not wrap it in quotation marks,
 Markdown code fences, or explanatory commentary.
 `.trim(),
 
-  INSTAGRAM_CAPTION: `
+  [ContentType.INSTAGRAM_CAPTION]: `
 PLATFORM: INSTAGRAM
 FORMAT: SINGLE CAPTION
 
@@ -131,7 +131,7 @@ Do not include a title, explanation, quotation marks around the entire
 caption, or Markdown code fences.
 `.trim(),
 
-  INSTAGRAM_CAROUSEL: `
+  [ContentType.INSTAGRAM_CAROUSEL]: `
 PLATFORM: INSTAGRAM
 FORMAT: EDUCATIONAL OR STORY-DRIVEN CAROUSEL
 

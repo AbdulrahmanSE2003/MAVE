@@ -7,17 +7,22 @@ import {
   Linkedin02Icon,
   Paperclip,
 } from "@hugeicons/core-free-icons"
-import { greetings } from "./constants"
+
+export type GreetingMessages = {
+  morning: string[]
+  afternoon: string[]
+  evening: string[]
+}
 
 export function generatePostRowIcon(type: ContentType): ReactNode {
   switch (type) {
-    case "LINKEDIN_POST":
+    case ContentType.LINKEDIN_POST:
       return <HugeiconsIcon className={`size-5`} icon={Linkedin02Icon} />
 
-    case "INSTAGRAM_CAPTION":
+    case ContentType.INSTAGRAM_CAPTION:
       return <HugeiconsIcon className={`size-5`} icon={Instagram} />
 
-    case "INSTAGRAM_CAROUSEL":
+    case ContentType.INSTAGRAM_CAROUSEL:
       return (
         <HugeiconsIcon
           className={`size-5`}
@@ -30,26 +35,10 @@ export function generatePostRowIcon(type: ContentType): ReactNode {
   }
 }
 
-export const formatPostType = (type: ContentType) => {
-  switch (type) {
-    case "LINKEDIN_POST":
-      return "Linkedin Post"
-
-    case "INSTAGRAM_CAPTION":
-      return "Instagram Caption"
-
-    case "INSTAGRAM_CAROUSEL":
-      return "Instagram Carousel"
-
-    default:
-      return "Post"
-  }
-}
-
 export const getRandomItem = (arr: string[]) =>
   arr[Math.floor(Math.random() * arr.length)]
 
-export const getGreetingMessage = () => {
+export const getGreetingMessage = (greetings: GreetingMessages) => {
   const hour = new Date().getHours()
   if (hour < 12) return getRandomItem(greetings.morning)
   if (hour < 18) return getRandomItem(greetings.afternoon)

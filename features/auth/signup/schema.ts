@@ -2,15 +2,15 @@ import { z } from "zod"
 
 export const signupSchema = z
   .object({
-    name: z.string().trim().min(2, "Name must be at least 2 characters."),
-    email: z.email("Please enter a valid email address."),
-    password: z.string().min(8, "Password must be at least 8 characters."),
+    name: z.string().trim().min(2, "auth.validation.nameTooShort"),
+    email: z.email("auth.validation.emailInvalid"),
+    password: z.string().min(8, "auth.validation.passwordTooShort"),
     passwordConfirm: z
       .string()
-      .min(8, "Password confirmation must be at least 8 characters."),
+      .min(8, "auth.validation.passwordConfirmTooShort"),
   })
   .refine((data) => data.password === data.passwordConfirm, {
-    message: "Passwords do not match.",
+    message: "auth.validation.passwordsDoNotMatch",
     path: ["passwordConfirm"],
   })
 

@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import { useT } from "@/lib/i18n"
 import { initialHistory } from "../constants"
 import { Filter } from "../types"
 import HistoryEmpty from "./HistoryEmpty"
@@ -8,6 +9,7 @@ import HistoryFilters from "./HistoryFilters"
 import HistoryList from "./HistoryList"
 
 const HistoryContent = () => {
+  const t = useT()
   const [search, setSearch] = useState("")
   const [activeFilter, setActiveFilter] = useState<Filter>("All")
 
@@ -20,12 +22,12 @@ const HistoryContent = () => {
 
       const matchesSearch =
         !query ||
-        item.title.toLowerCase().includes(query) ||
-        item.excerpt.toLowerCase().includes(query)
+        t(item.title).toLowerCase().includes(query) ||
+        t(item.excerpt).toLowerCase().includes(query)
 
       return matchesFilter && matchesSearch
     })
-  }, [search, activeFilter])
+  }, [search, activeFilter, t])
 
   const isFiltering = Boolean(search.trim()) || activeFilter !== "All"
 

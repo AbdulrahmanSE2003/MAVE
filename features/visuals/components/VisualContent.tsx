@@ -7,16 +7,18 @@ import {
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useMemo, useState } from "react"
+import { useT } from "@/lib/i18n"
 import { filters, visuals } from "../constants"
 
 const VisualContent = () => {
+  const t = useT()
   const [query, setQuery] = useState("")
   const [activeFilter, setActiveFilter] = useState("All visuals")
 
   const filteredVisuals = useMemo(() => {
     return visuals.filter((visual) => {
       const matchesQuery =
-        `${visual.title} ${visual.platform} ${visual.category}`
+        `${t(visual.title)} ${visual.platform} ${t(visual.category)}`
           .toLowerCase()
           .includes(query.toLowerCase())
 
@@ -27,7 +29,7 @@ const VisualContent = () => {
 
       return matchesQuery && matchesFilter
     })
-  }, [query, activeFilter])
+  }, [query, activeFilter, t])
 
   return (
     <>
@@ -43,7 +45,11 @@ const VisualContent = () => {
                 : "border border-border text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            {filter}
+            {filter === "All visuals"
+              ? t("visuals.filters.allVisuals")
+              : filter === "Saved"
+                ? t("visuals.filters.saved")
+                : filter}
           </button>
         ))}
       </div>
@@ -61,7 +67,7 @@ const VisualContent = () => {
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-[10px] font-semibold tracking-[0.16em]">
-                    {visual.eyebrow}
+                    {t(visual.eyebrow)}
                   </span>
                   <span
                     className="size-3 shrink-0 rounded-full"
@@ -71,7 +77,7 @@ const VisualContent = () => {
 
                 <div className="absolute inset-x-5 top-[35%] space-y-4 sm:inset-x-6">
                   <h2 className="text-3xl leading-[1.12] font-semibold tracking-tight whitespace-pre-line sm:text-4xl">
-                    {visual.headline}
+                    {t(visual.headline)}
                   </h2>
 
                   <div
@@ -82,7 +88,7 @@ const VisualContent = () => {
 
                 <div className="absolute inset-x-5 bottom-5 flex items-center justify-between gap-2 sm:inset-x-6 sm:bottom-6">
                   <span className="truncate text-[10px] font-medium tracking-wide">
-                    {visual.footer}
+                    {t(visual.footer)}
                   </span>
                   <HugeiconsIcon
                     icon={ArrowUpRight}
@@ -93,8 +99,10 @@ const VisualContent = () => {
                 <button
                   type="button"
                   disabled
-                  aria-label={`More options for ${visual.title}`}
-                  className="absolute top-3 right-3 flex size-8 items-center justify-center rounded-lg bg-background/70 text-foreground opacity-0 transition-opacity group-hover:opacity-100"
+                  aria-label={t("visuals.card.moreOptionsAriaLabel", {
+                    title: t(visual.title),
+                  })}
+                  className="absolute end-3 top-3 flex size-8 items-center justify-center rounded-lg bg-background/70 text-foreground opacity-0 transition-opacity group-hover:opacity-100"
                 >
                   <HugeiconsIcon icon={MoreHorizontal} className="size-4" />
                 </button>
@@ -103,7 +111,7 @@ const VisualContent = () => {
               <div className="flex items-start justify-between gap-3 pt-3">
                 <div className="min-w-0 space-y-1">
                   <h3 className="truncate text-sm font-medium">
-                    {visual.title}
+                    {t(visual.title)}
                   </h3>
                   <p className="text-xs text-muted-foreground">
                     {visual.platform} · {visual.format}
@@ -111,7 +119,7 @@ const VisualContent = () => {
                 </div>
 
                 <span className="shrink-0 rounded-md border px-2 py-1 text-[10px] text-muted-foreground">
-                  {visual.category}
+                  {t(visual.category)}
                 </span>
               </div>
             </article>
@@ -125,9 +133,9 @@ const VisualContent = () => {
               className="size-4 text-muted-foreground"
             />
           </div>
-          <h2 className="font-medium">No visuals found</h2>
+          <h2 className="font-medium">{t("visuals.empty.title")}</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Try another search or choose a different filter.
+            {t("visuals.empty.description")}
           </p>
           <button
             type="button"
@@ -137,7 +145,7 @@ const VisualContent = () => {
             }}
             className="mt-4 text-sm font-medium underline underline-offset-4"
           >
-            Clear filters
+            {t("visuals.empty.clearFilters")}
           </button>
         </div>
       )}

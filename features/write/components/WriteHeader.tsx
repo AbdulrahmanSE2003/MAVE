@@ -1,16 +1,20 @@
+import { useT } from "@/lib/i18n"
+
 const WriteHeader = () => {
+  const t = useT()
+
   return (
     <header className="space-y-2">
       <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">
-        Your workspace / Write
+        {t("write.header.breadcrumb")}
       </p>
 
       <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-        Let&apos;s make something.
+        {t("write.header.title")}
       </h1>
 
       <p className="max-w-lg text-sm leading-6 text-muted-foreground">
-        Start with an idea. We&apos;ll help you find the words.
+        {t("write.header.subtitle")}
       </p>
     </header>
   )

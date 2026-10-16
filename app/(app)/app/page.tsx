@@ -5,11 +5,13 @@ import GeneratePost from "@/features/app/components/GeneratePost"
 import RecentWork from "@/features/app/components/RecentWork"
 import { Suspense } from "react"
 import RecentWorkSkeleton from "@/features/app/components/RecentWorkSkeleton"
+import { getI18n } from "@/lib/i18n/server"
 
 const App = async () => {
   const user = await getCurrentSessionUser()
   if (!user) return <Error />
   const firstName = user.name.split(" ")[0]
+  const { t } = await getI18n()
 
   return (
     <div
@@ -20,7 +22,7 @@ const App = async () => {
 
       {/* Intro Text */}
       <h1 className={`max-w-xl text-3xl md:text-5xl`}>
-        What are you creating today?
+        {t("app.dashboard.title")}
       </h1>
 
       {/* Generate Box */}

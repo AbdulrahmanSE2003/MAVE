@@ -1,23 +1,26 @@
 import { HugeiconsIcon } from "@hugeicons/react"
 import { File02Icon } from "@hugeicons/core-free-icons"
+import { getI18n } from "@/lib/i18n/server"
 import { initialHistory } from "../constants"
 
-const HistoryHeader = () => {
+const HistoryHeader = async () => {
+  const { t } = await getI18n()
   const count = initialHistory.length
 
   return (
     <header className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
       <div className="space-y-2">
         <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">
-          Your workspace / History
+          {t("history.header.eyebrow")}
         </p>
 
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          History<span className="text-primary">.</span>
+          {t("history.header.title")}
+          <span className="text-primary">.</span>
         </h1>
 
         <p className="max-w-lg text-sm leading-6 text-muted-foreground">
-          Every idea you&apos;ve turned into content, all in one place.
+          {t("history.header.description")}
         </p>
       </div>
 
@@ -28,7 +31,9 @@ const HistoryHeader = () => {
         />
         <span className="font-medium">{count}</span>
         <span className="text-muted-foreground">
-          {count === 1 ? "item" : "items"}
+          {count === 1
+            ? t("history.header.itemsOne", { count })
+            : t("history.header.itemsOther", { count })}
         </span>
       </div>
     </header>

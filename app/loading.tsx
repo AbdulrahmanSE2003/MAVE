@@ -1,15 +1,21 @@
 import { Loading03Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
+import { getI18n } from "@/lib/i18n/server"
 
 type LoadingStateProps = {
   label?: string
   description?: string
 }
 
-export default function Loading({
-  label = "Getting things ready",
-  description = "Preparing your workspace...",
+export default async function Loading({
+  label,
+  description,
 }: LoadingStateProps) {
+  const { t } = await getI18n()
+
+  const resolvedLabel = label ?? t("errors.loading.label")
+  const resolvedDescription = description ?? t("errors.loading.description")
+
   return (
     <section
       role="status"
@@ -23,11 +29,11 @@ export default function Loading({
       />
 
       <h1 className="text-lg font-semibold tracking-tight text-foreground">
-        {label}
+        {resolvedLabel}
       </h1>
 
       <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
-        {description}
+        {resolvedDescription}
       </p>
     </section>
   )

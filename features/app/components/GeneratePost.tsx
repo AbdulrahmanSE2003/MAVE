@@ -13,11 +13,14 @@ import { toast } from "sonner"
 import { MAX_LENGTH, MAX_TEXTAREA_HEIGHT } from "../constants"
 import SelectContentType from "./SelectContentType"
 import { ContentType } from "@/lib/generated/prisma/enums"
+import { useI18n, useT } from "@/lib/i18n"
 import { useRouter } from "next/navigation"
 
 type Draft = Extract<GenerateContentResult, { success: true }>["data"]
 
 const GeneratePost = () => {
+  const t = useT()
+  const { dict } = useI18n()
   const [idea, setIdea] = useState("")
   const [contentType, setContentType] = useState<ContentType>(
     ContentType.LINKEDIN_POST
@@ -69,14 +72,14 @@ const GeneratePost = () => {
 
       router.push(`/app/write/${result.data.postId}`)
 
-      toast.success("Draft generated and saved to your workspace.")
+      toast.success(t("app.dashboard.generate.toasts.draftGenerated"))
     } catch (err) {
       console.error("Generate failed:", err)
-      toast.error("Something went wrong. Please try again.")
+      toast.error(t("app.dashboard.generate.toasts.somethingWentWrong"))
     } finally {
       setIsGenerating(false)
     }
-  }, [canGenerate, idea, contentType, router])
+  }, [canGenerate, idea, contentType, router, t])
 
   const handleSave = useCallback(async () => {
     if (!draft || !isDirty || isSaving) return
@@ -95,13 +98,13 @@ const GeneratePost = () => {
       }
 
       setIsDirty(false)
-      toast.success("Changes saved.")
+      toast.success(t("app.dashboard.generate.toasts.changesSaved"))
     } catch {
-      toast.error("Something went wrong. Please try again.")
+      toast.error(t("app.dashboard.generate.toasts.somethingWentWrong"))
     } finally {
       setIsSaving(false)
     }
-  }, [draft, isDirty, isSaving, editable])
+  }, [draft, isDirty, isSaving, editable, t])
 
   const handleDiscardDraft = useCallback(() => {
     if (isSaving) return
@@ -130,7 +133,7 @@ const GeneratePost = () => {
       }
 
       if (!canGenerate) {
-        toast.warning("Please enter your idea first.")
+        toast.warning(t("app.dashboard.generate.toasts.enterIdeaFirst"))
         return
       }
 
@@ -139,7 +142,7 @@ const GeneratePost = () => {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [draft, isDirty, handleSave, canGenerate, handleGenerate])
+  }, [draft, isDirty, handleSave, canGenerate, handleGenerate, t])
 
   const handleTextareaChange = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -166,24 +169,28 @@ const GeneratePost = () => {
         onChange={handleTextareaChange}
         value={draft ? editable : idea}
         maxLength={draft ? undefined : MAX_LENGTH}
-        aria-label={draft ? "Generated content" : "Your post idea"}
+        aria-label={
+          draft
+            ? t("app.dashboard.generate.generatedAriaLabel")
+            : t("app.dashboard.generate.ideaAriaLabel")
+        }
         className="max-sm:placeholder:text-md box-border block w-full max-w-full min-w-0 flex-1 resize-none overflow-x-hidden rounded-t-xl rounded-b-none border-none bg-transparent p-4 text-base leading-7 shadow-none placeholder:text-lg placeholder:text-muted-foreground/65 focus-visible:ring-0 focus-visible:ring-offset-0 sm:p-8 sm:text-lg dark:bg-transparent"
         placeholder={
           draft
-            ? "Write something new…"
-            : "Start with an idea, a thought, or question..."
+            ? t("app.dashboard.generate.generatedPlaceholder")
+            : t("app.dashboard.generate.ideaPlaceholder")
         }
       />
       <Separator />
       <div className={`flex-between p-4 max-sm:flex-col max-sm:gap-3`}>
         {draft ? (
           <div className="flex items-center gap-3">
-            <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium">
-              {draft.contentType}
+            <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium capitalize">
+              {dict.common.contentTypes[draft.contentType]}
             </span>
             {isDirty && (
               <span className="text-xs text-muted-foreground">
-                Unsaved changes
+                {t("app.dashboard.generate.unsavedChanges")}
               </span>
             )}
           </div>
@@ -203,7 +210,7 @@ const GeneratePost = () => {
                 onClick={handleDiscardDraft}
                 disabled={isSaving}
               >
-                New idea
+                {t("app.dashboard.generate.newIdea")}
               </Button>
               <Button
                 type="button"
@@ -212,7 +219,9 @@ const GeneratePost = () => {
                 disabled={!canSave}
                 className={`px-3.5 font-semibold`}
               >
-                {isSaving ? "Saving..." : "Save changes"}
+                {isSaving
+                  ? t("app.dashboard.generate.saving")
+                  : t("app.dashboard.generate.saveChanges")}
                 {isSaving && (
                   <HugeiconsIcon
                     icon={Loading03Icon}
@@ -235,7 +244,9 @@ const GeneratePost = () => {
                 disabled={!canGenerate}
                 className={`px-3.5 font-semibold max-sm:w-full`}
               >
-                {isGenerating ? "Generating..." : "Generate"}
+                {isGenerating
+                  ? t("app.dashboard.generate.generating")
+                  : t("app.dashboard.generate.generate")}
                 {isGenerating ? (
                   <HugeiconsIcon
                     icon={Loading03Icon}

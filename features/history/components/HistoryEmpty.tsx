@@ -1,5 +1,6 @@
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Search01Icon } from "@hugeicons/core-free-icons"
+import { useT } from "@/lib/i18n"
 
 type HistoryEmptyProps = {
   hasItems: boolean
@@ -7,6 +8,8 @@ type HistoryEmptyProps = {
 }
 
 const HistoryEmpty = ({ hasItems, onClearFilters }: HistoryEmptyProps) => {
+  const t = useT()
+
   return (
     <section className="flex min-h-72 flex-col items-center justify-center rounded-2xl border border-dashed px-6 py-12 text-center">
       <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-muted">
@@ -16,12 +19,10 @@ const HistoryEmpty = ({ hasItems, onClearFilters }: HistoryEmptyProps) => {
         />
       </div>
 
-      <h2 className="text-base font-semibold">Nothing found</h2>
+      <h2 className="text-base font-semibold">{t("history.empty.title")}</h2>
 
       <p className="mt-1.5 max-w-sm text-sm leading-6 text-muted-foreground">
-        {hasItems
-          ? "Try another search or switch the platform filter to find what you're looking for."
-          : "Your history is clear. Generated content will appear here once it is saved."}
+        {hasItems ? t("history.empty.noMatches") : t("history.empty.noItems")}
       </p>
 
       <button
@@ -29,7 +30,7 @@ const HistoryEmpty = ({ hasItems, onClearFilters }: HistoryEmptyProps) => {
         onClick={onClearFilters}
         className="mt-4 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-muted"
       >
-        Clear filters
+        {t("history.empty.clearFilters")}
       </button>
     </section>
   )

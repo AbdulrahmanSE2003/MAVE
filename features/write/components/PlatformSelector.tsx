@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label"
 import { generatePostRowIcon } from "@/features/app/utils"
 import { ContentType } from "@/lib/generated/prisma/enums"
-import { formatTypeName } from "@/lib/utils"
+import { useI18n, useT } from "@/lib/i18n"
 
 type PlatformSelectorProps = {
   contentType: ContentType
@@ -12,9 +12,14 @@ const PlatformSelector = ({
   contentType,
   setContentType,
 }: PlatformSelectorProps) => {
+  const t = useT()
+  const { dict } = useI18n()
+
   return (
     <div className="mt-7 space-y-3">
-      <Label className="text-sm font-semibold">Create for</Label>
+      <Label className="text-sm font-semibold">
+        {t("write.platform.label")}
+      </Label>
 
       <div className="grid gap-3 sm:grid-cols-3">
         {Object.values(ContentType).map((c, i) => (
@@ -33,10 +38,10 @@ const PlatformSelector = ({
 
             <span className="space-y-1">
               <span className="block text-sm font-semibold capitalize">
-                {formatTypeName(c)}
+                {dict.common.contentTypes[c]}
               </span>
               <span className="block text-xs text-muted-foreground">
-                Social content
+                {t("write.platform.description")}
               </span>
             </span>
           </button>
