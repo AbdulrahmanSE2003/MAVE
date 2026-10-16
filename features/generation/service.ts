@@ -108,9 +108,14 @@ export async function createGeneratedPost(
   const systemPrompt = buildSystemPrompt({
     contentType: input.contentType,
     writingExamples: examples.map((example) => example.content),
+    goal: input.goal,
+    tone: input.tone,
   })
-  const userPrompt = buildUserPrompt({ idea: input.idea })
 
+  const userPrompt = buildUserPrompt({
+    idea: input.idea,
+    context: input.context,
+  })
   // 6. Generate.
   let raw: string
   try {
@@ -129,7 +134,10 @@ export async function createGeneratedPost(
     }
 
     return fail(
-      `Your AI provider couldn't be reached. Please try again. ${error}`
+      error instanceof Error &&
+        error.message === "GEMINI_TEMPORARILY_UNAVAILABLE"
+        ? "Gemini is temporarily unavailable due to high demand. Please try again in a moment."
+        : "Your AI provider couldn't be reached. Please check your connection and try again."
     )
   }
 

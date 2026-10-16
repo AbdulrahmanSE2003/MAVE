@@ -1,3 +1,5 @@
+import { ContentType } from "./generated/prisma/enums"
+
 export { cn } from "cn"
 
 export function isTypingTarget(target: EventTarget | null) {
@@ -11,4 +13,8 @@ export function isTypingTarget(target: EventTarget | null) {
     target.tagName === "TEXTAREA" ||
     target.tagName === "SELECT"
   )
+}
+
+export const formatTypeName = (type: ContentType) => {
+  return type.split("_").join(" ").toLowerCase()
 }

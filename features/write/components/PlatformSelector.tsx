@@ -1,6 +1,7 @@
 import { Label } from "@/components/ui/label"
 import { generatePostRowIcon } from "@/features/app/utils"
 import { ContentType } from "@/lib/generated/prisma/enums"
+import { formatTypeName } from "@/lib/utils"
 
 type PlatformSelectorProps = {
   contentType: ContentType
@@ -31,7 +32,9 @@ const PlatformSelector = ({
             {generatePostRowIcon(c)}
 
             <span className="space-y-1">
-              <span className="block text-sm font-semibold">{c}</span>
+              <span className="block text-sm font-semibold capitalize">
+                {formatTypeName(c)}
+              </span>
               <span className="block text-xs text-muted-foreground">
                 Social content
               </span>

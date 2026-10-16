@@ -1,24 +1,50 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { SparklesIcon } from "@hugeicons/core-free-icons"
+import { Kbd, KbdGroup } from "@/components/ui/kbd"
+import { Loading03Icon, SparklesIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
-const WriteLapFooter = ({ idea }: { idea: string }) => {
+type WriteLapFooterProps = {
+  idea: string
+  isGenerating: boolean
+  onGenerate: () => void
+}
+
+const WriteLapFooter = ({
+  idea,
+  isGenerating,
+  onGenerate,
+}: WriteLapFooterProps) => {
   return (
     <div className="mt-6 flex flex-col gap-4 border-t pt-5 sm:flex-row sm:items-center sm:justify-between">
       <p className="text-xs text-muted-foreground">Your idea, your voice.</p>
 
-      <Button
-        type="button"
-        size="lg"
-        disabled={!idea.trim()}
-        className="gap-2"
-        onClick={() => {
-          // Connect generation to the existing flow later.
-        }}
-      >
-        <HugeiconsIcon icon={SparklesIcon} className="size-4" />
-        Generate
-      </Button>
+      <div className={`flex items-center gap-1.5`}>
+        <KbdGroup className={`max-sm:hidden`}>
+          <Kbd>⌘</Kbd>
+          <span>+</span>
+          <Kbd>↵ Enter</Kbd>
+        </KbdGroup>
+        <Button
+          type="button"
+          size="lg"
+          disabled={!idea.trim() || isGenerating}
+          className="gap-2"
+          onClick={onGenerate}
+        >
+          {isGenerating ? (
+            <HugeiconsIcon
+              icon={Loading03Icon}
+              className="size-4 animate-spin"
+            />
+          ) : (
+            <HugeiconsIcon icon={SparklesIcon} className="size-4" />
+          )}
+
+          {isGenerating ? "Generating..." : "Generate"}
+        </Button>
+      </div>
     </div>
   )
 }

@@ -14,10 +14,10 @@ export function generatePostRowIcon(type: ContentType): ReactNode {
     case "LINKEDIN_POST":
       return <HugeiconsIcon className={`size-5`} icon={Linkedin02Icon} />
 
-    case "Instagram Caption":
+    case "INSTAGRAM_CAPTION":
       return <HugeiconsIcon className={`size-5`} icon={Instagram} />
 
-    case "Instagram Carousel":
+    case "INSTAGRAM_CAROUSEL":
       return (
         <HugeiconsIcon
           className={`size-5`}
@@ -35,10 +35,10 @@ export const formatPostType = (type: ContentType) => {
     case "LINKEDIN_POST":
       return "Linkedin Post"
 
-    case "Instagram Caption":
+    case "INSTAGRAM_CAPTION":
       return "Instagram Caption"
 
-    case "Instagram Carousel":
+    case "INSTAGRAM_CAROUSEL":
       return "Instagram Carousel"
 
     default:

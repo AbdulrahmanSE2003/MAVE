@@ -1,4 +1,5 @@
 import { ContentType } from "@/lib/generated/prisma/enums"
+import { GoalValue, Tone } from "../write/types"
 
 const MAVE_CORE_INSTRUCTIONS = `
 You are MAVE, a professional content-writing assistant.
@@ -219,18 +220,116 @@ ${examples}
 `.trim()
 }
 
+const GOAL_INSTRUCTIONS: Record<GoalValue, string> = {
+  educate: `
+GOAL: EDUCATE
+Help the audience understand the idea or learn something useful.
+Prioritize clarity, accurate explanations, and practical insight.
+Do not add unsupported facts merely to make the content educational.
+`.trim(),
+
+  experience: `
+GOAL: SHARE EXPERIENCE
+Frame the content around lessons, observations, or experience
+supported by the user's idea and provided source material.
+Never invent personal events, experiences, or results.
+If no personal experience is provided, share the insight honestly
+without pretending the user personally experienced it.
+`.trim(),
+
+  story: `
+GOAL: TELL A STORY
+Use a coherent narrative progression when the idea supports it.
+Build around real details provided by the user.
+Never invent personal events or present fictional details as real.
+If the idea does not support a story, use a clear narrative-style
+explanation without fabricating events.
+`.trim(),
+
+  discussion: `
+GOAL: START A DISCUSSION
+Present a meaningful perspective, trade-off, or open question
+that gives the audience something relevant to discuss.
+Do not force controversy, engagement bait, or a question at the end
+when it does not naturally fit the idea.
+`.trim(),
+}
+
+const TONE_INSTRUCTIONS: Record<Tone, string> = {
+  "My usual voice": `
+TONE: USER'S USUAL VOICE
+Prioritize the user's writing samples when available.
+Preserve their natural voice without exaggerating its characteristics.
+If no samples exist, use a clear, natural voice suited to the idea.
+`.trim(),
+
+  "Friendly and conversational": `
+TONE: FRIENDLY AND CONVERSATIONAL
+Write naturally and approachably, as if explaining the idea
+to an interested peer. Avoid forced slang and excessive informality.
+`.trim(),
+
+  "Professional and clear": `
+TONE: PROFESSIONAL AND CLEAR
+Use precise language, logical structure, and confident explanations.
+Avoid unnecessary jargon, stiffness, and corporate clichés.
+`.trim(),
+
+  "Bold and opinionated": `
+TONE: BOLD AND OPINIONATED
+Express the central point directly and confidently.
+Use strong opinions only when supported by the user's idea.
+Do not manufacture controversy or overstate claims.
+`.trim(),
+
+  "Educational and practical": `
+TONE: EDUCATIONAL AND PRACTICAL
+Emphasize clear explanations, useful takeaways, and actionable
+details when the idea supports them. Avoid generic advice and filler.
+`.trim(),
+}
+
+function buildGenerationSettingsInstructions(params: {
+  goal?: GoalValue
+  tone?: Tone
+}): string {
+  return [
+    params.goal ? GOAL_INSTRUCTIONS[params.goal] : null,
+    params.tone ? TONE_INSTRUCTIONS[params.tone] : null,
+  ]
+    .filter(Boolean)
+    .join("\n\n")
+}
+
 export function buildSystemPrompt(params: {
   contentType: ContentType
   writingExamples: string[]
+  goal?: GoalValue
+  tone?: Tone
 }): string {
   return [
     MAVE_CORE_INSTRUCTIONS,
     LANGUAGE_INSTRUCTIONS,
     buildWritingVoiceInstructions(params.writingExamples),
     CONTENT_TYPE_INSTRUCTIONS[params.contentType],
-  ].join("\n\n")
+    buildGenerationSettingsInstructions({
+      goal: params.goal,
+      tone: params.tone,
+    }),
+  ]
+    .filter(Boolean)
+    .join("\n\n")
 }
 
-export function buildUserPrompt(params: { idea: string }): string {
-  return `USER IDEA:\n${params.idea}`
+export function buildUserPrompt(params: {
+  idea: string
+  context?: string
+}): string {
+  const sections = [`USER IDEA:\n${params.idea}`]
+
+  if (params.context?.trim()) {
+    sections.push(`ADDITIONAL CONTEXT FROM THE USER:\n${params.context.trim()}`)
+  }
+
+  return sections.join("\n\n")
 }

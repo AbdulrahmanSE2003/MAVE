@@ -1,10 +1,15 @@
 import { z } from "zod"
 import { AiProvider, ContentType } from "@/lib/generated/prisma/enums"
+import { goalValues, Tones } from "../write/constants"
 
 export const generateContentInputSchema = z.object({
   idea: z.string().trim().min(1, "Please enter an idea.").max(2000),
   contentType: z.enum(ContentType),
   provider: z.enum(AiProvider).optional(),
+
+  goal: z.enum(goalValues).optional(),
+  tone: z.enum(Tones).optional(),
+  context: z.string().trim().max(2000).optional(),
 })
 
 export type GenerateContentInput = z.infer<typeof generateContentInputSchema>

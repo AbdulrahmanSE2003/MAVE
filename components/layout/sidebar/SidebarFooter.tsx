@@ -122,7 +122,7 @@ const SidebarFooter = ({
               <span className="ml-auto text-xs text-muted-foreground">
                 <Kbd>⌘</Kbd>
                 <span>+</span>
-                <Kbd>\</Kbd>
+                <Kbd>D</Kbd>
               </span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
