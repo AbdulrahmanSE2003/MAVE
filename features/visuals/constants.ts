@@ -1,0 +1,58 @@
+import { Visual } from "./types"
+
+export const filters = ["All visuals", "Instagram", "LinkedIn", "Saved"]
+
+export const visuals: Visual[] = [
+  {
+    id: 1,
+    title: "Less noise, more clarity",
+    platform: "Instagram",
+    format: "4:5",
+    category: "Minimal",
+    background: "#F3EFE5",
+    foreground: "#111111",
+    accent: "#A1FF00",
+    eyebrow: "A NOTE ON CREATIVITY",
+    headline: "Less noise.\nMore clarity.",
+    footer: "Your ideas, your voice.",
+  },
+  {
+    id: 2,
+    title: "Build things that matter",
+    platform: "LinkedIn",
+    format: "4:5",
+    category: "Typography",
+    background: "#111111",
+    foreground: "#F3EFE5",
+    accent: "#A1FF00",
+    eyebrow: "BUILD IN PUBLIC / 001",
+    headline: "Build things\nthat actually\nmatter.",
+    footer: "MAVE / CREATOR NOTES",
+  },
+  {
+    id: 3,
+    title: "Ideas need a voice",
+    platform: "Instagram",
+    format: "1:1",
+    category: "Minimal",
+    background: "#EAE6DC",
+    foreground: "#111111",
+    accent: "#A1FF00",
+    eyebrow: "CREATIVE PROCESS",
+    headline: "Good ideas\ndeserve to be\nheard.",
+    footer: "MAVE STUDIO",
+  },
+  {
+    id: 4,
+    title: "Stop chasing trends",
+    platform: "LinkedIn",
+    format: "4:5",
+    category: "Typography",
+    background: "#DCE8D0",
+    foreground: "#111111",
+    accent: "#A1FF00",
+    eyebrow: "A DIFFERENT PERSPECTIVE",
+    headline: "Stop chasing\ntrends.\nStart thinking.",
+    footer: "MAVE / NOTES",
+  },
+]
