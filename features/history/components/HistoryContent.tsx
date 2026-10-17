@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo, useOptimistic, useState, useTransition } from "react"
 import { useT } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
@@ -10,7 +10,7 @@ import { toast } from "sonner"
 import HistoryEmpty from "./HistoryEmpty"
 import HistoryFilters from "./HistoryFilters"
 import HistoryList from "./HistoryList"
-import { getHistory } from "../actions"
+import { deletePost, getHistory } from "../actions"
 import { HistoryCardData, HistoryCursor, HistoryFilter } from "../types"
 import { htmlToPlainText } from "@/features/app/utils"
 
@@ -33,6 +33,47 @@ const HistoryContent = ({
   const [search, setSearch] = useState("")
   const [activeFilter, setActiveFilter] = useState<HistoryFilter>("all")
   const [isGettingMore, setIsGettingMore] = useState(false)
+  const [optimisticItems, removeOptimistically] = useOptimistic(
+    items,
+    (currentItems, deletedItem: HistoryCardData) =>
+      currentItems.filter(
+        (item) =>
+          !(
+            item.id === deletedItem.id &&
+            item.historyType === deletedItem.historyType
+          )
+      )
+  )
+  const [isPending, startTransition] = useTransition()
+
+  const handleDelete = (item: HistoryCardData) => {
+    startTransition(async () => {
+      removeOptimistically(item)
+
+      try {
+        const result = await deletePost(item.id)
+
+        if (!result.success) {
+          toast.error(result.error)
+          return
+        }
+
+        setItems((currentItems) =>
+          currentItems.filter(
+            (currentItem) =>
+              !(
+                currentItem.id === item.id &&
+                currentItem.historyType === item.historyType
+              )
+          )
+        )
+
+        toast.success(t("history.deleteSuccess"))
+      } catch {
+        toast.error(t("history.errors.deleteFailed"))
+      }
+    })
+  }
 
   const handleShowMore = async () => {
     if (isGettingMore || !hasMore) return
@@ -75,7 +116,7 @@ const HistoryContent = ({
   const filteredHistory = useMemo(() => {
     const query = search.trim().toLowerCase()
 
-    return items.filter((item) => {
+    return optimisticItems.filter((item) => {
       const matchesType =
         activeFilter === "all" ||
         (activeFilter === "posts" && item.historyType === "post") ||
@@ -91,7 +132,7 @@ const HistoryContent = ({
 
       return ideaMatches || contentMatches
     })
-  }, [items, activeFilter, search])
+  }, [optimisticItems, activeFilter, search])
 
   const isFiltering = activeFilter !== "all" || search.trim() !== ""
 
@@ -107,7 +148,7 @@ const HistoryContent = ({
       />
 
       {filteredHistory.length > 0 ? (
-        <HistoryList items={filteredHistory} />
+        <HistoryList onDelete={handleDelete} items={filteredHistory} />
       ) : (
         <HistoryEmpty
           hasItems={items.length > 0}

@@ -1,11 +1,20 @@
 import { HistoryCardData } from "../types"
 import HistoryItemCard from "./HistoryItemCard"
 
-const HistoryList = ({ items }: { items: HistoryCardData[] }) => {
+type Props = {
+  items: HistoryCardData[]
+  onDelete: (item: HistoryCardData) => void
+}
+
+const HistoryList = ({ items, onDelete }: Props) => {
   return (
-    <section className="space-y-4">
+    <section className="w-full space-y-4">
       {items.map((item) => (
-        <HistoryItemCard key={item.id} item={item} />
+        <HistoryItemCard
+          key={`${item.historyType}:${item.id}`}
+          item={item}
+          onDelete={onDelete}
+        />
       ))}
     </section>
   )

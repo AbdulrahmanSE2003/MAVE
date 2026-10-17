@@ -24,17 +24,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useRouter } from "next/navigation"
+import { deletePost } from "../actions"
 
 type Props = {
   item: HistoryCardData
   imageUrl?: string
+  onDelete: (item: HistoryCardData) => void
 }
 
-const HistoryItemCard = ({ item, imageUrl }: Props) => {
+const HistoryItemCard = ({ item, imageUrl, onDelete }: Props) => {
   const t = useT()
   const router = useRouter()
   const [openMenu, setOpenMenu] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const handleClick = () => {
     router.push(`/app/write/${item.id}`)
@@ -57,6 +60,31 @@ const HistoryItemCard = ({ item, imageUrl }: Props) => {
     }
   }
 
+  // const handleDelete = async () => {
+  //   setIsDeleting(true)
+
+  //   try {
+  //     const result = await deletePost(item.id)
+
+  //     if (!result.success) {
+  //       toast.error(result.error)
+  //       return
+  //     }
+
+  //     toast.success(t("history.deleteSuccess"))
+  //     // Update the UI or refresh the history here.
+  //   } catch {
+  //     toast.error(t("history.errors.deleteFailed"))
+  //   } finally {
+  //     setIsDeleting(false)
+  //   }
+  // }
+
+  const handleDelete = () => {
+    setOpenMenu(false)
+    onDelete(item)
+  }
+
   const platformLabel =
     item.historyType === "post" && item.platform === "LINKEDIN"
       ? "LinkedIn"
@@ -67,7 +95,7 @@ const HistoryItemCard = ({ item, imageUrl }: Props) => {
   return (
     <article className="group relative rounded-2xl border bg-card p-4 transition-colors hover:border-foreground/20 sm:p-5">
       {/* Image */}
-      <div className="flex gap-4 sm:gap-5">
+      <div className="flex gap-0 sm:gap-5">
         {item.historyType === "visual" && imageUrl && (
           <div className="hidden h-28 w-24 shrink-0 overflow-hidden rounded-xl bg-muted sm:block">
             <Image
@@ -128,6 +156,7 @@ const HistoryItemCard = ({ item, imageUrl }: Props) => {
               onClick={copyContent}
               aria-label="Copy content"
               title="Copy content"
+              className={`max-sm:hidden`}
             >
               <HugeiconsIcon
                 icon={copied ? CopyCheckIcon : Copy01Icon}
@@ -168,6 +197,7 @@ const HistoryItemCard = ({ item, imageUrl }: Props) => {
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem
+                onClick={handleDelete}
                 className={`cursor-pointer`}
                 variant="destructive"
               >

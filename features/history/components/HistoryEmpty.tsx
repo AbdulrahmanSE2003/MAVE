@@ -11,7 +11,7 @@ const HistoryEmpty = ({ hasItems, onClearFilters }: HistoryEmptyProps) => {
   const t = useT()
 
   return (
-    <section className="flex min-h-72 flex-col items-center justify-center rounded-2xl border border-dashed px-6 py-12 text-center">
+    <section className="flex min-h-72 w-full flex-col items-center justify-center rounded-2xl border border-dashed px-6 py-12 text-center">
       <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-muted">
         <HugeiconsIcon
           icon={Search01Icon}

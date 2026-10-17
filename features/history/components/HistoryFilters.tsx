@@ -41,7 +41,7 @@ const HistoryFilters = ({
           />
         </div>
 
-        <div className="flex items-center gap-1.5 self-start rounded-xl border bg-card p-1 sm:self-auto">
+        <div className="flex items-center gap-1.5 self-start rounded-xl border bg-card p-1 max-sm:w-full sm:self-auto">
           <HugeiconsIcon
             icon={FilterHorizontalIcon}
             className="ms-2 size-4 text-muted-foreground"

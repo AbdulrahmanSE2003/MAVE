@@ -10,9 +10,11 @@ export const history: History = {
   },
   showMore: "Mostrar más",
   loadingMore: "Cargando más...",
+  deleteSuccess: "Publicación eliminada correctamente.",
 
   errors: {
     fetchFailed: "No se pudo cargar el historial. Inténtalo de nuevo.",
+    deleteFailed: "No se pudo eliminar la publicación. Inténtalo de nuevo",
   },
 
   filters: {
@@ -53,7 +55,7 @@ export const history: History = {
 
   footer: {
     previewNote:
-      "Esta es una vista previa de la interfaz con entradas de ejemplo. El historial deberá conectarse a tus generaciones guardadas para conservarse entre sesiones.",
+      "Tu espacio creativo, todo en un solo lugar. Vuelve a tus publicaciones y elementos visuales guardados cuando los necesites.",
   },
 
   stubs: {

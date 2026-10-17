@@ -9,9 +9,11 @@ export const history = {
 
   showMore: "Show more",
   loadingMore: "Loading more...",
+  deleteSuccess: "Post deleted successfully",
 
   errors: {
     fetchFailed: "Unable to load your history. Please try again.",
+    deleteFailed: "Failed to delete post. Please try again",
   },
 
   filters: {
@@ -52,7 +54,7 @@ export const history = {
 
   footer: {
     previewNote:
-      "This is a UI preview using sample entries. History will need to be connected to your saved generations to persist between sessions.",
+      "Your creative workspace, all in one place. Revisit your saved posts and visuals whenever you need them.",
   },
 
   /** Placeholder text shown by the history sub-pages that are not built yet. */

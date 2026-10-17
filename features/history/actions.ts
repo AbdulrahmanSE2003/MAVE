@@ -74,3 +74,42 @@ export const getHistory = async (cursor?: HistoryCursor) => {
     }
   }
 }
+
+export const deletePost = async (postId: string) => {
+  const { t } = await getI18n()
+  const user = await getCurrentUser()
+
+  if (!user) {
+    return {
+      success: false as const,
+      error: t("write.errors.signInGenerate"),
+    }
+  }
+
+  try {
+    const result = await prisma.post.deleteMany({
+      where: {
+        id: postId,
+        userId: user.id,
+      },
+    })
+
+    if (result.count === 0) {
+      return {
+        success: false as const,
+        error: t("history.errors.deleteFailed"),
+      }
+    }
+
+    return {
+      success: true as const,
+    }
+  } catch (error) {
+    console.error("Failed to delete post:", error)
+
+    return {
+      success: false as const,
+      error: t("history.errors.deleteFailed"),
+    }
+  }
+}
