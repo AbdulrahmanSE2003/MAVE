@@ -4,8 +4,6 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { BulbIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { useEffect } from "react"
-import { toast } from "sonner"
 import { useT } from "@/lib/i18n"
 type WhatOnYourMindProps = {
   idea: string
@@ -34,7 +32,7 @@ const WhatOnYourMind = ({ idea, setIdea }: WhatOnYourMindProps) => {
         value={idea}
         onChange={(event) => setIdea(event.target.value)}
         placeholder={t("write.idea.placeholder")}
-        className="mt-2 min-h-36 resize-y border border-border bg-muted/70 px-4 py-4 text-base leading-7 shadow-none focus-visible:ring-1"
+        className="mt-3.5 min-h-36 resize-y border border-border bg-muted/70 px-4 py-4 text-base leading-7 shadow-none focus-visible:ring-1"
         maxLength={2000}
       />
 

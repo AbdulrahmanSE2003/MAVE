@@ -5,12 +5,16 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import Link from "next/link"
 import { useT } from "@/lib/i18n"
 import { settingsSections } from "../constants"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 const SettingsSidebar = () => {
   const t = useT()
-  // The active item follows what is actually on screen instead of the URL
-  // hash: client-side navigation does not fire `hashchange`, and scrolling
-  // never changes the hash at all.
   const [activeId, setActiveId] = useState("")
 
   useEffect(() => {
@@ -20,10 +24,6 @@ const SettingsSidebar = () => {
 
     if (sections.length === 0) return
 
-    // A narrow reading band just below the top of the viewport — the section
-    // crossing it is the one being read. When nothing intersects (e.g. while
-    // scrolling through the gap between two sections) the last active item is
-    // kept rather than cleared.
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -38,33 +38,80 @@ const SettingsSidebar = () => {
     return () => observer.disconnect()
   }, [])
 
-  return (
-    <aside className="h-fit lg:sticky lg:top-8">
-      <nav
-        aria-label={t("settings.sectionsNavLabel")}
-        className="flex gap-1 overflow-x-auto lg:flex-col"
-      >
-        {settingsSections.map((item) => {
-          const isActive = activeId === item.id
+  const handleSelectChange = (value: string) => {
+    setActiveId(value)
+    const element = document.getElementById(value)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
 
-          return (
-            <Link
-              key={item.id}
-              href={`#${item.id}`}
-              aria-current={isActive ? "true" : undefined}
-              className={`flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-colors ${
-                isActive
-                  ? "bg-muted font-medium text-foreground"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <HugeiconsIcon icon={item.icon} />
-              {t(`settings.sections.${item.id}`)}
-            </Link>
-          )
-        })}
-      </nav>
-    </aside>
+  const activeSection = settingsSections.find((item) => item.id === activeId)
+
+  return (
+    <>
+      {/* Mobile / Tablet: shadcn UI Select */}
+      <div className="sticky top-2 z-20 bg-background backdrop-blur lg:hidden">
+        <Select value={activeId} onValueChange={handleSelectChange}>
+          <SelectTrigger className="w-full font-medium">
+            <SelectValue placeholder={t("settings.sectionsNavLabel")}>
+              {activeSection && (
+                <div className="flex items-center gap-2">
+                  <HugeiconsIcon
+                    icon={activeSection.icon}
+                    className="size-4 shrink-0"
+                  />
+                  <span>{t(`settings.sections.${activeSection.id}`)}</span>
+                </div>
+              )}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {settingsSections.map((item) => (
+              <SelectItem key={item.id} value={item.id}>
+                <div className="flex items-center gap-2">
+                  <HugeiconsIcon
+                    icon={item.icon}
+                    className="size-4 shrink-0 text-muted-foreground"
+                  />
+                  <span>{t(`settings.sections.${item.id}`)}</span>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Desktop Navigation Sidebar */}
+      <aside className="hidden lg:sticky lg:top-8 lg:z-auto lg:block lg:h-fit">
+        <nav
+          aria-label={t("settings.sectionsNavLabel")}
+          className="flex flex-col gap-1"
+        >
+          {settingsSections.map((item) => {
+            const isActive = activeId === item.id
+
+            return (
+              <Link
+                key={item.id}
+                href={`#${item.id}`}
+                aria-current={isActive ? "location" : undefined}
+                className={`flex h-10 w-full items-center gap-2.5 rounded-lg px-3 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-muted font-semibold text-foreground"
+                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+                }`}
+              >
+                <HugeiconsIcon icon={item.icon} className="size-4 shrink-0" />
+                <span className="whitespace-nowrap">
+                  {t(`settings.sections.${item.id}`)}
+                </span>
+              </Link>
+            )
+          })}
+        </nav>
+      </aside>
+    </>
   )
 }
 

@@ -35,7 +35,7 @@ const WriteLapFooter = ({
           type="button"
           size="lg"
           disabled={!idea.trim() || isGenerating}
-          className="gap-2"
+          className="gap-2 max-sm:w-full"
           onClick={onGenerate}
         >
           {isGenerating ? (

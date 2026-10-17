@@ -161,7 +161,7 @@ const GeneratePost = () => {
   )
 
   return (
-    <div className="mt-4 flex min-h-72 w-full min-w-0 flex-col overflow-x-hidden rounded-xl border border-border shadow-lg max-sm:w-72">
+    <div className="mt-4 flex min-h-72 w-full flex-col overflow-x-hidden rounded-xl border border-border shadow-lg">
       <Textarea
         ref={textareaRef}
         name={draft ? "content" : "idea"}
