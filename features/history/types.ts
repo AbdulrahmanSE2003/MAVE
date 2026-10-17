@@ -1,14 +1,27 @@
-import type { TranslationKey } from "@/lib/i18n/translator"
+import { ContentType } from "@/lib/generated/prisma/enums"
 
-export type Platform = "LinkedIn" | "Instagram"
-export type Filter = "All" | Platform
+export type HistoryFilter = "all" | "posts" | "images"
 
-export type HistoryItem = {
-  id: number
-  title: TranslationKey
-  excerpt: TranslationKey
-  platform: Platform
-  date: TranslationKey
-  status: "Generated" | "Edited"
-  color: string
+export type HistoryCardData =
+  | {
+      historyType: "post"
+      id: string
+      idea: string
+      content: string
+      contentType: ContentType
+      platform: "LINKEDIN" | "INSTAGRAM"
+      createdAt: Date
+    }
+  | {
+      historyType: "visual"
+      id: string
+      idea: string
+      createdAt: Date
+      storageKey: string
+      mimeType: string
+    }
+
+export type HistoryCursor = {
+  postId?: string
+  visualId?: string
 }

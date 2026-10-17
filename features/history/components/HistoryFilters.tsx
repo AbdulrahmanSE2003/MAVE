@@ -1,14 +1,15 @@
 import { HugeiconsIcon } from "@hugeicons/react"
 import { FilterHorizontalIcon, Search01Icon } from "@hugeicons/core-free-icons"
 import { useT } from "@/lib/i18n"
+import { HistoryFilter } from "../types"
 import { filters } from "../constants"
-import { Filter } from "../types"
+import { Input } from "@/components/ui/input"
 
 type HistoryFiltersProps = {
   search: string
   onSearchChange: (value: string) => void
-  activeFilter: Filter
-  onFilterChange: (value: Filter) => void
+  activeFilter: HistoryFilter
+  onFilterChange: (value: HistoryFilter) => void
   resultCount: number
   isFiltering: boolean
 }
@@ -24,20 +25,19 @@ const HistoryFilters = ({
   const t = useT()
 
   return (
-    <section className="space-y-4">
+    <section className="mb-3 w-full space-y-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative min-w-0 flex-1">
           <HugeiconsIcon
             icon={Search01Icon}
-            className="pointer-events-none absolute start-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+            className="pointer-events-none absolute inset-e-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
           />
 
-          <input
+          <Input
             value={search}
             onChange={(event) => onSearchChange(event.target.value)}
             placeholder={t("history.filters.searchPlaceholder")}
             aria-label={t("history.filters.searchAriaLabel")}
-            className="h-11 w-full rounded-xl border bg-background ps-10 pe-4 text-sm transition-colors outline-none placeholder:text-muted-foreground focus:border-primary"
           />
         </div>
 
@@ -59,7 +59,9 @@ const HistoryFilters = ({
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               }`}
             >
-              {filter === "All" ? t("history.filters.all") : filter}
+              {t(
+                `history.filters.${filter === "images" ? "visual" : filter}`
+              )}{" "}
             </button>
           ))}
         </div>

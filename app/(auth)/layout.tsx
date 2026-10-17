@@ -35,7 +35,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
         {/*Circle*/}
         <div
-          className={`absolute right-12 -bottom-16 h-72 w-72 rounded-full bg-transparent ring-124 ring-primary`}
+          className={`absolute inset-e-12 -bottom-16 h-72 w-72 rounded-full bg-transparent ring-124 ring-primary`}
         />
       </div>
       <div

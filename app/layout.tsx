@@ -103,8 +103,9 @@ export default async function RootLayout({
           <Toaster
             richColors
             visibleToasts={2}
+            
             closeButton
-            position="top-center"
+            position="bottom-center"
           />
           <I18nProvider locale={locale}>
             <TooltipProvider>{children}</TooltipProvider>

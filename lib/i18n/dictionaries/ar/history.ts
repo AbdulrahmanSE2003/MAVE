@@ -8,9 +8,17 @@ export const history: History = {
     itemsOne: "عنصر",
     itemsOther: "عناصر",
   },
+  showMore: "عرض المزيد",
+  loadingMore: "جاري تحميل المزيد...",
+
+  errors: {
+    fetchFailed: "تعذّر تحميل السجل. يرجى المحاولة مرة أخرى.",
+  },
 
   filters: {
     all: "الكل",
+    posts: "المنشورات",
+    visual: "المرئيات",
     searchPlaceholder: "ابحث في محتواك...",
     searchAriaLabel: "البحث في السجل",
     resultsOne: "{count} نتيجة",

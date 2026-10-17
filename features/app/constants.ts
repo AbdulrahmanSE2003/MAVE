@@ -113,7 +113,7 @@ export const navigationItems: {
   },
   {
     labelKey: "app.nav.generateVisual",
-    href: "/app/visual",
+    href: "/app/visuals",
     keywords: "generate create new image visual picture توليد إنشاء صور",
     icon: ImagePlus,
   },
@@ -128,35 +128,5 @@ export const navigationItems: {
     href: "/app/settings",
     keywords: "settings preferences الإعدادات",
     icon: Settings02Icon,
-  },
-]
-
-export const commandActions: {
-  id: string
-  labelKey: TranslationKey
-  keywords: string
-  href: string
-  group: string
-}[] = [
-  {
-    id: "create-linkedin-post",
-    labelKey: "app.commandMenu.actions.createLinkedinPost",
-    keywords: "linkedin write generate منشور لينكدإن",
-    href: "/app/write?platform=linkedin",
-    group: "Create",
-  },
-  {
-    id: "create-instagram-post",
-    labelKey: "app.commandMenu.actions.createInstagramCaption",
-    keywords: "instagram caption write انستجرام",
-    href: "/app/write?platform=instagram",
-    group: "Create",
-  },
-  {
-    id: "generate-visual",
-    labelKey: "app.commandMenu.actions.generateVisual",
-    keywords: "image picture visual صورة",
-    href: "/app/visual",
-    group: "Create",
   },
 ]

@@ -1,11 +1,9 @@
 import { HugeiconsIcon } from "@hugeicons/react"
 import { File02Icon } from "@hugeicons/core-free-icons"
 import { getI18n } from "@/lib/i18n/server"
-import { initialHistory } from "../constants"
 
 const HistoryHeader = async () => {
   const { t } = await getI18n()
-  const count = initialHistory.length
 
   return (
     <header className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
@@ -24,7 +22,7 @@ const HistoryHeader = async () => {
         </p>
       </div>
 
-      <div className="flex items-center gap-2 self-start rounded-xl border bg-card px-3.5 py-2.5 text-sm sm:self-auto">
+      {/* <div className="flex items-center gap-2 self-start rounded-xl border bg-card px-3.5 py-2.5 text-sm sm:self-auto">
         <HugeiconsIcon
           icon={File02Icon}
           className="size-4 text-muted-foreground"
@@ -35,7 +33,7 @@ const HistoryHeader = async () => {
             ? t("history.header.itemsOne", { count })
             : t("history.header.itemsOther", { count })}
         </span>
-      </div>
+      </div> */}
     </header>
   )
 }

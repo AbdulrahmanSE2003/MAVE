@@ -27,7 +27,7 @@ export function CommandMenu() {
   const t = useT()
   const [open, setOpen] = useState(false)
   const router = useRouter()
-  const { theme, setTheme } = useTheme()
+  const { setTheme } = useTheme()
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -87,23 +87,15 @@ export function CommandMenu() {
           <CommandGroup heading={t("app.commandMenu.groups.create")}>
             <CommandItem
               value="Create LinkedIn post write generate content لينكدإن منشور"
-              onSelect={() => navigateTo("/app/write?platform=linkedin")}
+              onSelect={() => navigateTo("/app/write")}
             >
               <HugeiconsIcon icon={FileAddFreeIcons} className="me-2 size-4" />
-              <span>{t("app.commandMenu.actions.createLinkedinPost")}</span>
-            </CommandItem>
-
-            <CommandItem
-              value="Create Instagram caption write generate content انستجرام كابشن"
-              onSelect={() => navigateTo("/app/write?platform=instagram")}
-            >
-              <HugeiconsIcon icon={FileAddFreeIcons} className="me-2 size-4" />
-              <span>{t("app.commandMenu.actions.createInstagramCaption")}</span>
+              <span>{t("app.commandMenu.actions.createPost")}</span>
             </CommandItem>
 
             <CommandItem
               value="Generate a visual image picture artwork توليد صورة"
-              onSelect={() => navigateTo("/app/visual")}
+              onSelect={() => navigateTo("/app/visuals")}
             >
               <HugeiconsIcon icon={ImagePlus} className="me-2 size-4" />
               <span>{t("app.commandMenu.actions.generateVisual")}</span>

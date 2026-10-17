@@ -60,8 +60,7 @@ export const app: App = {
       appearance: "المظهر",
     },
     actions: {
-      createLinkedinPost: "إنشاء منشور على LinkedIn",
-      createInstagramCaption: "إنشاء كابشن على Instagram",
+      createPost: "إنشاء منشور ",
       generateVisual: "توليد تصميم",
       switchToLightTheme: "التبديل إلى المظهر الفاتح",
       switchToDarkTheme: "التبديل إلى المظهر الداكن",
@@ -127,6 +126,8 @@ export const app: App = {
       keyboardShortcuts: "اختصارات لوحة المفاتيح",
       toggleTheme: "تبديل المظهر",
       logOut: "تسجيل الخروج",
+      signingOut: "جارٍ تسجيل الخروج…",
+      signOutFailed: "تعذر تسجيل خروجك. حاول مرة أخرى.",
     },
   },
 

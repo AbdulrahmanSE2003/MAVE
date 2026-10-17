@@ -61,8 +61,7 @@ export const app: App = {
       appearance: "Apariencia",
     },
     actions: {
-      createLinkedinPost: "Crear una publicación de LinkedIn",
-      createInstagramCaption: "Crear un caption de Instagram",
+      createPost: "Crear una publicación",
       generateVisual: "Generar un visual",
       switchToLightTheme: "Cambiar al tema claro",
       switchToDarkTheme: "Cambiar al tema oscuro",
@@ -128,6 +127,8 @@ export const app: App = {
       keyboardShortcuts: "Atajos de teclado",
       toggleTheme: "Cambiar tema",
       logOut: "Cerrar sesión",
+      signingOut: "Cerrando sesión…",
+      signOutFailed: "No pudimos cerrar tu sesión. Inténtalo de nuevo.",
     },
   },
 

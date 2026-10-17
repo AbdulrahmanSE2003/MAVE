@@ -1,4 +1,3 @@
-import { Separator } from "@/components/ui/separator"
 import { ChevronRight } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { generatePostRowIcon, htmlToPlainText } from "../utils"

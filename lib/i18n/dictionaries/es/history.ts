@@ -8,9 +8,17 @@ export const history: History = {
     itemsOne: "elemento",
     itemsOther: "elementos",
   },
+  showMore: "Mostrar más",
+  loadingMore: "Cargando más...",
+
+  errors: {
+    fetchFailed: "No se pudo cargar el historial. Inténtalo de nuevo.",
+  },
 
   filters: {
-    all: "Todo",
+    all: "Todos",
+    posts: "Publicaciones",
+    visual: "Imágenes",
     searchPlaceholder: "Busca en tu contenido...",
     searchAriaLabel: "Buscar en el historial",
     resultsOne: "{count} resultado",

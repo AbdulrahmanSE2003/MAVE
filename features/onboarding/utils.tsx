@@ -99,12 +99,6 @@ export const TYPOGRAPHY_FONT_CLASS: Record<VisualTypography, string> = {
 
 export const DENSITIES: VisualDensity[] = ["Spacious", "Balanced", "Dense"]
 
-export const DENSITY_PREVIEW_CLASS: Record<VisualDensity, string> = {
-  Spacious: "py-8",
-  Balanced: "py-5",
-  Dense: "py-2",
-}
-
 /* ---------- Color systems ---------- */
 
 export const PALETTE_THEME: Record<

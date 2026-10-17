@@ -41,15 +41,6 @@ export function resolveTranslation(
   return typeof node === "string" ? node : undefined
 }
 
-/** Type guard for strings that should be handled as translation keys (used
- * for zod issue messages, which arrive as plain strings at runtime). */
-export function isTranslationKey(
-  dict: Dictionary,
-  value: string
-): value is TranslationKey {
-  return resolveTranslation(dict, value) !== undefined
-}
-
 function interpolate(message: string, params?: TranslationParams): string {
   if (!params) return message
 

@@ -46,9 +46,9 @@ Keep the product simple, fast, and focused.
 - **TypeScript**
 - **Tailwind CSS**
 - **shadcn/ui**
-- **PostgreSQL**
+- **PostgreSQL** — Neon
 - **Prisma**
-- **Better Auth**
+- **Neon Auth**
 - **OpenAI**
 - **pnpm**
 
@@ -57,22 +57,30 @@ Keep the product simple, fast, and focused.
 ## Project Structure
 
 ```text
-src/
+app/
+├── (marketing)/
+├── (auth)/
+├── (app)/
+├── onboarding/
+└── api/auth/
+
+components/
+├── ui/
+├── layout/
+└── hotkeys/
+
+features/
 ├── app/
-│   ├── (marketing)/
-│   ├── auth/
-│   └── dashboard/
-│
-├── components/
-│   ├── ui/
-│   └── shared/
-│
-├── features/
-│   ├── generation/
-│   ├── style/
-│   └── visuals/
-│
-└── lib/
+├── auth/
+├── generation/
+├── history/
+├── marketing/
+├── onboarding/
+├── settings/
+├── visuals/
+└── write/
+
+lib/
 ```
 
 The exact structure may evolve as the application grows, but features should remain isolated and responsibilities should stay clear.
@@ -122,7 +130,7 @@ pnpm install
 Create a local environment file:
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
 Configure the required environment variables before running the application.

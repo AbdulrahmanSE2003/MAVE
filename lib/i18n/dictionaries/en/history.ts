@@ -7,8 +7,17 @@ export const history = {
     itemsOther: "items",
   },
 
+  showMore: "Show more",
+  loadingMore: "Loading more...",
+
+  errors: {
+    fetchFailed: "Unable to load your history. Please try again.",
+  },
+
   filters: {
     all: "All",
+    posts: "Posts",
+    visual: "Images",
     searchPlaceholder: "Search your content...",
     searchAriaLabel: "Search history",
     resultsOne: "{count} result",
@@ -29,7 +38,7 @@ export const history = {
     removeFromList: "Remove from list",
     removeUnavailableTitle:
       "Removing entries will be available once history is connected.",
-    copiedMessage: "Content copied to clipboard.",
+    copiedMessage: "Content copied to clipboard successfully.",
   },
 
   empty: {

@@ -15,11 +15,6 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -66,11 +61,6 @@
   --border: oklch(0.88 0.007 106.5);
   --input: oklch(0.93 0.007 106.5);
   --ring: oklch(0.737 0.021 106.9);
-  --chart-1: oklch(0.88 0.011 106.6);
-  --chart-2: oklch(0.58 0.031 107.3);
-  --chart-3: oklch(0.466 0.025 107.3);
-  --chart-4: oklch(0.394 0.023 107.4);
-  --chart-5: oklch(0.286 0.016 107.4);
   --radius: 0.675rem;
   --sidebar: oklch(0.988 0.003 106.5);
   --sidebar-foreground: oklch(0.153 0.006 107.1);
@@ -101,11 +91,6 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.58 0.031 107.3);
-  --chart-1: oklch(0.88 0.011 106.6);
-  --chart-2: oklch(0.58 0.031 107.3);
-  --chart-3: oklch(0.466 0.025 107.3);
-  --chart-4: oklch(0.394 0.023 107.4);
-  --chart-5: oklch(0.286 0.016 107.4);
   --sidebar: oklch(0.228 0.013 107.4);
   --sidebar-foreground: oklch(0.988 0.003 106.5);
   --sidebar-primary: oklch(0.768 0.233 130.85);
@@ -138,10 +123,6 @@
 @utility flex-between {
   @apply flex items-center justify-between;
 }
-@utility flex-start {
-  @apply flex items-center justify-start;
-}
-
 @utility caption {
   @apply text-[9px] font-semibold tracking-widest uppercase;
 }
@@ -210,4 +191,5 @@ html:lang(ar) body,
 html:lang(ar) .font-sans,
 html:lang(ar) .font-heading {
   font-family: var(--font-arabic), var(--font-sans), Arial, sans-serif;
+  font-weight: 700;
 }

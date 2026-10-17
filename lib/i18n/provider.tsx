@@ -99,7 +99,3 @@ export function useI18n(): I18nContextValue {
 export function useT(): Translator {
   return useI18n().t
 }
-
-export function useLocale(): Locale {
-  return useI18n().locale
-}

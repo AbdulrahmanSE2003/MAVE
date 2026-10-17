@@ -25,6 +25,10 @@ import {
 import { Kbd } from "@/components/ui/kbd"
 import { useTheme } from "next-themes"
 import { useT } from "@/lib/i18n"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { toast } from "sonner"
+import { authClient } from "@/lib/auth/client"
 
 const SidebarFooter = ({
   isOpen,
@@ -36,8 +40,31 @@ const SidebarFooter = ({
   user: User
 }) => {
   const t = useT()
+  const router = useRouter()
   const { resolvedTheme, setTheme } = useTheme()
   const isDark = resolvedTheme === "dark"
+  const [isSigningOut, setIsSigningOut] = useState(false)
+
+  async function handleSignOut() {
+    if (isSigningOut) return
+    setIsSigningOut(true)
+
+    try {
+      const { error } = await authClient.signOut()
+
+      if (error) {
+        toast.error(t("app.sidebar.footer.signOutFailed"))
+        return
+      }
+
+      router.push("/signin")
+      router.refresh()
+    } catch {
+      toast.error(t("app.sidebar.footer.signOutFailed"))
+    } finally {
+      setIsSigningOut(false)
+    }
+  }
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -133,12 +160,19 @@ const SidebarFooter = ({
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem variant="destructive" disabled>
+          <DropdownMenuItem
+            variant="destructive"
+            disabled={isSigningOut}
+            onSelect={(event) => {
+              // Keep the menu open while signing out so the pending state is visible.
+              event.preventDefault()
+              void handleSignOut()
+            }}
+          >
             <HugeiconsIcon icon={Logout01Icon} className="me-2 size-4" />
-            {t("app.sidebar.footer.logOut")}
-            <span className="ms-auto text-xs text-muted-foreground">
-              {t("common.status.comingSoon")}
-            </span>
+            {isSigningOut
+              ? t("app.sidebar.footer.signingOut")
+              : t("app.sidebar.footer.logOut")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

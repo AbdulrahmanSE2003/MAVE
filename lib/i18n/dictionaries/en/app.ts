@@ -58,8 +58,7 @@ export const app = {
       appearance: "Appearance",
     },
     actions: {
-      createLinkedinPost: "Create a LinkedIn post",
-      createInstagramCaption: "Create an Instagram caption",
+      createPost: "Create a post",
       generateVisual: "Generate a visual",
       switchToLightTheme: "Switch to light theme",
       switchToDarkTheme: "Switch to dark theme",
@@ -125,6 +124,8 @@ export const app = {
       keyboardShortcuts: "Keyboard shortcuts",
       toggleTheme: "Toggle Theme",
       logOut: "Log out",
+      signingOut: "Signing out…",
+      signOutFailed: "We couldn't sign you out. Please try again.",
     },
   },
 

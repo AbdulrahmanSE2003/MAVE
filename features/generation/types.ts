@@ -1,21 +1,6 @@
 // features/generation/types.ts
 
-import { AiProvider, ContentType } from "@/lib/generated/prisma/enums"
-
-export type GenerateContentParams = {
-  idea: string
-  contentType: ContentType
-  provider?: AiProvider // explicit choice when user has more than one saved
-}
-
-export type CarouselSlide = {
-  heading: string
-  body: string
-}
-
-export type CarouselOutput = {
-  slides: CarouselSlide[]
-}
+import { ContentType } from "@/lib/generated/prisma/enums"
 
 // What every provider adapter must return — a single shared shape.
 // The adapter does NOT know about ContentType-specific parsing;

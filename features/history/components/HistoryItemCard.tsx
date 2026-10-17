@@ -4,139 +4,180 @@ import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   Copy01Icon,
-  Delete02Icon,
+  CopyCheckIcon,
   InstagramIcon,
   Linkedin01Icon,
   MoreHorizontalIcon,
+  PencilEdit01FreeIcons,
+  Trash2,
 } from "@hugeicons/core-free-icons"
 import { useT } from "@/lib/i18n"
-import type { HistoryItem } from "../types"
+import type { HistoryCardData } from "../types"
+import Image from "next/image"
+import { htmlToPlainText } from "@/features/app/utils"
+import { toast } from "sonner"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { useRouter } from "next/navigation"
 
-const HistoryItemCard = ({ item }: { item: HistoryItem }) => {
+type Props = {
+  item: HistoryCardData
+  imageUrl?: string
+}
+
+const HistoryItemCard = ({ item, imageUrl }: Props) => {
   const t = useT()
+  const router = useRouter()
   const [openMenu, setOpenMenu] = useState(false)
   const [copied, setCopied] = useState(false)
 
+  const handleClick = () => {
+    router.push(`/app/write/${item.id}`)
+  }
+
   async function copyContent() {
+    if (item.historyType !== "post") return
+
     try {
-      await navigator.clipboard.writeText(
-        `${t(item.title)}\n\n${t(item.excerpt)}`
-      )
-      setCopied(true)
+      await navigator.clipboard.writeText(htmlToPlainText(item.content))
+      toast.success(t("history.card.copiedMessage"))
       setOpenMenu(false)
+      setCopied(true)
+
+      setTimeout(() => {
+        setCopied(false)
+      }, 3000)
     } catch {
-      // Clipboard access may be unavailable in some browser contexts.
+      setCopied(false)
     }
   }
 
+  const platformLabel =
+    item.historyType === "post" && item.platform === "LINKEDIN"
+      ? "LinkedIn"
+      : item.historyType === "post" && item.platform === "INSTAGRAM"
+        ? "Instagram"
+        : null
+
   return (
     <article className="group relative rounded-2xl border bg-card p-4 transition-colors hover:border-foreground/20 sm:p-5">
+      {/* Image */}
       <div className="flex gap-4 sm:gap-5">
-        {/* Content preview */}
-        <div
-          className={`hidden h-28 w-24 shrink-0 flex-col justify-between overflow-hidden rounded-xl p-3 sm:flex ${item.color}`}
-        >
-          <span className="text-[10px] font-semibold tracking-widest text-black/50">
-            MAVE
-          </span>
-          <span className="line-clamp-3 text-xs leading-4 font-semibold text-black">
-            {t(item.title)}
-          </span>
-        </div>
+        {item.historyType === "visual" && imageUrl && (
+          <div className="hidden h-28 w-24 shrink-0 overflow-hidden rounded-xl bg-muted sm:block">
+            <Image
+              src={imageUrl}
+              alt={item.idea}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        )}
 
-        {/* Main content */}
+        {/* Card Header */}
         <div className="min-w-0 flex-1 space-y-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium">
-              <HugeiconsIcon
-                icon={
-                  item.platform === "LinkedIn" ? Linkedin01Icon : InstagramIcon
-                }
-                className="size-3.5"
-              />
-              {item.platform}
-            </span>
+            {platformLabel && item.historyType === "post" && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium">
+                <HugeiconsIcon
+                  icon={
+                    item.platform === "LINKEDIN"
+                      ? Linkedin01Icon
+                      : InstagramIcon
+                  }
+                  className="size-3.5"
+                />
+                {platformLabel}
+              </span>
+            )}
 
             <span className="rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
-              {item.status === "Generated"
-                ? t("history.status.generated")
-                : t("history.status.edited")}
+              {item.historyType === "post" ? "Post" : "Image"}
             </span>
           </div>
 
           <div className="space-y-1.5">
             <h2 className="truncate text-base font-semibold tracking-tight sm:text-lg">
-              {t(item.title)}
+              {item.idea}
             </h2>
 
-            <p className="line-clamp-2 max-w-3xl text-sm leading-6 text-muted-foreground">
-              {t(item.excerpt)}
+            <p className="line-clamp-1 truncate text-sm leading-6 whitespace-pre-wrap text-muted-foreground">
+              {item.historyType === "post"
+                ? htmlToPlainText(item.content)
+                : item.idea}
             </p>
           </div>
 
-          <p className="text-xs text-muted-foreground">{t(item.date)}</p>
+          <p className="text-xs text-muted-foreground">
+            {new Intl.DateTimeFormat(undefined, {
+              dateStyle: "medium",
+              timeStyle: "short",
+            }).format(item.createdAt)}
+          </p>
         </div>
 
-        {/* Actions */}
         <div className="relative flex shrink-0 items-start gap-1">
-          <button
-            type="button"
-            onClick={copyContent}
-            aria-label={t("history.card.copyAriaLabel", {
-              title: t(item.title),
-            })}
-            title={
-              copied
-                ? t("common.actions.copied")
-                : t("history.card.copyContent")
-            }
-            className="hidden size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:flex"
-          >
-            <HugeiconsIcon icon={Copy01Icon} className="size-4" />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setOpenMenu((current) => !current)}
-            aria-label={t("history.card.moreActionsAriaLabel", {
-              title: t(item.title),
-            })}
-            aria-expanded={openMenu}
-            className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
-            <HugeiconsIcon icon={MoreHorizontalIcon} className="size-5" />
-          </button>
-
-          {openMenu && (
-            <div className="absolute end-0 top-10 z-20 w-44 rounded-xl border bg-popover p-1.5 shadow-lg">
-              <button
-                type="button"
-                onClick={copyContent}
-                className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-start text-sm hover:bg-muted"
-              >
-                <HugeiconsIcon icon={Copy01Icon} className="size-4" />
-                {t("history.card.copyContent")}
-              </button>
-
-              <button
-                type="button"
-                disabled
-                title={t("history.card.removeUnavailableTitle")}
-                className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-start text-sm text-destructive hover:bg-destructive/10 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-transparent"
-              >
-                <HugeiconsIcon icon={Delete02Icon} className="size-4" />
-                {t("history.card.removeFromList")}
-              </button>
-            </div>
+          {item.historyType === "post" && (
+            <Button
+              variant={"invisible"}
+              type="button"
+              onClick={copyContent}
+              aria-label="Copy content"
+              title="Copy content"
+            >
+              <HugeiconsIcon
+                icon={copied ? CopyCheckIcon : Copy01Icon}
+                className="size-4"
+              />
+            </Button>
           )}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant={"invisible"}
+                type="button"
+                aria-label="More actions"
+                aria-expanded={openMenu}
+              >
+                <HugeiconsIcon icon={MoreHorizontalIcon} className="size-5" />
+              </Button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent className="w-40" align="end">
+              <DropdownMenuItem
+                className={`cursor-pointer`}
+                onClick={handleClick}
+              >
+                <HugeiconsIcon
+                  icon={PencilEdit01FreeIcons}
+                  className="size-4"
+                />
+                Edit Post
+              </DropdownMenuItem>
+              {item.historyType === "post" && (
+                <DropdownMenuItem
+                  onClick={copyContent}
+                  className={`cursor-pointer`}
+                >
+                  <HugeiconsIcon icon={Copy01Icon} className="size-4" />
+                  Copy content
+                </DropdownMenuItem>
+              )}
+              <DropdownMenuItem
+                className={`cursor-pointer`}
+                variant="destructive"
+              >
+                <HugeiconsIcon icon={Trash2} className="size-4" />
+                Delete {item.historyType === "post" ? "Post" : "Visual"}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
-
-      {copied && (
-        <p className="mt-3 text-xs text-muted-foreground">
-          {t("history.card.copiedMessage")}
-        </p>
-      )}
     </article>
   )
 }

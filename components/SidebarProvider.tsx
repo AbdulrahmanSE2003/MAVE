@@ -11,6 +11,7 @@ import {
 } from "react"
 import KeyboardShortcutsDialog from "./hotkeys/KeyboardShortcutsDialog"
 import SidebarToggle from "./hotkeys/SidebarToggle"
+import ThemeHotkey from "./hotkeys/ThemeHotKey"
 
 type SidebarContextValue = {
   isOpen: boolean
@@ -75,6 +76,7 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     <SidebarContext.Provider value={value}>
       <KeyboardShortcutsDialog />
       <SidebarToggle />
+      <ThemeHotkey />
       {children}
     </SidebarContext.Provider>
   )

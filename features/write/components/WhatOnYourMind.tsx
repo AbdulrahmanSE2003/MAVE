@@ -14,36 +14,6 @@ type WhatOnYourMindProps = {
 
 const WhatOnYourMind = ({ idea, setIdea }: WhatOnYourMindProps) => {
   const t = useT()
-  // useEffect(() => {
-  //   function handleKeyDown(event: KeyboardEvent) {
-  //     if (
-  //       event.key !== "Enter" ||
-  //       !(event.metaKey || event.ctrlKey) ||
-  //       event.shiftKey ||
-  //       event.altKey
-  //     ) {
-  //       return
-  //     }
-
-  //     event.preventDefault()
-
-  //     if (draft) {
-  //       if (isDirty) void handleSave()
-  //       return
-  //     }
-
-  //     if (!canGenerate) {
-  //       toast.warning("Please enter your idea first.")
-  //       return
-  //     }
-
-  //     // void handleGenerate()
-  //   }
-
-  //   window.addEventListener("keydown", handleKeyDown)
-  //   return () => window.removeEventListener("keydown", handleKeyDown)
-  // }, [draft, isDirty, handleSave, canGenerate, handleGenerate])
-
   return (
     <div className="">
       <Label
@@ -64,7 +34,7 @@ const WhatOnYourMind = ({ idea, setIdea }: WhatOnYourMindProps) => {
         value={idea}
         onChange={(event) => setIdea(event.target.value)}
         placeholder={t("write.idea.placeholder")}
-        className="mt-2 min-h-36 resize-y border-0 bg-muted/40 px-4 py-4 text-base leading-7 shadow-none focus-visible:ring-1"
+        className="mt-2 min-h-36 resize-y border border-border bg-muted/70 px-4 py-4 text-base leading-7 shadow-none focus-visible:ring-1"
         maxLength={2000}
       />
 

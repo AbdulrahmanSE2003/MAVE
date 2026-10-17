@@ -1,9 +1,9 @@
-import { HistoryItem } from "../types"
+import { HistoryCardData } from "../types"
 import HistoryItemCard from "./HistoryItemCard"
 
-const HistoryList = ({ items }: { items: HistoryItem[] }) => {
+const HistoryList = ({ items }: { items: HistoryCardData[] }) => {
   return (
-    <section className="space-y-3">
+    <section className="space-y-4">
       {items.map((item) => (
         <HistoryItemCard key={item.id} item={item} />
       ))}

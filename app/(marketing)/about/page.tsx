@@ -1,4 +1,4 @@
-import AboutHero from "@/features/marketing/about/components/ABoutHero"
+import AboutHero from "@/features/marketing/about/components/AboutHero"
 import Vision from "@/features/marketing/about/components/Vision"
 
 const AboutPage = () => {
