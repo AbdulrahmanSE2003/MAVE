@@ -79,6 +79,7 @@ export const settings = {
     deleteDescription:
       "Permanently delete your account and all associated data.",
     cancel: "Cancel",
+    confirmingLabel: "Confirming...",
     confirmations: {
       signOutTitle: "Sign Out",
       signOutDescription:

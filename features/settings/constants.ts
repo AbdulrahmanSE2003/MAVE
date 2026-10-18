@@ -32,7 +32,7 @@ export const settingsSections = [
 
 export const DANGER_ACTIONS: DangerAction[] = [
   {
-    id: "sign-out",
+    id: "logout",
     titleKey: "settings.dangerZone.signOut",
     descriptionKey: "settings.dangerZone.signOutDescription",
     buttonKey: "settings.dangerZone.signOut",

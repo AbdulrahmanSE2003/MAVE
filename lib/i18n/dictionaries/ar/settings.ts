@@ -82,6 +82,7 @@ export const settings: Settings = {
     deleteAccount: "حذف الحساب",
     deleteDescription: "حذف حسابك وجميع البيانات المرتبطة به نهائيًا.",
     cancel: "إلغاء",
+    confirmingLabel: "جاري التنفيذ ...",
     confirmations: {
       signOutTitle: "تسجيل الخروج",
       signOutDescription:

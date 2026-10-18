@@ -8,12 +8,38 @@ import { SectionHeading } from "./SettingsPrimitives"
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog"
 import { SelectedAction } from "../types"
 import { DANGER_ACTIONS } from "../constants"
+import { authClient } from "@/lib/auth/client"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 export default function AccountDanger() {
   const t = useT()
   const [selectedAction, setSelectedAction] = useState<SelectedAction>(null)
+  const [isSigningOut, setIsSigningOut] = useState(false)
+  const router = useRouter()
 
   const closeDialog = () => setSelectedAction(null)
+
+  const handleSignOut = async () => {
+    if (isSigningOut) return
+    setIsSigningOut(true)
+
+    try {
+      const { error } = await authClient.signOut()
+
+      if (error) {
+        toast.error(t("app.sidebar.footer.signOutFailed"))
+        return
+      }
+
+      router.push("/signin")
+      router.refresh()
+    } catch {
+      toast.error(t("app.sidebar.footer.signOutFailed"))
+    } finally {
+      setIsSigningOut(false)
+    }
+  }
 
   return (
     <section id="danger" className="space-y-5">
@@ -68,8 +94,11 @@ export default function AccountDanger() {
           confirmLabel={t(
             selectedAction.confirmationButtonKey as Parameters<typeof t>[0]
           )}
+          confirmingLabel={t("settings.dangerZone.confirmingLabel")}
           cancelLabel={t("settings.dangerZone.cancel")}
-          onConfirm={closeDialog}
+          onConfirm={
+            selectedAction.id === "logout" ? handleSignOut : async () => {}
+          }
         />
       )}
     </section>

@@ -82,6 +82,7 @@ export const settings: Settings = {
     deleteDescription:
       "Elimina permanentemente tu cuenta y todos sus datos asociados.",
     cancel: "Cancelar",
+    confirmingLabel: "Confirmando...",
     confirmations: {
       signOutTitle: "Cerrar sesión",
       signOutDescription:
