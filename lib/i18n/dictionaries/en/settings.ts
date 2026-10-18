@@ -42,6 +42,7 @@ export const settings = {
     ai: "AI provider",
     writing: "Writing preferences",
     appearance: "Appearance",
+    danger: "Danger Zone",
   },
 
   account: {
@@ -49,7 +50,6 @@ export const settings = {
     description: "Your profile and account information.",
     profileName: "MAVE User",
     profileSubtitle: "Your workspace profile",
-    previewBadge: "Preview",
     displayName: {
       label: "Display name",
       placeholder: "Your name",
@@ -58,7 +58,41 @@ export const settings = {
       label: "Email address",
       placeholder: "Your email address",
     },
-    note: "Account information will be connected to your authentication profile later.",
+    note: "This name will be displayed across your workspace and in shared content.",
+    saveFailed: "Failed to save profile changes.",
+    saveSuccess: "Profile updated successfully.",
+    saving: "Saving...",
+    save: "Save changes",
+  },
+  dangerZone: {
+    title: "Danger Zone",
+    description: "Irreversible and sensitive actions for your account.",
+    signOut: "Sign Out",
+    signOutDescription: "Sign out of your account on this device.",
+    deletePosts: "Delete All Posts",
+    deletePostsDescription:
+      "Permanently delete all your generated posts and drafts.",
+    deleteVisuals: "Delete All Images",
+    deleteVisualsDescription:
+      "Permanently delete all your generated images and visual media.",
+    deleteAccount: "Delete Account",
+    deleteDescription:
+      "Permanently delete your account and all associated data.",
+    cancel: "Cancel",
+    confirmations: {
+      signOutTitle: "Sign Out",
+      signOutDescription:
+        "Are you sure you want to sign out? You will need to log back in to access your account.",
+      deletePostsTitle: "Delete All Posts",
+      deletePostsDescription:
+        "Are you sure you want to delete all posts? This action is permanent and cannot be undone.",
+      deleteVisualsTitle: "Delete All Images",
+      deleteVisualsDescription:
+        "Are you sure you want to delete all images? All associated visual media will be permanently removed.",
+      deleteAccountTitle: "Delete Account",
+      deleteAccountDescription:
+        "Are you sure you want to delete your account? All your data, posts, and settings will be permanently erased.",
+    },
   },
 
   ai: {

@@ -16,6 +16,10 @@ export const errors = {
     label: "Getting things ready",
     description: "Preparing your workspace…",
   },
+
+  languageChange: {
+    failed: "We couldn't change the language. Please try again.",
+  },
 }
 
 export type Errors = typeof errors

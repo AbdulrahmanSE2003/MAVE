@@ -19,6 +19,7 @@ export const common: Common = {
     loading: "جارٍ التحميل…",
     saving: "جارٍ الحفظ…",
     comingSoon: "قريبًا",
+    changingLanguage: "جارٍ تغيير اللغة…",
   },
 
   /** Display labels for ContentType values (shared by dashboard + write). */

@@ -5,6 +5,8 @@ import { useTheme } from "next-themes"
 import { Field, SectionHeading } from "./SettingsPrimitives"
 import { useT } from "@/lib/i18n"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 
 type FontFamily = "sans" | "serif"
 type Theme = "light" | "dark" | "system"
@@ -62,25 +64,26 @@ export default function AppearanceSection() {
               const selected = mounted && theme === value
 
               return (
-                <button
+                <Button
+                  variant={"ghost"}
                   key={value}
                   type="button"
                   aria-pressed={selected}
                   onClick={() => setTheme(value)}
-                  className={`rounded-lg border px-3 py-2.5 text-sm transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none ${
+                  className={`rounded-lg border px-3 py-5.5 text-sm transition-colors hover:translate-0 hover:border-foreground/50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none ${
                     selected
                       ? "border-foreground bg-muted font-medium text-foreground"
                       : "text-muted-foreground hover:bg-muted/60"
                   }`}
                 >
                   {t(`settings.appearance.theme.options.${value}`)}
-                </button>
+                </Button>
               )
             })}
           </div>
         </Field>
 
-        <div className="border-t" />
+        <Separator />
 
         <Field
           label={t("settings.appearance.font.label")}
@@ -91,35 +94,32 @@ export default function AppearanceSection() {
               const selected = mounted && font === value
 
               return (
-                <button
+                <Button
+                  variant={"ghost"}
                   key={value}
                   type="button"
                   aria-pressed={selected}
                   onClick={() => handleFontChange(value)}
-                  className={`flex items-center justify-between rounded-lg border p-3 text-start transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none ${
+                  className={`flex items-center justify-between rounded-lg border px-3 py-5.5 text-sm transition-colors hover:translate-0 hover:border-foreground/50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none ${
                     selected
                       ? "border-foreground bg-muted"
                       : "hover:bg-muted/50"
+                  } ${
+                    value === "serif"
+                      ? "font-serif text-base"
+                      : "font-sans text-base"
                   }`}
                 >
-                  <span
-                    className={
-                      value === "serif"
-                        ? "font-serif text-base"
-                        : "font-sans text-base"
-                    }
-                  >
-                    {t(`settings.appearance.font.options.${value}`)}
-                  </span>
+                  <span>{t(`settings.appearance.font.options.${value}`)}</span>
 
                   <span className="text-xs text-muted-foreground">Aa</span>
-                </button>
+                </Button>
               )
             })}
           </div>
         </Field>
 
-        <div className="border-t" />
+        <Separator />
 
         <Field
           label={t("settings.appearance.language.label")}

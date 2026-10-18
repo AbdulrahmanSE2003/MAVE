@@ -12,3 +12,7 @@ export function isTypingTarget(target: EventTarget | null) {
     target.tagName === "SELECT"
   )
 }
+
+export const formatUserName = (name: string) => {
+  return name.split(" ").map((slice) => slice[0].toUpperCase())
+}

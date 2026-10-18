@@ -191,5 +191,5 @@ html:lang(ar) body,
 html:lang(ar) .font-sans,
 html:lang(ar) .font-heading {
   font-family: var(--font-arabic), var(--font-sans), Arial, sans-serif;
-  font-weight: 700;
+  font-weight: 600;
 }

@@ -17,4 +17,8 @@ export const errors: Errors = {
     label: "Preparando todo",
     description: "Estamos preparando tu espacio de trabajo…",
   },
+
+  languageChange: {
+    failed: "No pudimos cambiar el idioma. Inténtalo de nuevo.",
+  },
 }

@@ -1,8 +1,14 @@
 "use client"
 
 import { isLocale, LOCALES, useI18n, type Locale } from "@/lib/i18n"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-/** Language names are always shown in their own language. */
 const LANGUAGE_NAMES: Record<Locale, string> = {
   en: "English",
   ar: "العربية",
@@ -13,30 +19,39 @@ export function LanguageSwitcher({
   label,
   className,
 }: {
-  /** Accessible name for the select (pass a translated string). */
+  /** Accessible name for the select. */
   label?: string
   className?: string
 }) {
-  const { locale, setLocale } = useI18n()
+  const { locale, setLocale, isChangingLocale } = useI18n()
+
+  const handleValueChange = (value: string) => {
+    if (!isLocale(value) || value === locale || isChangingLocale) return
+
+    setLocale(value)
+  }
 
   return (
-    <select
+    <Select
       value={locale}
-      aria-label={label}
-      onChange={(event) => {
-        const value: unknown = event.target.value
-        if (isLocale(value)) setLocale(value)
-      }}
-      className={
-        className ??
-        "h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      }
+      onValueChange={handleValueChange}
+      disabled={isChangingLocale}
     >
-      {LOCALES.map((value) => (
-        <option key={value} value={value}>
-          {LANGUAGE_NAMES[value]}
-        </option>
-      ))}
-    </select>
+      <SelectTrigger
+        aria-label={label}
+        aria-busy={isChangingLocale}
+        className={className}
+      >
+        <SelectValue placeholder={LANGUAGE_NAMES[locale]} />
+      </SelectTrigger>
+
+      <SelectContent position="popper" align="end" side="bottom">
+        {LOCALES.map((value) => (
+          <SelectItem key={value} value={value}>
+            {LANGUAGE_NAMES[value]}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   )
 }

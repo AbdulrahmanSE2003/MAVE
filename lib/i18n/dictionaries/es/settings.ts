@@ -44,6 +44,7 @@ export const settings: Settings = {
     ai: "Proveedor de IA",
     writing: "Preferencias de escritura",
     appearance: "Apariencia",
+    danger: "Zona de peligro",
   },
 
   account: {
@@ -51,7 +52,10 @@ export const settings: Settings = {
     description: "Tu perfil y la información de tu cuenta.",
     profileName: "Usuario de MAVE",
     profileSubtitle: "El perfil de tu espacio de trabajo",
-    previewBadge: "Vista previa",
+    saveFailed: "Error al guardar los cambios del perfil.",
+    saveSuccess: "Perfil actualizado correctamente.",
+    saving: "Guardando...",
+    save: "Guardar cambios",
     displayName: {
       label: "Nombre para mostrar",
       placeholder: "Tu nombre",
@@ -60,7 +64,38 @@ export const settings: Settings = {
       label: "Correo electrónico",
       placeholder: "Tu correo electrónico",
     },
-    note: "La información de la cuenta se conectará a tu perfil de autenticación más adelante.",
+    note: "Este nombre se mostrará en tu espacio de trabajo y en el contenido compartido.",
+  },
+
+  dangerZone: {
+    title: "Zona de peligro",
+    description: "Acciones irreversibles y sensibles para tu cuenta.",
+    signOut: "Cerrar sesión",
+    signOutDescription: "Cierra la sesión de tu cuenta en este dispositivo.",
+    deletePosts: "Eliminar todas las publicaciones",
+    deletePostsDescription:
+      "Elimina permanentemente todas tus publicaciones generadas y borradores.",
+    deleteVisuals: "Eliminar todas las imágenes",
+    deleteVisualsDescription:
+      "Elimina permanentemente todas tus imágenes generadas y archivos multimedia.",
+    deleteAccount: "Eliminar cuenta",
+    deleteDescription:
+      "Elimina permanentemente tu cuenta y todos sus datos asociados.",
+    cancel: "Cancelar",
+    confirmations: {
+      signOutTitle: "Cerrar sesión",
+      signOutDescription:
+        "¿Estás seguro de que deseas cerrar sesión? Tendrás que volver a iniciar sesión para acceder a tu cuenta.",
+      deletePostsTitle: "Eliminar todas las publicaciones",
+      deletePostsDescription:
+        "¿Estás seguro de que deseas eliminar todas las publicaciones? Esta acción es permanente y no se puede deshacer.",
+      deleteVisualsTitle: "Eliminar todas las imágenes",
+      deleteVisualsDescription:
+        "¿Estás seguro de que deseas eliminar todas las imágenes? Se eliminarán permanentemente todos los archivos multimedia asociados.",
+      deleteAccountTitle: "Eliminar cuenta",
+      deleteAccountDescription:
+        "¿Estás seguro de que deseas eliminar tu cuenta? Todos tus datos, publicaciones y configuraciones se borrarán permanentemente.",
+    },
   },
 
   ai: {

@@ -17,4 +17,8 @@ export const errors: Errors = {
     label: "جاهزون للانطلاق",
     description: "جارٍ تجهيز مساحة عملك…",
   },
+
+  languageChange: {
+    failed: "تعذّر تغيير اللغة. حاول مرة أخرى.",
+  },
 }
